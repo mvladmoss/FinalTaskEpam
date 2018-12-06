@@ -4,10 +4,16 @@ import com.epam.fitness.connection.ConnectionPoolException;
 import com.epam.fitness.model.Coach;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
-public class CoachRepository implements Repository<Coach> {
+public class CoachRepository extends AbstractRepository<Coach> {
+
+    public CoachRepository(Connection connection) {
+        super(connection);
+    }
+
     @Override
     public void add(Coach entity) throws RepositoryException {
 

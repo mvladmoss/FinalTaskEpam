@@ -13,7 +13,7 @@ public class QueryPreparer {
 
         int length = params.length;
         for (int i = 0; i < length; i++) {
-            preparedStatement.setString(i + 1, params[i]);
+            preparedStatement.setObject(i + 1, params[i]);
         }
 
     }

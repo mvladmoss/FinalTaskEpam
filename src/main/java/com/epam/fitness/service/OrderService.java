@@ -10,7 +10,6 @@ import java.util.Optional;
 
 public class OrderService {
 
-    private OrderRepository orderRepository = new OrderRepository();
 
     public Optional<OrderInformation> findByClientId(long id){
         OrderInformation orderInformation = new OrderInformation();

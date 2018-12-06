@@ -99,15 +99,15 @@ public final class ConnectionPool {
     }
 
 
-    public ProxyConnection takeConnection() throws ConnectionPoolException {
+    public ProxyConnection takeConnection(){
         try {
             return connectionQueue.take();
         } catch (InterruptedException e) {
-            throw new ConnectionPoolException(e);
+            throw new IllegalArgumentException(e);
         }
     }
 
-    void releaseConnection(ProxyConnection connection) {
+    public void releaseConnection(ProxyConnection connection) {
         try {
             if (!connectionQueue.contains(connection)) {
                 if (!connection.getAutoCommit()) {

@@ -16,7 +16,7 @@ public class ClientBuilder implements Builder<Client>{
             String name = resultSet.getString("name");
             client.setName(name);
             String surname = resultSet.getString("surname");
-            client.setSurname("surname");
+            client.setSurname(surname);
             String login = resultSet.getString("login");
             client.setLogin(login);
             String password = resultSet.getString("password");
@@ -28,7 +28,7 @@ public class ClientBuilder implements Builder<Client>{
             boolean isCorporate = resultSet.getBoolean("isCorporate");
             client.setCorporate(isCorporate);
         }catch (SQLException exception){
-            //ASK
         }
+        return client;
     }
 }
