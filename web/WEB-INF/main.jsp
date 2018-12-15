@@ -22,14 +22,13 @@
 
 <header>
     <img width="47" height="47" class="logo-header" src="../pictures/LOGO_1.png" alt="">
-    <a href="controller?command=main" style="float:left">${home}</a>
-    <a href="controller?command=language&currentPage=main&language=${sessionScope.nextLanguage}"
+    <a href="${pageContext.servletContext.contextPath}/controller?command=main" style="float:left">${home}</a>
+    <a href="${pageContext.servletContext.contextPath}/controller?command=language&currentPage=main&language=${sessionScope.nextLanguage}"
        style="float:right">${sessionScope.language}</a>
-    <a href="controller?command=sign_out">${sign_out}</a>
-    <a href="controller?command=profile">${profile}</a>
-    <c:if test="${is_gym_membership=='true'}">
-        <c:redirect url=""
-    </c:if>
+    <a href="${pageContext.servletContext.contextPath}/controller?command=sign_out">${sign_out}</a>
+    <a href="${pageContext.servletContext.contextPath}/controller?command=profile">${profile}</a>
+
+
     <div class="welcome">
         <h3>Welcome ${name} ${surname}</h3>
     </div>
@@ -38,7 +37,14 @@
 <div class="card">
     <div class="row">
         <div class="side">
-            <a href="controller?command=coaches" >${coaches}</a>
+            <a href="${pageContext.servletContext.contextPath}/controller?command=coaches" >${coaches}</a>
+            <c:if test="${role == 'client'}">
+                <a href="${pageContext.servletContext.contextPath}/controller?command=get_order_page">${buy_gym_membership}</a>
+            </c:if>
+
+            <c:if test="${role == 'coach'}">
+                <a href="${pageContext.servletContext.contextPath}/controller?command=all_coach_clients">Look at my clients</a>
+            </c:if>
         </div>
 
 

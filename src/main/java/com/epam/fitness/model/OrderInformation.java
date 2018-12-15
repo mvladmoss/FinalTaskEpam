@@ -1,16 +1,17 @@
 package com.epam.fitness.model;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class OrderInformation {
 
     private Long id;
     private BigDecimal cost;
     private Timestamp paymenData;
-    private Date trainStartDate;
     private Date trainEndDate;
+    private Long clientId;
+
     public long getId() {
         return id;
     }
@@ -35,14 +36,6 @@ public class OrderInformation {
         this.paymenData = paymenData;
     }
 
-    public Date getTrainStartDate() {
-        return trainStartDate;
-    }
-
-    public void setTrainStartDate(Date trainStartDate) {
-        this.trainStartDate = trainStartDate;
-    }
-
     public Date getTrainEndDate() {
         return trainEndDate;
     }
@@ -52,4 +45,11 @@ public class OrderInformation {
     }
 
 
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
 }

@@ -109,22 +109,21 @@ public final class ConnectionPool {
 
     public void releaseConnection(ProxyConnection connection) {
         try {
-            if (!connectionQueue.contains(connection)) {
-                if (!connection.getAutoCommit()) {
-                    connection.rollback();
-                    connection.setAutoCommit(true);
-                }
-                connectionQueue.put(connection);
+            if (!connection.getAutoCommit()) {
+                connection.rollback();
+                connection.setAutoCommit(true);
             }
+            connectionQueue.put(connection);
 
-        } catch (InterruptedException | SQLException e) {
-            try {
-                Connection dbConnection = DriverManager.getConnection(url, user,password);
+        } catch (InterruptedException | SQLException e){//desperate
+            //Runtime and logging
+            /*try {
+                Connection dbConnection = DriverManager.getConnection(url, user, password);
                 ProxyConnection proxyConnection = new ProxyConnection(dbConnection);
                 connectionQueue.put(proxyConnection);
                 connection.connection.close();
             } catch (SQLException | InterruptedException e1) {
-            }
+            }*/
         }
 
     }

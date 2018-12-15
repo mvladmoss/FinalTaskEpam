@@ -23,9 +23,7 @@
     <a href="controller?command=language&currentPage=profile&language=${sessionScope.nextLanguage}" style="float:right">${sessionScope.language}</a>
     <a href="controller?command=sign_out">SIGN OUT</a>
     <a href="controller?command=profile">PROFILE</a>
-    <c:if test="${is_gym_membership=='true'}">
-        <a href="controller?command=sign_out">${buyGymMembership}</a>
-    </c:if>
+
 </header>
 
 
@@ -61,7 +59,14 @@
                 <label for="coach_name">Coach</label>
             </div>
             <div class="col-75">
-                <input type="text" id="coach_name" name="coach_name"  value="${coach_name} ${coach_surname}" readonly>
+                <c:choose>
+                    <c:when test="${coach_name!=null}">
+                        <input type="text" id="coach_name" name="coach_name"  value="${coach_name} ${coach_surname}" readonly>
+                    </c:when>
+                    <c:otherwise>
+                        <input type="text" id="coach_name" name="coach_name"  value="You haven't coach already" readonly>
+                    </c:otherwise>
+                </c:choose>
             </div>
 
             <div class="col-25">
@@ -72,18 +77,39 @@
             </div>
 
             <div class="col-25">
-                <label for="sale">Sale</label>
+                <label for="sale">Private sale</label>
             </div>
             <div class="col-75">
-                <input type="text" id="sale" name="sale"  value="${user.sale}%" readonly>
+                <input type="text" id="sale" name="sale"  value="${user.personalSale}%" readonly>
             </div>
 
             <div class="col-25">
-                <label for="is_corporate">Is Corparative</label>
+                <label for="is_corporate">Corporate sale</label>
             </div>
             <div class="col-75">
-                <input type="text" id="is_corporate" name="is_corporate"  value="${user.corporate}" readonly>
+                <input type="text" id="is_corporate" name="is_corporate"  value="${user.corporateSale}%" readonly>
             </div>
+
+            <div class="col-25">
+                <label for="end_date_of_trains">Your gym membership is valid until</label>
+            </div>
+            <c:choose>
+
+                <c:when test="${end_date_of_trains != null}">
+                    <div class="col-75">
+                        <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="${end_date_of_trains}" readonly>
+                    </div>
+                </c:when>
+
+                <c:otherwise>
+                    <div class="col-75">
+                        <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="You haven't membership yet" readonly>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+            <form action="${pageContext.servletContext.contextPath}/controller?command=show_client_program" method="post">
+                <input type="submit" value="Look my program">
+            </form>
         </div>
     </div>
 </div>

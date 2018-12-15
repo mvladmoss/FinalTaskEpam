@@ -23,7 +23,7 @@ public class Controller extends HttpServlet {
 
     @Override
     public void init() {
-//        ConnectionPool.getInstance().initPool();
+     ConnectionPool.getInstance().initPool();
     }
 
     @Override
@@ -39,9 +39,8 @@ public class Controller extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        System.out.println("hello");
         String command = request.getParameter(COMMAND);
-        System.out.println(command);
+        System.out.println("command=" + command);
         Command action = CommandFactory.create(command);
 
 

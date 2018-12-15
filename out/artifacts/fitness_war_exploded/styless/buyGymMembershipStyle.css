@@ -23,6 +23,22 @@
     margin-top: 6px;
 }
 
+.container {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 15px 15px 15px 15px;
+
+}
+
+.rightcolumn {
+    border-radius: 15px 15px 15px 15px;
+    float: left;
+    width: 75%;
+    background-color: #f2f2f2;
+    padding: 20px;
+
+}
+
 .col-30 {
     float: left;
     width: 30%;
@@ -48,6 +64,10 @@
 }
 
 /* Clear floats after the columns */
+.row{
+    width: 150px;
+}
+
 .row:after {
     content: "";
     display: table;
@@ -66,4 +86,33 @@
 .row #findButton:hover {
     background-color: #ddd;
     color: black;
+}
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-30 {
+    float: left;
+    width: 30%;
+    margin-top: 6px;
+}
+
+.col-10 {
+    float: left;
+    width: 10%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+
+.col-70 {
+    float: left;
+    width: 70%;
+    margin-top: 6px;
 }

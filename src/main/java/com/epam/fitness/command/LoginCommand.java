@@ -3,16 +3,12 @@ package com.epam.fitness.command;
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Coach;
-import com.epam.fitness.model.OrderInformation;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.CoachService;
-import com.epam.fitness.service.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Optional;
 
 
@@ -41,20 +37,19 @@ public class LoginCommand implements Command {
         ClientService clientService = new ClientService();
         Optional<Client> client = clientService.login(login, password);
 
-        boolean foundClientOrCoach = false;
+        boolean isClientOrCoach = false;
         if (client.isPresent()) {
             setClientAttributesToSession(client.get(),request);
-            foundClientOrCoach = true;
+            isClientOrCoach = true;
         } else{
             CoachService coachService = new CoachService();
             Optional<Coach> coach = coachService.login(login,password);
             if(coach.isPresent()){
                 setCoachAttributesToSession(coach.get(),request);
-                foundClientOrCoach = true;
+                isClientOrCoach = true;
             }
         }
-
-        if(foundClientOrCoach){
+        if(isClientOrCoach){
             return new CommandResult(COMMAND_MAIN, true);
         }  else {
             request.setAttribute(ERROR_LOGIN_MESSAGE, AUTHENTICATION_FAILED_MESSAGE);

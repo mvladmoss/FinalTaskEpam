@@ -3,9 +3,8 @@ package com.epam.fitness.repository.creator;
 
 import com.epam.fitness.connection.ConnectionPool;
 import com.epam.fitness.connection.ProxyConnection;
-import com.epam.fitness.repository.ClientRepository;
-import com.epam.fitness.repository.CoachRepository;
-import com.epam.fitness.repository.OrderRepository;
+import com.epam.fitness.repository.*;
+import com.epam.fitness.service.ProgramDtoService;
 
 import java.sql.Connection;
 
@@ -29,10 +28,15 @@ public class RepositoryCreator implements AutoCloseable {
     }
 
 
-    public OrderRepository getOrderRepository() {
-        return new OrderRepository(connection);
+    public OrderInformationRepository getOrderInformationRepository() {
+        return new OrderInformationRepository(connection);
     }
 
+    public ProgramRepository getProgramRepository(){
+        return new ProgramRepository(connection);
+    }
+
+    public ExerciseDtoRepository getExerciseDtoRepository(){ return  new ExerciseDtoRepository(connection);}
 
     @Override
     public void close() {

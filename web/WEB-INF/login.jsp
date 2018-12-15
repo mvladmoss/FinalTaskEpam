@@ -19,7 +19,7 @@
 	 		<div class="logo-header">
 	 			<img width="47" height="47" class="logo-header" src="../pictures/LOGO_1.png" alt="">
 	 		</div>
-		  <a href="controller?command=language&currentPage=&language=${sessionScope.nextLanguage}" style="float:right">RU</a>
+		  <a href="controller?command=language&language=${sessionScope.nextLanguage}" style="float:right">RU</a>
 	  </div>
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign  In</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>

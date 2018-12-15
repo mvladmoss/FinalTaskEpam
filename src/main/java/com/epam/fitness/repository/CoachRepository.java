@@ -1,7 +1,11 @@
 package com.epam.fitness.repository;
 
+import com.epam.fitness.builder.ClientBuilder;
+import com.epam.fitness.builder.CoachBuilder;
 import com.epam.fitness.connection.ConnectionPoolException;
+import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Coach;
+import com.epam.fitness.repository.creator.RepositoryCreator;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
 import java.sql.Connection;
@@ -10,32 +14,35 @@ import java.util.Optional;
 
 public class CoachRepository extends AbstractRepository<Coach> {
 
+    private static final String TABLE_NAME = "coach";
+
+
+
     public CoachRepository(Connection connection) {
         super(connection);
     }
 
     @Override
-    public void add(Coach entity) throws RepositoryException {
-
+    protected String getTableName() {
+        return TABLE_NAME;
     }
 
     @Override
-    public void delete(Coach entity) throws RepositoryException {
-
+    public List<Coach> query(SqlSpecification specification) throws RepositoryException{
+        String query = "select * from coach " + specification.getSql();
+        List<Coach> coaches = executeQuery(query,new CoachBuilder(), specification.getParameters());
+        return coaches;
     }
 
     @Override
-    public void update(Coach entity) throws RepositoryException {
-
+    public Optional<Coach> queryForSingleResult(SqlSpecification specification) throws RepositoryException {
+        List<Coach> coach = query(specification);
+        return coach.size() == 1 ?
+                Optional.of(coach.get(0)) :
+                Optional.empty();
     }
 
-    @Override
-    public List<Coach> executeQuery(SqlSpecification specification) throws RepositoryException, ConnectionPoolException {
-        return null;
-    }
 
-    @Override
-    public Optional<Coach> executeQueryForSingleResult(SqlSpecification specification) throws RepositoryException {
-        return Optional.empty();
-    }
+
+
 }

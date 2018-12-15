@@ -5,29 +5,21 @@ import java.io.Serializable;
 public class Client implements Serializable {
 
     private Long id;
-    private Integer coachId;
+    private Long coachId;
     private String name;
     private String surname;
     private String login;
     private String password;
     private Integer visitNumber;
-    private Float sale;
-    private Boolean isCorporate;
-    private Program program;
-
-    public Program getProgram() {
-        return program;
-    }
-
-    public void setProgram(Program program) {
-        this.program = program;
-     }
+    private Float personalSale;
+    private Float corporateSale;
+    private Long programId;
 
     public void setID(long clientID) {
         this.id = clientID;
     }
 
-    public void setCoachId(int coachId) {
+    public void setCoachId(long coachId) {
         this.coachId = coachId;
     }
 
@@ -51,19 +43,19 @@ public class Client implements Serializable {
         this.visitNumber = visitNumber;
     }
 
-    public void setSale(float sale) {
-        this.sale = sale;
+    public void setPersonalSale(float personalSale) {
+        this.personalSale = personalSale;
     }
 
-    public void setCorporate(boolean corporate) {
-        isCorporate = corporate;
+    public void setCorporateSale(float corporateSale) {
+        this.corporateSale = corporateSale;
     }
 
     public long getId() {
         return id;
     }
 
-    public int getCoachId() {
+    public long getCoachId() {
         return coachId;
     }
 
@@ -83,17 +75,23 @@ public class Client implements Serializable {
         return visitNumber;
     }
 
-    public float getSale() {
-        return sale;
+    public float getCorporateSale() {
+        return corporateSale;
     }
-    public boolean isCorporate() {
-        return isCorporate;
+
+    public float getPersonalSale() {
+        return personalSale;
     }
 
     public String getName() {
         return name;
     }
 
+    public Long getProgramId() {
+        return programId;
+    }
 
-
+    public void setProgramId(Long programId) {
+        this.programId = programId;
+    }
 }

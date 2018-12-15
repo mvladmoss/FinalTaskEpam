@@ -23,7 +23,7 @@ public class CommandFactory {
                 break;
             }
             case COACHES: {
-                resultCommand = new CoachCommand();
+                resultCommand = new AllCoachesCommand();
                 break;
             }
             case SIGN_OUT: {
@@ -31,11 +31,27 @@ public class CommandFactory {
                 break;
             }
             case PROFILE: {
-                resultCommand = new ProfileCommand();
+                resultCommand = new ClientProfileCommand();
                 break;
             }
-            case BUY_GYM_MEMBERSHIP: {
-                resultCommand = new BuyGymMembershipCommand();
+            case UPDATE_GYM_MEMBERSHIP: {
+                resultCommand = new UpdateGymMembershipCommand();
+                break;
+            }
+            case CHOOSE_COACH:{
+                resultCommand = new ChooseCoachCommand();
+                break;
+            }
+            case GET_ORDER_PAGE: {
+                resultCommand = new OrderPageCommand();
+                break;
+            }
+            case ALL_COACH_CLIENTS:{
+                resultCommand = new CoachClientsCommand();
+                break;
+            }
+            case SHOW_CLIENT_PROGRAM:{
+                resultCommand = new ClientProgramCommand();
                 break;
             }
             default: {

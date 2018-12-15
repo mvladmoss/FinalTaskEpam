@@ -7,8 +7,11 @@
 </head>
 <body>
     <c:forEach items="${coaches}" var="coach">
-        <c:out value="${coach.name}"/>
-        <br>
+            <div>
+                <c:out value="${coach.name} ${coach.surname} ${coach.id}"/>
+                <a href="${pageContext.servletContext.contextPath}/controller?command=choose_coach&coachId=${coach.id}">Choose</a>
+                <hr>
+            </div>
     </c:forEach>
 </body>
 </html>
