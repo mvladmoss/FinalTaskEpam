@@ -5,18 +5,22 @@ import com.epam.fitness.model.Coach;
 import com.epam.fitness.repository.CoachRepository;
 import com.epam.fitness.repository.RepositoryException;
 import com.epam.fitness.repository.creator.RepositoryCreator;
-import com.epam.fitness.repository.specifications.coach.CoachByLoginAndPasswordSpecification;
+import com.epam.fitness.repository.specifications.coach.CoachByLoginAndPassword;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class CoachService  {
 
+    Collection collection = new ArrayList();
 
     public Optional<Coach> login(String login, String password) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             CoachRepository coachRepository = repositoryCreator.getCoachRepository();
-            CoachByLoginAndPasswordSpecification specification = new CoachByLoginAndPasswordSpecification(login, password);
+            CoachByLoginAndPassword specification = new CoachByLoginAndPassword(login, password);
             return coachRepository.queryForSingleResult(specification);
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
@@ -30,7 +34,6 @@ public class CoachService  {
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
-
     }
 
     public List<Coach> findAll() throws ServiceException {

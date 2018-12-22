@@ -4,7 +4,6 @@ package com.epam.fitness.repository.creator;
 import com.epam.fitness.connection.ConnectionPool;
 import com.epam.fitness.connection.ProxyConnection;
 import com.epam.fitness.repository.*;
-import com.epam.fitness.service.ProgramDtoService;
 
 import java.sql.Connection;
 
@@ -36,7 +35,13 @@ public class RepositoryCreator implements AutoCloseable {
         return new ProgramRepository(connection);
     }
 
+    public ExerciseRepository getExerciseRepository(){
+        return new ExerciseRepository(connection);
+    }
+
     public ExerciseDtoRepository getExerciseDtoRepository(){ return  new ExerciseDtoRepository(connection);}
+
+    public NutritionRepository getNutritionRepository(){ return  new NutritionRepository(connection);}
 
     @Override
     public void close() {

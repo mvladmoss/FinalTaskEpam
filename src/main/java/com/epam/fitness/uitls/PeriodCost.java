@@ -15,7 +15,7 @@ public enum PeriodCost {
     public static Map<String,BigDecimal> getAllCosts(){
         Map<String,BigDecimal> tariffs = new HashMap<>();
         for(PeriodCost tariff : PeriodCost.values()){
-            tariffs.put(tariff.toString(),tariff.getCost());
+            tariffs.put(tariff.toString().replace("_"," "),tariff.getCost());
         }
         return tariffs;
     }

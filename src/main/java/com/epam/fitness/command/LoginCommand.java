@@ -34,6 +34,7 @@ public class LoginCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String login = request.getParameter(LOGIN);
         String password = request.getParameter(PASSWORD);
+        //Make check to null if i don't make login or password
         ClientService clientService = new ClientService();
         Optional<Client> client = clientService.login(login, password);
 

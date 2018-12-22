@@ -1,11 +1,21 @@
 package com.epam.fitness.command;
 
+import com.epam.fitness.command.exercise.AddExerciseCommand;
+import com.epam.fitness.command.client.ClientProfileCommand;
+import com.epam.fitness.command.client.ClientProgramCommand;
+import com.epam.fitness.command.exercise.DeleteExerciseCommand;
+import com.epam.fitness.command.coach.AllCoachesCommand;
+import com.epam.fitness.command.coach.ChooseCoachCommand;
+import com.epam.fitness.command.coach.CoachClientsCommand;
+import com.epam.fitness.command.exercise.UpdateExerciseCommand;
+
 public class CommandFactory {
 
 
     public static Command create(String command) {
 
         command = command.toUpperCase();
+        System.out.println(command);
         CommandType commandEnum = CommandType.valueOf(command);
 
         Command resultCommand;
@@ -42,8 +52,20 @@ public class CommandFactory {
                 resultCommand = new ChooseCoachCommand();
                 break;
             }
+            case ADD_EXERCISE:{
+                resultCommand = new AddExerciseCommand();
+                break;
+            }
             case GET_ORDER_PAGE: {
                 resultCommand = new OrderPageCommand();
+                break;
+            }
+            case DELETE_EXERCISE:{
+                resultCommand = new DeleteExerciseCommand();
+                break;
+            }
+            case UPDATE_EXERCISE:{
+                resultCommand = new UpdateExerciseCommand();
                 break;
             }
             case ALL_COACH_CLIENTS:{

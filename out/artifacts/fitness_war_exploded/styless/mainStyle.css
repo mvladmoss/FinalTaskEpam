@@ -27,6 +27,27 @@ header {
      text-decoration: none;
 }
 
+ .flex-container {
+     display: flex;
+     border:1px #ccc solid;
+     height: border-box;
+ }
+
+ .space-around{
+     justify-content: space-around;
+ }
+ .flex-item {
+     text-align:center;
+     font-size: 1em;
+     padding: 1.5em;
+     color: white;
+ }
+ .color1 {background-color: #675BA7;}
+ .color2 {background-color: #9BC850;}
+ .color3 {background-color: #A62E5C;}
+ .color4 {background-color: #2A9FBC;}
+ .color5 {background-color: #F15B2A;}
+
 header a {
     float: right;
     background-color: #393E46;

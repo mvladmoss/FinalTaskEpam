@@ -8,9 +8,19 @@
         <servlet-class>com.epam.fitness.controller.Controller</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>Ajaxcontroller</servlet-name>
+        <servlet-class>com.epam.fitness.controller.AjaxController</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>controller</servlet-name>
         <url-pattern>/controller</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Ajaxcontroller</servlet-name>
+        <url-pattern>/Ajaxcontroller</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

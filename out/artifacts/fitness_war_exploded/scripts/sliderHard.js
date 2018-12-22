@@ -16,4 +16,4 @@ function changeBackgroundImage() {
   i++;
 };
  
-let interval = setInterval(changeBackgroundImage, 5000)
+let interval = setInterval(changeBackgroundImage, 5000);

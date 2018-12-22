@@ -5,8 +5,8 @@ import com.epam.fitness.model.Client;
 import com.epam.fitness.repository.RepositoryException;
 import com.epam.fitness.repository.creator.RepositoryCreator;
 import com.epam.fitness.repository.ClientRepository;
-import com.epam.fitness.repository.specifications.client.ClientByLoginAndPasswordSpecification;
-import com.epam.fitness.repository.specifications.client.ClientsByCoachIdSpecification;
+import com.epam.fitness.repository.specifications.client.ClientByLoginAndPassword;
+import com.epam.fitness.repository.specifications.client.ClientsByCoachId;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +16,7 @@ public class ClientService {
     public Optional<Client> login(String login, String password) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ClientRepository clientRepository = repositoryCreator.getClientRepository();
-            ClientByLoginAndPasswordSpecification specification = new ClientByLoginAndPasswordSpecification(login, password);
+            ClientByLoginAndPassword specification = new ClientByLoginAndPassword(login, password);
             return clientRepository.queryForSingleResult(specification);
         } catch (RepositoryException exception) {
             throw new ServiceException(exception.getMessage(), exception);
@@ -35,7 +35,7 @@ public class ClientService {
     public List<Client> findByCoachId(long id) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ClientRepository clientRepository = repositoryCreator.getClientRepository();
-            ClientsByCoachIdSpecification specification = new ClientsByCoachIdSpecification(id);
+            ClientsByCoachId specification = new ClientsByCoachId(id);
             return clientRepository.query(specification);
         } catch (RepositoryException exception) {
             throw new ServiceException(exception.getMessage(), exception);

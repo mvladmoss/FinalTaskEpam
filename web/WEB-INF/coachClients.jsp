@@ -8,6 +8,9 @@
 <body>
 <c:forEach items="${all_clients}" var="client">
     <c:out value="${client.name} ${client.surname}"/>
+    <form action="${pageContext.servletContext.contextPath}/controller?command=show_client_program" method="post">
+        <input type="submit" value="Edit">
+    </form>
     <br>
 </c:forEach>
 </body>
