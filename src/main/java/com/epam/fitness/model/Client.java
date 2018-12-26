@@ -1,6 +1,7 @@
 package com.epam.fitness.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Client implements Serializable,Identifiable {
 
@@ -14,6 +15,33 @@ public class Client implements Serializable,Identifiable {
     private Float personalSale;
     private Float corporateSale;
     private Long programId;
+
+    public static final String ID = "id_client";
+    public static final String ID_COACH = "coach_id";
+    public static final String NAME = "name";
+    public static final String SURNAME = "surname";
+    public static final String LOGIN = "login";
+    public static final String PASSWORD = "password";
+    public static final String VISITS_NUMBER = "visits_number";
+    public static final String PERSONAL_SALE = "personal_sale";
+    public static final String CORPORATE_SALE = "corporate_sale";
+    public static final String ID_PROGRAM = "program_id";
+
+
+    public Client(Long id, Long coachId, String name, String suranme, String login, String password, Integer visitNumber, Float personalSale, Float corporateSale, Long programId){
+        this.id = id;
+        this.coachId = coachId;
+        this.name = name;
+        this.surname = suranme;
+        this.login = login;
+        this.password = password;
+        this.visitNumber = visitNumber;
+        this.personalSale = personalSale;
+        this.corporateSale = corporateSale;
+        this.programId = programId;
+    }
+
+    public Client(){}
 
     public void setID(long clientID) {
         this.id = clientID;
@@ -93,5 +121,31 @@ public class Client implements Serializable,Identifiable {
 
     public void setProgramId(Long programId) {
         this.programId = programId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Client client = (Client) o;
+        return  Objects.equals(getId(), client.getId()) &&
+                Objects.equals(getCoachId(), client.getCoachId()) &&
+                Objects.equals(getName(), client.getName()) &&
+                Objects.equals(getSurname(), client.getSurname()) &&
+                Objects.equals(getLogin(), client.getLogin()) &&
+                Objects.equals(getPassword(), client.getPassword()) &&
+                Objects.equals(getVisitNumber(), client.getVisitNumber()) &&
+                Objects.equals(getPersonalSale(), client.getPersonalSale()) &&
+                Objects.equals(getCorporateSale(), client.getCorporateSale()) &&
+                Objects.equals(getProgramId(), client.getProgramId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(),getCoachId(),getName(),getSurname(),getLogin(),getPassword(),getVisitNumber(),getPersonalSale(),getCorporateSale(),getProgramId());
     }
 }

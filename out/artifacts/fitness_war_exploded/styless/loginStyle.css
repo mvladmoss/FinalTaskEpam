@@ -28,6 +28,12 @@ html{
 	margin: -200px -70px 200px -550px;
 /* 	margin: -100px -70px 50px -550px; */
 }
+.error {
+	text-align: center;
+	padding: 10px 15px;
+	color: red;
+	opacity: 0.3%;
+}
 
 .header a {
 	float: right;

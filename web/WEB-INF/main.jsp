@@ -2,12 +2,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="text" var="text"/>
+
+<fmt:message bundle="${text}" key="signOut" var="sign_out"/>
+<fmt:message bundle="${text}" key="home" var="home"/>
+<fmt:message bundle="${text}" key="menu" var="menu"/>
+<fmt:message bundle="${text}" key="aboutUs" var="abous_us"/>
+<fmt:message bundle="${text}" key="profile" var="profile"/>
+<fmt:message bundle="${text}" key="myExercises" var="my_exercises"/>
+<fmt:message bundle="${text}" key="myNutrition" var="my_nutrition"/>
+<fmt:message bundle="${text}" key="buyMembership" var="buy_membership"/>
+<fmt:message bundle="${text}" key="ourCoaches" var="our_coaches"/>
+<fmt:message bundle="${text}" key="myClients" var="my_clients"/>
+
+
+
 <!doctype html>
 <html lang="${sessionScope.language}">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <title>Whitesquare</title>
+    <title>Fitness-centre</title>
     <link rel="stylesheet" href="../styless/baseStyles.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC" rel="stylesheet">
@@ -21,38 +37,38 @@
 <div id="wrapper">
     <nav>
         <ul class="top-menu">
-            <li id="home"><a href="${pageContext.servletContext.contextPath}/controller?command=main" onmouseover="changeStyle('home')" onmouseout="changeStyleBack('home')">HOME</a></li>
-            <li id="signOut" style="position: relative; left: 630px"><a href="${pageContext.servletContext.contextPath}/controller?command=sign_out"  onmouseover="changeStyle('signOut')" onmouseout="changeStyleBack('signOut')">SIGN OUT</a></li>
+            <li id="home"><a href="${pageContext.servletContext.contextPath}/controller?command=main" onmouseover="changeStyle('home')" onmouseout="changeStyleBack('home')">${home}</a></li>
+            <li id="signOut" style="position: relative; left: 630px"><a href="${pageContext.servletContext.contextPath}/controller?command=sign_out"  onmouseover="changeStyle('signOut')" onmouseout="changeStyleBack('signOut')">${sign_out}</a></li>
             <li id="language" style="position: relative; left: 640px"><a href="${pageContext.servletContext.contextPath}/controller?command=language&currentPage=main&language=${sessionScope.nextLanguage}"  onmouseover="changeStyle('language')" onmouseout="changeStyleBack('language')">${sessionScope.language}</a></li>
         </ul>
     </nav>
     <div id="heading">
-        <h1>ABOUT US</h1>
+        <h1>${abous_us}</h1>
     </div>
     <aside>
-        <h2>MENU</h2>
+        <h2>${menu}</h2>
         <nav>
             <ul class="aside-menu">
                 <c:if test="${role == 'client'}">
                     <li id="profile">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=profile" onmouseover="changeStyle('profile')" onmouseout="changeStyleBack('profile')" >Profile</a>
+                        <a href="${pageContext.servletContext.contextPath}/controller?command=profile" onmouseover="changeStyle('profile')" onmouseout="changeStyleBack('profile')" >${profile}</a>
                     </li>
                     <li id="my_exercises" >
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises" onmouseover="changeStyle('my_exercises')" onmouseout="changeStyleBack('my_exercises')">My exercises</a>
+                        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises" onmouseover="changeStyle('my_exercises')" onmouseout="changeStyleBack('my_exercises')">${my_exercises}</a>
                     </li>
                     <li id="my_nutrition" >
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_nutrition" onmouseover="changeStyle('my_nutrition')" onmouseout="changeStyleBack('my_nutrition')">My nutrition</a>
+                        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_nutrition" onmouseover="changeStyle('my_nutrition')" onmouseout="changeStyleBack('my_nutrition')">${my_nutrition}</a>
                     </li>
                     <li id="buyMembership">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=get_order_page" onmouseover="changeStyle('buyMembership')" onmouseout="changeStyleBack('buyMembership')" >Buy membership</a>
+                        <a href="${pageContext.servletContext.contextPath}/controller?command=get_order_page" onmouseover="changeStyle('buyMembership')" onmouseout="changeStyleBack('buyMembership')" >${buy_membership}</a>
                     </li>
                     <li id="coaches">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=coaches"  onmouseover="changeStyle('coaches')" onmouseout="changeStyleBack('coaches')">Our coaches</a>
+                        <a href="${pageContext.servletContext.contextPath}/controller?command=coaches"  onmouseover="changeStyle('coaches')" onmouseout="changeStyleBack('coaches')">${our_coaches}</a>
                     </li>
                 </c:if>
                 <c:if test="${role == 'coach'}">
                     <li id="myClients">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=all_coach_clients" onmouseover="changeStyle('myClients')" onmouseout="changeStyleBack('myClients')">My clients</a>
+                        <a href="${pageContext.servletContext.contextPath}/controller?command=all_coach_clients" onmouseover="changeStyle('myClients')" onmouseout="changeStyleBack('myClients')">${my_clients}</a>
                     </li>
                 </c:if>
             </ul>

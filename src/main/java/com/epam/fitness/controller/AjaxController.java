@@ -7,7 +7,6 @@ import com.epam.fitness.uitls.json.JsonCreator;
 import com.epam.fitness.uitls.json.JsonExerciseCreator;
 import com.epam.fitness.uitls.search.SearchExerciseSystem;
 import com.epam.fitness.uitls.search.SearchSystem;
-import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +19,6 @@ import java.util.List;
 
 public class AjaxController extends HttpServlet {
 
-    private static final Logger LOGGER = Logger.getLogger(AjaxController.class.getName());
     private SearchSystem searchSystem = new SearchExerciseSystem();
     private JsonCreator jsonCreator = new JsonExerciseCreator();
 
@@ -38,7 +36,7 @@ public class AjaxController extends HttpServlet {
         String currentSearchArgument = request.getParameter("searchArgument");
         List<Exercise> exercises = getAllExercises();
         List<Exercise> exercisesAppropriateToSearchArgument = searchSystem.findItemsAppropriateToSearchArgument(exercises,currentSearchArgument);
-        String exercisesInJson = jsonCreator.makeJSON(exercises);
+        String exercisesInJson = jsonCreator.makeJSON(exercisesAppropriateToSearchArgument);
         writeResponse(response,exercisesInJson);
     }
 
@@ -48,7 +46,6 @@ public class AjaxController extends HttpServlet {
         try {
             exercises = exerciseService.findAll();
         }catch (ServiceException e) {
-            LOGGER.error(e.getMessage(), e);
             //commandResult = new CommandResult(ERROR_PAGE, false);
         }
         return exercises;

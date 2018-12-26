@@ -1,31 +1,62 @@
 package com.epam.fitness.builder;
 
+import com.epam.fitness.exception.RepositoryException;
+import com.epam.fitness.model.Client;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 public class ClientBuilderTest {
 
-    private static final long ID_PHOTO = 2;
-    private static final long ID_LOT = 3;
-    private static final String URL = "12345abcdef.jpg";
+    private static final Long ID_CLIENT = 1l;
+    private static final Long ID_COACH = 3l;
+    private static final String NAME = "Vlad";
+    private static final String SURNAME = "Moskovkin";
+    private static final String LOGIN = "vladmoss";
+    private static final String PASSWORD = "123";
+    private static final Integer VISITS_NUMBER = 1;
+    private static final Float PERSONAL_SALE = 5.5f;
+    private static final Float CORPORATE_SALE = 0.0f;
+    private static final Long ID_PROGRAM = 5l;
 
-    private static final LotPhoto EXPECTED_LOT_PHOTO = new LotPhoto(ID_PHOTO, ID_LOT, URL);
+
+
+    private static final Client EXPECTED_CLIENT = new Client(
+            ID_CLIENT,
+            ID_COACH,
+            NAME,
+            SURNAME,
+            LOGIN,
+            PASSWORD,
+            VISITS_NUMBER,
+            PERSONAL_SALE,
+            CORPORATE_SALE,
+            ID_PROGRAM);
 
     @Test
-    public void shouldBuildAndReturnLotPhotoWithParameters() throws SQLException, DaoException {
+    public void shouldBuildAndReturnClientWithParameters() throws SQLException, RepositoryException {
         ResultSet resultSet = mock(ResultSet.class);
 
-        when(resultSet.getLong(LotPhoto.ID_PHOTO)).thenReturn(ID_PHOTO);
-        when(resultSet.getLong(LotPhoto.ID_LOT)).thenReturn(ID_LOT);
-        when(resultSet.getString(LotPhoto.URL)).thenReturn(URL);
+        when(resultSet.getLong(Client.ID)).thenReturn(ID_CLIENT);
+        when(resultSet.getLong(Client.ID_COACH)).thenReturn(ID_COACH);
+        when(resultSet.getString(Client.NAME)).thenReturn(NAME);
+        when(resultSet.getString(Client.SURNAME)).thenReturn(SURNAME);
+        when(resultSet.getString(Client.LOGIN)).thenReturn(LOGIN);
+        when(resultSet.getString(Client.PASSWORD)).thenReturn(PASSWORD);
+        when(resultSet.getInt(Client.VISITS_NUMBER)).thenReturn(VISITS_NUMBER);
+        when(resultSet.getFloat(Client.PERSONAL_SALE)).thenReturn(PERSONAL_SALE);
+        when(resultSet.getFloat(Client.CORPORATE_SALE)).thenReturn(CORPORATE_SALE);
+        when(resultSet.getLong(Client.ID_PROGRAM)).thenReturn(ID_PROGRAM);
 
-        LotPhotoBuilder lotPhotoBuilder = new LotPhotoBuilder();
-        LotPhoto actualLotPhoto = lotPhotoBuilder.build(resultSet);
-
-        Assert.assertEquals(EXPECTED_LOT_PHOTO, actualLotPhoto);
+        ClientBuilder clientBuilder = new ClientBuilder();
+        Client actualClient = clientBuilder.build(resultSet);
+        Assert.assertEquals(EXPECTED_CLIENT, actualClient);
 
     }
 }

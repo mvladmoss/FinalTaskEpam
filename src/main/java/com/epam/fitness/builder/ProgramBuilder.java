@@ -1,5 +1,6 @@
 package com.epam.fitness.builder;
 
+import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.model.Program;
 import com.epam.fitness.exception.RepositoryException;

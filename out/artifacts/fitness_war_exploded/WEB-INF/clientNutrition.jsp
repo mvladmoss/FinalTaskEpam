@@ -10,7 +10,7 @@
     <title>Whitesquare</title>
     <link rel="stylesheet" href="../styless/baseStyles.css" type="text/css">
     <link rel="stylesheet" href="../styless/clientProfileStyle.css" type="text/css">
-    <link rel="stylesheet" href="../styless/clientProgramStyles.css" type="text/css">
+    <link rel="stylesheet" href="../styless/clientProgramStyless.css" type="text/css">
     <link rel="stylesheet" href="../styless/modalWindows.css" type="text/css">
     <link rel="stylesheet" href="../styless/clientNutritionStyles.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
@@ -75,7 +75,7 @@
                 <c:choose>
                     <c:when test="${nutrition.description eq 'none'}">
                         <div class="text">
-                            You have no nutrition now
+                            <h4>You have no nutrition now</h4>
                         </div>
                     </c:when>
                     <c:otherwise>

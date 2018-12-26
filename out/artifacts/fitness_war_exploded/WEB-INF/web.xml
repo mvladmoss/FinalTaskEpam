@@ -29,7 +29,7 @@
 
     <filter>
         <filter-name>languageFilter</filter-name>
-        <filter-class>com.epam.fitness.controller.LanguageFilter</filter-class>
+        <filter-class>com.epam.fitness.filter.LanguageFilter</filter-class>
     </filter>
 
     <filter-mapping>

@@ -1335,7 +1335,6 @@
     <column id="326" parent="288" name="equipment_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="327" parent="288" name="name">

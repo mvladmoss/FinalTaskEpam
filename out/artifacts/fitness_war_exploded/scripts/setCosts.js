@@ -10,7 +10,6 @@ function setCosts(){
 }
 
 function calculateFinalCost(cost) {
-    alert(document.getElementById("heading"));
     var personal_sale = Number(document.getElementById("personal_sale").value);
     var corporate_sale = Number(document.getElementById("corporate_sale").value);
     var generalSale = personal_sale + corporate_sale;

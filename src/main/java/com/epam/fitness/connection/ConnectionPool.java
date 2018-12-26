@@ -1,6 +1,5 @@
 package com.epam.fitness.connection;
 
-import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class ConnectionPool {
 
-    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class.getName());
+//    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class.getName());
     private BlockingQueue<ProxyConnection> connectionQueue;
     private static AtomicBoolean instanceCreated = new AtomicBoolean(false);
 
@@ -36,7 +35,7 @@ public final class ConnectionPool {
 
     private ConnectionPool() {
         if (instanceCreated.get()) {
-            LOGGER.fatal("Tried to clone connection pool with reflection api");
+//            LOGGER.fatal("Tried to clone connection pool with reflection api");
             throw new RuntimeException("Tried to clone connection pool with reflection api");
         }
         instanceCreated.set(true);
@@ -56,7 +55,7 @@ public final class ConnectionPool {
                 ProxyConnection proxyConnection = new ProxyConnection(dbConnection);
                 connectionQueue.put(proxyConnection);
             } catch (InterruptedException | SQLException e) {
-                LOGGER.fatal(e.getMessage());
+//                LOGGER.fatal(e.getMessage());
                 throw new RuntimeException("Hasn't found connection with database");
             }
         }
@@ -85,10 +84,10 @@ public final class ConnectionPool {
             Class.forName(driver);
 
         } catch (IOException e) {
-            LOGGER.error(e.getMessage());
+//            LOGGER.error(e.getMessage());
             throw new IllegalArgumentException("File with properties not found! " + e.getMessage(), e);
         } catch (ClassNotFoundException e) {
-            LOGGER.error(e.getMessage());
+//            LOGGER.error(e.getMessage());
             throw new IllegalArgumentException("Driver is not found! " + e.getMessage(), e);
         }
     }
@@ -103,7 +102,7 @@ public final class ConnectionPool {
         try {
             return connectionQueue.take();
         } catch (InterruptedException e) {
-            LOGGER.error(e.getMessage());
+//            LOGGER.error(e.getMessage());
             throw new IllegalArgumentException(e);
         }
     }
@@ -117,7 +116,7 @@ public final class ConnectionPool {
             connectionQueue.put(connection);
 
         } catch (InterruptedException | SQLException e){
-            LOGGER.error(e.getMessage());
+//            LOGGER.error(e.getMessage());
             throw new IllegalArgumentException(e.getMessage(),e);
         }
 
@@ -134,7 +133,7 @@ public final class ConnectionPool {
                 }
                 proxyConnection.connection.close();
             } catch (InterruptedException | SQLException e) {
-                LOGGER.error(e.getMessage());
+//                LOGGER.error(e.getMessage());
                 throw new IllegalArgumentException(e.getMessage(),e);
             }
         }
@@ -151,7 +150,7 @@ public final class ConnectionPool {
                 try {
                     DriverManager.deregisterDriver(driver);
                 } catch (SQLException e) {
-                    LOGGER.error(e.getMessage());
+//                    LOGGER.error(e.getMessage());
                     throw new IllegalArgumentException(e.getMessage(),e);
                 }
             }

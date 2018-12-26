@@ -7,12 +7,8 @@ import java.util.List;
 
 public class SearchExerciseSystem implements SearchSystem<Exercise> {
 
-    private final static String NULL = "null";
 
     public List<Exercise> findItemsAppropriateToSearchArgument(List<Exercise> exercisesToCheck, String searchArgument){
-        if(searchArgument.equals(NULL)){
-            return exercisesToCheck;
-        }
         List<Exercise> finalListExercise = new ArrayList<>();
         for(Exercise exercise : exercisesToCheck){
             if(exerciseToLowerCase(exercise).contains(searchArgument.toLowerCase())){

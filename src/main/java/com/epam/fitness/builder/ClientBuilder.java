@@ -13,7 +13,7 @@ public class ClientBuilder implements Builder<Client> {
         Client client = new Client();
         //constructor
         try {
-            long id = resultSet.getInt("id_client");
+            Long id = resultSet.getLong("id_client");
             client.setID(id);
             Long coach_id = resultSet.getLong("coach_id");
             client.setCoachId(coach_id);

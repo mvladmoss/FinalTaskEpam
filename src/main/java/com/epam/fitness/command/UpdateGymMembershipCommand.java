@@ -26,19 +26,10 @@ public class UpdateGymMembershipCommand implements Command {
         HttpSession session = request.getSession();
         long clientID = (long) session.getAttribute("id");
         increaseClientVisitNumber(clientID);
-        String periodExtension = request.getParameter("period");
-        periodExtension = periodExtension.replace(" ","_");
         BigDecimal cost = new BigDecimal(request.getParameter("cost"));
+        java.sql.Date newEndMembershipDate = defineNewEndMembershipEndDate(request,clientID);
+        OrderInformation newOrderInformation = makeOrder(cost,new Timestamp(new Date().getTime()), newEndMembershipDate, clientID);
         OrderInformationService orderInformationService = new OrderInformationService();
-        Optional<OrderInformation> orderInformation = orderInformationService.findByClientId(clientID);
-        Date membershipEndDate = new Date();
-        if(orderInformation.isPresent()){
-            membershipEndDate = orderInformation.get().getTrainEndDate();
-        }
-        PeriodCost period = PeriodCost.valueOf(periodExtension);
-        Date newMembershipEndDate = DateProducer.getNecessaryDate(membershipEndDate,period);
-        java.sql.Date newMembershipEndSqlDate = new java.sql.Date(newMembershipEndDate.getTime());
-        OrderInformation newOrderInformation = makeOrder(cost,new Timestamp(new Date().getTime()), newMembershipEndSqlDate, clientID);
         orderInformationService.addOrder(newOrderInformation);
         return new CommandResult(PROFILE_PAGE,true);
     }
@@ -50,6 +41,20 @@ public class UpdateGymMembershipCommand implements Command {
         orderInformation.setCost(cost);
         orderInformation.setTrainEndDate(endDate);
         return  orderInformation;
+    }
+
+    private java.sql.Date defineNewEndMembershipEndDate(HttpServletRequest request, Long clientID) throws ServiceException {
+        String periodExtension = request.getParameter("period");
+        periodExtension = periodExtension.replace(" ","_");
+        OrderInformationService orderInformationService = new OrderInformationService();
+        Optional<OrderInformation> orderInformation = orderInformationService.findByClientId(clientID);
+        Date membershipEndDate = new Date();
+        if(orderInformation.isPresent()){
+            membershipEndDate = orderInformation.get().getTrainEndDate();
+        }
+        PeriodCost period = PeriodCost.valueOf(periodExtension);
+        Date newMembershipEndDate = DateProducer.getNecessaryDate(membershipEndDate,period);
+        return new java.sql.Date(newMembershipEndDate.getTime());
     }
 
     private void increaseClientVisitNumber(long clientId) throws ServiceException {

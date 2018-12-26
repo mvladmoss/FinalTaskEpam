@@ -1,5 +1,6 @@
 package com.epam.fitness.builder;
 
+import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Exercise;
 import com.epam.fitness.model.dto.ExerciseDto;
 
@@ -8,7 +9,7 @@ import java.sql.SQLException;
 
 public class ExerciseDtoBuilder implements Builder<ExerciseDto> {
     @Override
-    public ExerciseDto build(ResultSet resultSet) {
+    public ExerciseDto build(ResultSet resultSet) throws RepositoryException {
         Exercise exercise = new ExerciseBuilder().build(resultSet);
         ExerciseDto exerciseDto = new ExerciseDto();
         exerciseDto.setExercise(exercise);
@@ -23,9 +24,9 @@ public class ExerciseDtoBuilder implements Builder<ExerciseDto> {
             exerciseDto.setNumberTrainDay(numberOfTrainDay);
             long program_id = resultSet.getLong("program_id");
             exerciseDto.setProgramId(program_id);
+            return exerciseDto;
         }catch (SQLException exception){
-            throw new IllegalArgumentException(exception);
+            throw new RepositoryException(exception.getMessage(),exception);
         }
-        return exerciseDto;
     }
 }

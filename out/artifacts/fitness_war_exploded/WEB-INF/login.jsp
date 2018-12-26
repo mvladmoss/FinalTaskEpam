@@ -34,6 +34,18 @@
 						<label for="password" class="label">Password</label>
 						<input  name="password" id="password" type="password" class="input" data-type="password">
 					</div>
+					<%--<c:if test="${not empty errorLoginMessage}">
+						<div class="error">
+							<c:choose>
+								<c:when test="${errorLoginMessage == 'Authentication failed!'}">
+									No such user
+								</c:when>
+								<c:when test="${errorLoginMessage == 'You havent input login or password!Try again'}">
+									Input login and password please
+								</c:when>
+							</c:choose>
+						</div>
+					</c:if>--%>
 					<div class="group">
 						<input type="submit" class="button" value="Sign In">
 					</div>
@@ -58,6 +70,7 @@
 							<label for="surnameRegister" class="label">Surname</label>
 							<input id="surnameRegister" name="surnameRegister" type="text" class="input">
 						</div>
+
 						<div class="group">
 							<input type="submit" class="button" value="Sign Up">
 						</div>

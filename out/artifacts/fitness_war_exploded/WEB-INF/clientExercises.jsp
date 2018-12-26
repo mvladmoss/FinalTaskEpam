@@ -10,7 +10,7 @@
     <title>Whitesquare</title>
     <link rel="stylesheet" href="../styless/baseStyles.css" type="text/css">
     <link rel="stylesheet" href="../styless/clientProfileStyle.css" type="text/css">
-    <link rel="stylesheet" href="../styless/clientProgramStyles.css" type="text/css">
+    <link rel="stylesheet" href="../styless/clientProgramStyless.css" type="text/css">
     <link rel="stylesheet" href="../styless/modalWindows.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC" rel="stylesheet">
@@ -131,10 +131,32 @@
                     <label class="modal__closetwo" for="modal"></label>
                     <div class="modal__info">
                         <label class="modal__close" for="modal">&times;</label>
-                        <input type="search" oninput="makeRequest()" name="searchType" id="searchType">
+                        <input type="search" oninput="makeRequest()" placeholder="Enter the name of exercise" name="searchType" id="searchType" style="width: 30%">
                         <hr style="margin-left: -20px;width: 110%;">
-                        <form name="form" action="${pageContext.request.contextPath}/controller?command=add_exercise&trainDay=${program.trainsPerWeek}" method="post">
+                        <form name="form" class="beatForm" action="${pageContext.request.contextPath}/controller?command=add_exercise&trainDay=${program.trainsPerWeek}" method="post">
+                            <div id="reg" style="display: none">
+                                <input type="button" class="buttonSub" onclick="chang('{exercise.id}')" style='width: 700px;' value="{exercise.name}">
+                                <div id="informer{exercise.id}" class="b-toggle">
+                                    <div class="exercise">
+                                        <div class="col-25">
+                                            <label for="setNumber">Sets</label>
+                                        </div>
+                                        <div class="col-75">
+                                            <input id="setNumber{exercise.id}"  type="text">
+                                        </div>
 
+                                        <div class="col-25">
+                                            <label for="setNumber">Repeats</label>
+                                        </div>
+                                        <div class="col-75">
+                                            <input id="repeats{exercise.id}"  type="text">
+                                        </div>
+                                    </div>
+                                    <input type="submit" class="button" onclick="setExerciseProgram('{exercise.id}','{program.id}')" value="Add">
+                                </div>
+                            </div>
+                            <br/>
+                            <hr style="margin-left: -20px;width: 110%;"/>
                         </form>
                     </div>
                 </div>

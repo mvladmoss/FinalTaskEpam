@@ -7,6 +7,15 @@ public class Exercise implements Identifiable {
     private String name;
     private String description;
 
+    public Exercise(){}
+
+    public Exercise(Long id, Long equipmentId, String name, String description){
+        this.id = id;
+        this.equipmentId = equipmentId;
+        this.name = name;
+        this.description = description;
+    }
+
     public Long getId() {
         return id;
     }

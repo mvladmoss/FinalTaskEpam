@@ -23,6 +23,13 @@
     }
 }
 
+.beatForm{
+    max-height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 1000px;
+}
+
 .flex-container{
     display: flex;
     max-height: 1000px;
