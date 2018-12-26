@@ -2,7 +2,8 @@ package com.epam.fitness.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;import com.epam.fitness.exception.ServiceException;
+
 
 
 public class SingOutCommand implements Command{

@@ -4,17 +4,20 @@ import com.epam.fitness.builder.Builder;
 import com.epam.fitness.builder.BuilderFactory;
 import com.epam.fitness.connection.ConnectionPool;
 import com.epam.fitness.connection.ProxyConnection;
-import com.epam.fitness.uitls.StatemenUtil;
+import com.epam.fitness.exception.RepositoryException;
+import com.epam.fitness.model.Identifiable;
+import com.epam.fitness.uitls.StatementUtil;
 
 import java.sql.*;
 import java.util.*;
 
-public abstract class AbstractRepository<T> implements Repository<T> {
+public abstract class AbstractRepository<T extends Identifiable> implements Repository<T> {
 
     Connection connection;
 
     private static final String GET_ALL_QUERY = "SELECT * FROM ";
-    private String WHERE_ID_CONDITION = " WHERE id_" + getTableName() + "=(?)";
+    private final String WHERE_ID_CONDITION = " WHERE id_" + getTableName() + "=(?)";
+    private final String MAX_TABLE_ID_CONDITION = " order by(id_" + getTableName() + ") desc limit 1";
 
     AbstractRepository(Connection connection){
         this.connection = connection;
@@ -27,7 +30,7 @@ public abstract class AbstractRepository<T> implements Repository<T> {
         try (ProxyConnection dbConnection = ConnectionPool.getInstance().takeConnection()) {
             PreparedStatement preparedStatement = dbConnection.prepareStatement(sql);
 
-            StatemenUtil.prepare(preparedStatement, parameters);
+            StatementUtil.prepare(preparedStatement, parameters);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -36,7 +39,7 @@ public abstract class AbstractRepository<T> implements Repository<T> {
             }
 
         } catch (SQLException e) {
-            throw new RepositoryException(e);
+            throw new RepositoryException(e.getMessage(),e);
         }
         return objects;
     }
@@ -53,7 +56,7 @@ public abstract class AbstractRepository<T> implements Repository<T> {
     protected long executeUpdate(String query, List<Object> params) throws RepositoryException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
-            StatemenUtil.prepare(preparedStatement, params);
+            StatementUtil.prepare(preparedStatement, params);
             preparedStatement.executeUpdate();
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
 
@@ -79,6 +82,14 @@ public abstract class AbstractRepository<T> implements Repository<T> {
         Builder builder = BuilderFactory.create(getTableName());
         String query = GET_ALL_QUERY + getTableName();
         return executeQuery(query, builder,Collections.emptyList());
+    }
+
+    public Long getNextTableId() throws RepositoryException {
+        Builder builder = BuilderFactory.create(getTableName());
+        String query = GET_ALL_QUERY + getTableName() + MAX_TABLE_ID_CONDITION;
+        Optional<T> itemOptional = executeQueryForSingleResult(query, builder,Collections.emptyList());
+        Long nextId = itemOptional.map( item -> item.getId() + 1).orElse(0l);
+        return nextId;
     }
 
 }

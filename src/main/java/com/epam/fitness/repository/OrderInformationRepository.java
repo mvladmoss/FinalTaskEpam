@@ -1,6 +1,7 @@
 package com.epam.fitness.repository;
 
 import com.epam.fitness.builder.OrderInformationBuilder;
+import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.OrderInformation;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 import java.math.BigDecimal;
@@ -32,7 +33,7 @@ public class OrderInformationRepository extends AbstractRepository<OrderInformat
 
 
     @Override
-    public List<OrderInformation> query(SqlSpecification specification) throws RepositoryException{
+    public List<OrderInformation> query(SqlSpecification specification) throws RepositoryException {
         String query = "select * from order_information " + specification.getSql();
         List<OrderInformation> orderInformation = executeQuery(query,new OrderInformationBuilder(), specification.getParameters());
         return orderInformation;

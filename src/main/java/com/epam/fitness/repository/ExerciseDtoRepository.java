@@ -1,7 +1,7 @@
 package com.epam.fitness.repository;
 
 import com.epam.fitness.builder.ExerciseDtoBuilder;
-import com.epam.fitness.model.Exercise;
+import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.dto.ExerciseDto;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
@@ -32,7 +32,7 @@ public class ExerciseDtoRepository extends AbstractRepository<ExerciseDto> {
     }
 
     @Override
-    public List<ExerciseDto> query(SqlSpecification specification) throws RepositoryException{
+    public List<ExerciseDto> query(SqlSpecification specification) throws RepositoryException {
         String query = "select * from exercise " + specification.getSql();
         List<ExerciseDto> exercises = executeQuery(query,new ExerciseDtoBuilder(), specification.getParameters());
         return exercises;

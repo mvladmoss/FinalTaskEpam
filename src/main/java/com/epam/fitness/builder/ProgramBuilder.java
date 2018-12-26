@@ -1,8 +1,8 @@
 package com.epam.fitness.builder;
 
-import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.model.Program;
+import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.service.NutritionService;
 
 import java.sql.ResultSet;
@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class ProgramBuilder implements Builder<Program> {
     @Override
-    public Program build(ResultSet resultSet) {
+    public Program build(ResultSet resultSet) throws RepositoryException {
         Program program = new Program();
         try {
             Long id = resultSet.getLong("id_program");
@@ -28,9 +28,9 @@ public class ProgramBuilder implements Builder<Program> {
             program.setDescription(description);
             int trainsPerWeek = resultSet.getInt("trains_per_week");
             program.setTrainsPerWeek(trainsPerWeek);
+            return program;
         }catch (SQLException exception){
-            throw new RuntimeException("Exception in " + this.getClass().getName() + "Builder");
+            throw new RepositoryException(exception.getMessage(),exception);
         }
-        return program;
     }
 }

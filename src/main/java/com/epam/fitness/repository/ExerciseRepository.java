@@ -1,9 +1,7 @@
 package com.epam.fitness.repository;
 
-import com.epam.fitness.builder.CoachBuilder;
 import com.epam.fitness.builder.ExerciseBuilder;
-import com.epam.fitness.connection.ConnectionPoolException;
-import com.epam.fitness.model.Coach;
+import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Exercise;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
@@ -25,7 +23,7 @@ public class ExerciseRepository extends AbstractRepository<Exercise> {
     }
 
     @Override
-    public List<Exercise> query(SqlSpecification specification) throws RepositoryException{
+    public List<Exercise> query(SqlSpecification specification) throws RepositoryException {
         String query = "select * from exercise " + specification.getSql();
         List<Exercise> exercises = executeQuery(query,new ExerciseBuilder(), specification.getParameters());
         return exercises;

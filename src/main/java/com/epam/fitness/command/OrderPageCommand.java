@@ -1,6 +1,5 @@
 package com.epam.fitness.command;
 
-import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.uitls.PeriodCost;
 import com.epam.fitness.model.OrderInformation;
@@ -13,7 +12,8 @@ import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Optional;import com.epam.fitness.exception.ServiceException;
+
 
 public class OrderPageCommand implements Command {
 

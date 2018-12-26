@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link href="../styless/clientProfileStyles.css" rel="stylesheet">
+    <link href="../styless/clientProfileStyle.css" rel="stylesheet">
     <script src="../scripts/button.js"></script>
 
 </head>
@@ -38,11 +38,17 @@
                     <li id="profile">
                         <a href="${pageContext.servletContext.contextPath}/controller?command=profile" onmouseover="changeStyle('profile')" onmouseout="changeStyleBack('profile')" >Profile</a>
                     </li>
-                    <li id="program" >
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_program" onmouseover="changeStyle('program')" onmouseout="changeStyleBack('program')">My program</a>
+                    <li id="my_exercises" >
+                        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises" onmouseover="changeStyle('my_exercises')" onmouseout="changeStyleBack('my_exercises')">My exercises</a>
+                    </li>
+                    <li id="my_nutrition" >
+                        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_nutrition" onmouseover="changeStyle('my_nutrition')" onmouseout="changeStyleBack('my_nutrition')">My nutrition</a>
                     </li>
                     <li id="buyMembership">
                         <a href="${pageContext.servletContext.contextPath}/controller?command=get_order_page" onmouseover="changeStyle('buyMembership')" onmouseout="changeStyleBack('buyMembership')" >Buy membership</a>
+                    </li>
+                    <li id="coaches">
+                        <a href="${pageContext.servletContext.contextPath}/controller?command=coaches"  onmouseover="changeStyle('coaches')" onmouseout="changeStyleBack('coaches')">Our coaches</a>
                     </li>
                 </c:if>
                 <c:if test="${role == 'coach'}">
@@ -50,12 +56,6 @@
                         <a href="${pageContext.servletContext.contextPath}/controller?command=all_coach_clients" onmouseover="changeStyle('myClients')" onmouseout="changeStyleBack('myClients')">My clients</a>
                     </li>
                 </c:if>
-                <li id="prices">
-                    <a href="/vestibulum/" onmouseover="changeStyle('prices')" onmouseout="changeStyleBack('prices')">Prices</a>
-                </li>
-                <li id="coaches">
-                    <a href="${pageContext.servletContext.contextPath}/controller?command=coaches"  onmouseover="changeStyle('coaches')" onmouseout="changeStyleBack('coaches')">Our coaches</a>
-                </li>
             </ul>
         </nav>
         <h2>OUR GYM</h2>

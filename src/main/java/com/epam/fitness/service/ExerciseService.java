@@ -1,15 +1,13 @@
 package com.epam.fitness.service;
 
-import com.epam.fitness.exception.ServiceException;
-import com.epam.fitness.model.Coach;
 import com.epam.fitness.model.Exercise;
-import com.epam.fitness.repository.CoachRepository;
 import com.epam.fitness.repository.ExerciseRepository;
-import com.epam.fitness.repository.RepositoryException;
+import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.repository.creator.RepositoryCreator;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Optional;import com.epam.fitness.exception.ServiceException;
+
 
 public class ExerciseService {
     public List<Exercise> findAll() throws ServiceException {

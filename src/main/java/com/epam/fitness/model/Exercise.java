@@ -1,6 +1,6 @@
 package com.epam.fitness.model;
 
-public class Exercise {
+public class Exercise implements Identifiable {
 
     private Long id;
     private Long equipmentId;

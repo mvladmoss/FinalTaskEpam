@@ -1,6 +1,5 @@
 package com.epam.fitness.command;
 
-import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Coach;
 import com.epam.fitness.service.ClientService;
@@ -9,7 +8,8 @@ import com.epam.fitness.service.CoachService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
+import java.util.Optional;import com.epam.fitness.exception.ServiceException;
+
 
 
 public class LoginCommand implements Command {

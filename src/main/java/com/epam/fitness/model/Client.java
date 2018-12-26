@@ -2,7 +2,7 @@ package com.epam.fitness.model;
 
 import java.io.Serializable;
 
-public class Client implements Serializable {
+public class Client implements Serializable,Identifiable {
 
     private Long id;
     private Long coachId;
@@ -19,7 +19,7 @@ public class Client implements Serializable {
         this.id = clientID;
     }
 
-    public void setCoachId(long coachId) {
+    public void setCoachId(Long coachId) {
         this.coachId = coachId;
     }
 
@@ -51,11 +51,11 @@ public class Client implements Serializable {
         this.corporateSale = corporateSale;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public long getCoachId() {
+    public Long getCoachId() {
         return coachId;
     }
 

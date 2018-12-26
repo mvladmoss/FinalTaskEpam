@@ -1,6 +1,6 @@
 package com.epam.fitness.model;
 
-public class Coach {
+public class Coach implements Identifiable {
 
     private Long id;
     private String name;
@@ -8,7 +8,7 @@ public class Coach {
     private String login;
     private String password;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

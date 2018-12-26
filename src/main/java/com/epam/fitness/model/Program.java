@@ -4,7 +4,7 @@ import com.epam.fitness.model.dto.ExerciseDto;
 
 import java.util.List;
 
-public class Program {
+public class Program implements Identifiable{
 
     private Long id;
     private Nutrition nutrition;

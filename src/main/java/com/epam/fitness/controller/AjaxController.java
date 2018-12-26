@@ -3,7 +3,11 @@ package com.epam.fitness.controller;
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Exercise;
 import com.epam.fitness.service.ExerciseService;
-import com.epam.fitness.uitls.JsonCreator;
+import com.epam.fitness.uitls.json.JsonCreator;
+import com.epam.fitness.uitls.json.JsonExerciseCreator;
+import com.epam.fitness.uitls.search.SearchExerciseSystem;
+import com.epam.fitness.uitls.search.SearchSystem;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AjaxController extends HttpServlet {
+
+    private static final Logger LOGGER = Logger.getLogger(AjaxController.class.getName());
+    private SearchSystem searchSystem = new SearchExerciseSystem();
+    private JsonCreator jsonCreator = new JsonExerciseCreator();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         proccessRequest(req,resp);
@@ -26,17 +35,26 @@ public class AjaxController extends HttpServlet {
     }
 
     private void proccessRequest(HttpServletRequest request,HttpServletResponse response){
-        System.out.println("Here");
         String currentSearchArgument = request.getParameter("searchArgument");
+        List<Exercise> exercises = getAllExercises();
+        List<Exercise> exercisesAppropriateToSearchArgument = searchSystem.findItemsAppropriateToSearchArgument(exercises,currentSearchArgument);
+        String exercisesInJson = jsonCreator.makeJSON(exercises);
+        writeResponse(response,exercisesInJson);
+    }
+
+    private List<Exercise> getAllExercises(){
         ExerciseService exerciseService = new ExerciseService();
         List<Exercise> exercises = new ArrayList<>();
         try {
             exercises = exerciseService.findAll();
-        } catch (ServiceException e) {
-            throw new RuntimeException();
+        }catch (ServiceException e) {
+            LOGGER.error(e.getMessage(), e);
+            //commandResult = new CommandResult(ERROR_PAGE, false);
         }
-        JsonCreator creator = new JsonCreator();
-        String exercisesJson = creator.makeJSON(exercises);
+        return exercises;
+    }
+
+    private void writeResponse(HttpServletResponse response,String exerciseInJson){
         response.setContentType("application/json");
         PrintWriter out = null;
         try {
@@ -45,8 +63,7 @@ public class AjaxController extends HttpServlet {
             e.printStackTrace();
         }
         response.setCharacterEncoding("UTF-8");
-        out.print(exercisesJson);
-
+        out.print(exerciseInJson);
     }
 
 }

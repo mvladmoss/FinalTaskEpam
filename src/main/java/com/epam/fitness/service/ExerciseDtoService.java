@@ -1,15 +1,15 @@
 package com.epam.fitness.service;
 
-import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.dto.ExerciseDto;
 import com.epam.fitness.repository.ExerciseDtoRepository;
-import com.epam.fitness.repository.RepositoryException;
+import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.repository.creator.RepositoryCreator;
 import com.epam.fitness.repository.specifications.exercise.dto.ExerciseDtoById;
 import com.epam.fitness.repository.specifications.exercise.dto.ExerciseDtoByProgramId;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Optional;import com.epam.fitness.exception.ServiceException;
+
 
 public class ExerciseDtoService {
 
@@ -33,7 +33,7 @@ public class ExerciseDtoService {
         }
     }
 
-    public long addExercise(ExerciseDto exerciseDto) throws ServiceException {
+    public long save(ExerciseDto exerciseDto) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ExerciseDtoRepository exerciseDtoRepository = repositoryCreator.getExerciseDtoRepository();
             return exerciseDtoRepository.save(exerciseDto);
@@ -51,12 +51,4 @@ public class ExerciseDtoService {
         }
     }
 
-    public long updateExercise(ExerciseDto exerciseDto) throws ServiceException {
-        try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
-            ExerciseDtoRepository exerciseDtoRepository = repositoryCreator.getExerciseDtoRepository();
-            return exerciseDtoRepository.save(exerciseDto);
-        } catch (RepositoryException exception) {
-            throw new ServiceException(exception.getMessage(), exception);
-        }
-    }
 }

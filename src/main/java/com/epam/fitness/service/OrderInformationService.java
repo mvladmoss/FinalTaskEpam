@@ -1,13 +1,13 @@
 package com.epam.fitness.service;
 
-import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.OrderInformation;
 import com.epam.fitness.repository.OrderInformationRepository;
-import com.epam.fitness.repository.RepositoryException;
+import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.repository.creator.RepositoryCreator;
 import com.epam.fitness.repository.specifications.order.LastOrderByClientId;
 
-import java.util.Optional;
+import java.util.Optional;import com.epam.fitness.exception.ServiceException;
+
 
 public class OrderInformationService {
 

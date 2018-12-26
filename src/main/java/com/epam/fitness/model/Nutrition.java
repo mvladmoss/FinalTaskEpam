@@ -1,6 +1,6 @@
 package com.epam.fitness.model;
 
-public class Nutrition {
+public class Nutrition implements Identifiable {
 
     private Long id;
     private String name;

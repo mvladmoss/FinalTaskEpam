@@ -5,6 +5,7 @@ import com.epam.fitness.command.CommandFactory;
 import com.epam.fitness.command.CommandResult;
 import com.epam.fitness.connection.ConnectionPool;
 import com.epam.fitness.exception.ServiceException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -20,6 +21,7 @@ public class Controller extends HttpServlet {
 
     private static final String COMMAND = "command";
     private static final String ERROR_PAGE = "/WEB-INF/error.jsp";
+    private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
 
     @Override
     public void init() {
@@ -40,7 +42,7 @@ public class Controller extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String command = request.getParameter(COMMAND);
-        System.out.println("command=" + command);
+        LOGGER.info("Command = " + command);
         Command action = CommandFactory.create(command);
 
 
@@ -49,6 +51,7 @@ public class Controller extends HttpServlet {
         try {
             commandResult  = action.execute(request, response);
         } catch (ServiceException e) {
+            LOGGER.error(e.getMessage(), e);
             commandResult = new CommandResult(ERROR_PAGE, false);
         }
 

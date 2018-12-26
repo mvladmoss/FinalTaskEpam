@@ -1,6 +1,7 @@
 package com.epam.fitness.builder;
 
 import com.epam.fitness.model.OrderInformation;
+import com.epam.fitness.exception.RepositoryException;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
@@ -10,7 +11,7 @@ import java.util.Date;
 
 public class OrderInformationBuilder implements Builder<OrderInformation> {
     @Override
-    public OrderInformation build(ResultSet resultSet) {
+    public OrderInformation build(ResultSet resultSet) throws RepositoryException {
         OrderInformation orderInformation = new OrderInformation();
         try {
             Long orderID = resultSet.getLong("id_order_information");
@@ -21,10 +22,9 @@ public class OrderInformationBuilder implements Builder<OrderInformation> {
             orderInformation.setPaymenData(paymentData);
             Date end_date = resultSet.getDate("end_date");
             orderInformation.setTrainEndDate(end_date);
+            return orderInformation ;
         }catch (SQLException exception){
-            //Log
-            throw new RuntimeException();
+            throw new RepositoryException(exception.getMessage(),exception);
         }
-        return orderInformation ;
     }
 }

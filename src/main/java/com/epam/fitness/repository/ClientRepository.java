@@ -1,19 +1,11 @@
 package com.epam.fitness.repository;
 
 import com.epam.fitness.builder.ClientBuilder;
-import com.epam.fitness.connection.ConnectionPool;
-import com.epam.fitness.connection.ConnectionPoolException;
-import com.epam.fitness.connection.ProxyConnection;
+import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Client;
-import com.epam.fitness.model.Coach;
 import com.epam.fitness.repository.specifications.SqlSpecification;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -56,10 +48,8 @@ public class ClientRepository extends AbstractRepository<Client> {
     }
 
     public Long save(Client client) throws RepositoryException {
-        long clientId = client.getId();
-        String clientIdString = String.valueOf(clientId);
-        long coachId = client.getCoachId();
-        String coachIdString = String.valueOf(coachId);
+        Long clientId = client.getId();
+        Long coachId = client.getCoachId();
 
         String name = client.getName();
         String surname = client.getSurname();
@@ -67,16 +57,12 @@ public class ClientRepository extends AbstractRepository<Client> {
         String password = client.getPassword();
 
         int visitsNumber = client.getVisitNumber();
-        String visitsNumberString = String.valueOf(visitsNumber);
 
         float personalSale = client.getPersonalSale();
-        String personalSaleString = String.valueOf(personalSale);
         float corporateSale = client.getCorporateSale();
-        String corporateSaleString = String.valueOf(corporateSale);
         long programId = client.getProgramId();
-        String programIdString = String.valueOf(programId);
 
-        return executeUpdate(INSERT_QUERY,Arrays.asList(clientIdString,coachIdString,name,surname,login,password,visitsNumberString,personalSaleString,corporateSaleString,programIdString));
+        return executeUpdate(INSERT_QUERY,Arrays.asList(clientId,coachId,name,surname,login,password,visitsNumber,personalSale,corporateSale,programId));
 
     }
 

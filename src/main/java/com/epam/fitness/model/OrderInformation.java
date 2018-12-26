@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class OrderInformation {
+public class OrderInformation implements Identifiable{
 
     private Long id;
     private BigDecimal cost;
@@ -12,7 +12,7 @@ public class OrderInformation {
     private Date trainEndDate;
     private Long clientId;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

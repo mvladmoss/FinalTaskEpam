@@ -1,8 +1,9 @@
 package com.epam.fitness.model.dto;
 
 import com.epam.fitness.model.Exercise;
+import com.epam.fitness.model.Identifiable;
 
-public class ExerciseDto {
+public class ExerciseDto implements Identifiable {
 
     private Long id;
     private Exercise exercise;

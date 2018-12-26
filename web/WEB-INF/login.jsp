@@ -27,16 +27,12 @@
 			<form action="${pageContext.servletContext.contextPath}/controller?command=login" method="post">
 				<div class="sign-in-htm">
 					<div class="group">
-						<label for="user" class="label">Username</label>
+						<label for="login" class="label">Username</label>
 						<input  id="login" name="login" type="text" class="input">
 					</div>
 					<div class="group">
-						<label for="pass" class="label">Password</label>
+						<label for="password" class="label">Password</label>
 						<input  name="password" id="password" type="password" class="input" data-type="password">
-					</div>
-					<div class="group">
-						<input id="check" type="checkbox" class="check" checked>
-						<label for="check"><span class="icon"></span> Keep me Signed in</label>
 					</div>
 					<div class="group">
 						<input type="submit" class="button" value="Sign In">
@@ -45,26 +41,27 @@
 			</form>
 
 			<div class="sign-up-htm">
-
-				<div class="group">
-					<label for="user" class="label">Username</label>
-					<input id="user" type="text" class="input">
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Password</label>
-					<input id="pass" type="password" class="input" data-type="password">
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Repeat Password</label>
-					<input id="pass" type="password" class="input" data-type="password">
-				</div>
-				<div class="group">
-					<label for="pass" class="label">Email Address</label>
-					<input id="pass" type="text" class="input">
-				</div>
-				<div class="group">
-					<input type="submit" class="button" action="${pageContext.servletContext.contextPath}/controller?command=login" value="Sign Up">
-	  </div>
+					<form action="${pageContext.servletContext.contextPath}/controller?command=client_registration" method="post">
+						<div class="group">
+							<label for="loginRegister" class="label">Login</label>
+							<input id="loginRegister" name="loginRegister" type="text" class="input">
+						</div>
+						<div class="group">
+							<label for="passwordRegister" class="label">Password</label>
+							<input id="passwordRegister" name="passwordRegister" type="password" class="input" data-type="password">
+						</div>
+						<div class="group">
+							<label for="nameRegister" class="label">Name</label>
+							<input id="nameRegister" name="nameRegister" type="text" class="input" data-type="text">
+						</div>
+						<div class="group">
+							<label for="surnameRegister" class="label">Surname</label>
+							<input id="surnameRegister" name="surnameRegister" type="text" class="input">
+						</div>
+						<div class="group">
+							<input type="submit" class="button" value="Sign Up">
+						</div>
+					</form>
 				</div>
 			</div>
 

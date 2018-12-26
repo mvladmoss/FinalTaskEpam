@@ -2,7 +2,6 @@ package com.epam.fitness.command.client;
 
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
-import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Coach;
 import com.epam.fitness.model.OrderInformation;
@@ -13,8 +12,8 @@ import com.epam.fitness.service.OrderInformationService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.html.Option;
-import java.util.Optional;
+import java.util.Optional;import com.epam.fitness.exception.ServiceException;
+
 
 
 public class ClientProfileCommand implements Command {

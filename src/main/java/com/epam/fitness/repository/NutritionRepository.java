@@ -1,16 +1,21 @@
 package com.epam.fitness.repository;
 
 import com.epam.fitness.builder.NutritionBuilder;
-import com.epam.fitness.connection.ConnectionPoolException;
-import com.epam.fitness.model.Client;
+import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
 import java.sql.Connection;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 public class NutritionRepository extends AbstractRepository {
+
+    private final static String INSERT_QUERY = "insert into nutrition (id_nutrition,name,description) " +
+            "values(?,?,?) " +
+            "on duplicate key " +
+            "update id_nutrition = values(id_nutrition), name = values(name), description = values(description)";
 
     private static final String TABLE_NAME = "nutrition";
 
@@ -22,7 +27,7 @@ public class NutritionRepository extends AbstractRepository {
     }
 
     @Override
-    public List<Nutrition> query(SqlSpecification specification) throws RepositoryException{
+    public List<Nutrition> query(SqlSpecification specification) throws RepositoryException {
         String query = "select * from nutrition " + specification.getSql();
         List<Nutrition> nutrition = executeQuery(query,new NutritionBuilder(), specification.getParameters());
         return nutrition;
@@ -35,4 +40,12 @@ public class NutritionRepository extends AbstractRepository {
                 Optional.of(nutrition.get(0)) :
                 Optional.empty();
     }
+
+    public Long save(Nutrition nutrition) throws RepositoryException {
+        Long id = nutrition.getId();
+        String name = nutrition.getName();
+        String desciption = nutrition.getDescription();
+        return executeUpdate(INSERT_QUERY,Arrays.asList(id,name,desciption));
+    }
+
 }

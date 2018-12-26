@@ -1,8 +1,10 @@
 package com.epam.fitness.builder;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.epam.fitness.model.Identifiable;
+import com.epam.fitness.exception.RepositoryException;
 
-public interface Builder<T> {
-    T build(ResultSet resultSet) throws SQLException;
+import java.sql.ResultSet;
+
+public interface Builder<T extends Identifiable> {
+    T build(ResultSet resultSet) throws RepositoryException;
 }

@@ -2,14 +2,14 @@ package com.epam.fitness.command.coach;
 
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
-import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.service.ClientService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.util.List;import com.epam.fitness.exception.ServiceException;
+
 
 public class CoachClientsCommand implements Command {
 

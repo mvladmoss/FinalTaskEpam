@@ -1,13 +1,14 @@
 package com.epam.fitness.builder;
 
 import com.epam.fitness.model.Coach;
+import com.epam.fitness.exception.RepositoryException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CoachBuilder implements Builder<Coach> {
     @Override
-    public Coach build(ResultSet resultSet) {
+    public Coach build(ResultSet resultSet) throws RepositoryException {
         Coach coach = new Coach();
         try {
             long id = resultSet.getInt("id_coach");
@@ -20,10 +21,9 @@ public class CoachBuilder implements Builder<Coach> {
             coach.setLogin(login);
             String password = resultSet.getString("password");
             coach.setPassword(password);
+            return coach;
         }catch (SQLException exception){
-            //Log
-            throw  new RuntimeException();
+            throw new RepositoryException(exception.getMessage(),exception);
         }
-        return coach;
     }
 }

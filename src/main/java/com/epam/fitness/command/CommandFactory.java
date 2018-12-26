@@ -1,13 +1,16 @@
 package com.epam.fitness.command;
 
+import com.epam.fitness.command.client.RegistrationCommand;
+import com.epam.fitness.command.nutrition.ShowClientNutritionCommand;
 import com.epam.fitness.command.exercise.AddExerciseCommand;
 import com.epam.fitness.command.client.ClientProfileCommand;
-import com.epam.fitness.command.client.ClientProgramCommand;
+import com.epam.fitness.command.exercise.ShowClientExercisesCommand;
 import com.epam.fitness.command.exercise.DeleteExerciseCommand;
 import com.epam.fitness.command.coach.AllCoachesCommand;
-import com.epam.fitness.command.coach.ChooseCoachCommand;
+import com.epam.fitness.command.client.ChooseCoachCommand;
 import com.epam.fitness.command.coach.CoachClientsCommand;
 import com.epam.fitness.command.exercise.UpdateExerciseCommand;
+import com.epam.fitness.command.nutrition.UpdateClientNutritionCommand;
 
 public class CommandFactory {
 
@@ -72,8 +75,20 @@ public class CommandFactory {
                 resultCommand = new CoachClientsCommand();
                 break;
             }
-            case SHOW_CLIENT_PROGRAM:{
-                resultCommand = new ClientProgramCommand();
+            case SHOW_CLIENT_EXERCISES:{
+                resultCommand = new ShowClientExercisesCommand();
+                break;
+            }
+            case CLIENT_REGISTRATION:{
+                resultCommand = new RegistrationCommand();
+                break;
+            }
+            case SHOW_CLIENT_NUTRITION:{
+                resultCommand = new ShowClientNutritionCommand();
+                break;
+            }
+            case UPDATE_NUTRITION:{
+                resultCommand = new UpdateClientNutritionCommand();
                 break;
             }
             default: {

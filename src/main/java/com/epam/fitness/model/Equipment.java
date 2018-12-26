@@ -1,6 +1,6 @@
 package com.epam.fitness.model;
 
-public class Equipment {
+public class Equipment  {
 
     private Long id;
     private String name;
