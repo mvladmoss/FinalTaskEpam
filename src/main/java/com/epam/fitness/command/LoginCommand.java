@@ -64,7 +64,8 @@ public class LoginCommand implements Command {
         session.setAttribute(ID, clientID);
         String entityName = entity.getClass().getSimpleName().toLowerCase();
         session.setAttribute(ROLE,entityName);
-        }
+
+    }
 
 
 }
