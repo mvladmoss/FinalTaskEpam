@@ -8,12 +8,14 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>Whitesquare</title>
+
     <link rel="stylesheet" href="../styless/baseStyles.css" type="text/css">
     <link rel="stylesheet" href="../styless/clientProfileStyle.css" type="text/css">
-    <link rel="stylesheet" href="../styless/clientProgramStyless.css" type="text/css">
+    <link rel="stylesheet" href="../styless/clientExerciseStyle.css" type="text/css">
     <link rel="stylesheet" href="../styless/modalWindows.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC" rel="stylesheet">
+
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
@@ -83,12 +85,9 @@
                                 <ul>
                                     <c:forEach items="${program.exercises}" var="exerciseDto">
                                         <c:if test="${exerciseDto.numberTrainDay==i}">
-                                            <li><c:out value="${exerciseDto.exercise.name}(${exerciseDto.setNumber},${exerciseDto.repeatNumber})"/></li>
                                             <div class="flex-container">
-                                                <div class="flex-item ">
-                                                    <form action="${pageContext.request.contextPath}/controller?command=delete_exercise&exerciseDtoId=${exerciseDto.id}" method="post">
-                                                        <input type="submit" class="buttonSub" value="Delete">
-                                                    </form>
+                                                <div class="flex-item flex-text">
+                                                    <c:out value="${exerciseDto.exercise.name}(${exerciseDto.setNumber},${exerciseDto.repeatNumber})"/>
                                                 </div>
                                                 <div class="flex-item ">
                                                     <input class="modal__check" type="checkbox" id="modal${exerciseDto.id}"/>
@@ -114,9 +113,13 @@
                                                                 </form>
                                                         </div>
                                                     </div>
-                                                    <label for="modal${exerciseDto.id}" class="buttonSub" style="width: 60px;
-                                                    height: 22px;padding-top: 10px;">Update</label>
-
+                                                    <label for="modal${exerciseDto.id}"  style="width: 60px;
+                                                    height: 22px;padding-top: 10px;"><img class="update" src="../images/update.png" height="40px" width="40px" border="0"></label>
+                                                </div>
+                                                <div class="flex-item delete">
+                                                    <p>
+                                                        <a href="${pageContext.request.contextPath}/controller?command=delete_exercise&exerciseDtoId=${exerciseDto.id}"><img src="../images/delete.jpg" width="40" height="40" alt="Удалить"></a>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </c:if>
