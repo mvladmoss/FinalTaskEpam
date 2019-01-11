@@ -23,5 +23,4 @@ public class CoachByClientId implements SqlSpecification {
         return Arrays.asList(clientID);
     }
 
-
 }

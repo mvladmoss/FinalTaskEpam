@@ -10,7 +10,6 @@ html{
 	border-radius: 15px 15px 15px 15px;
 	opacity: 0.9;
 	margin: 82px -70px 0px -550px;
-/* 	margin: -100px -70px 50px -550px; */
 	width:auto;
 }
 
@@ -49,7 +48,7 @@ body{
 	margin:0;
 	color:#6a6f8c;
 
-	background:#c8c8c8;
+	background:url(/images/mainFon.jpg) no-repeat center;
 	font:600 16px/18px 'Open Sans',sans-serif;
 }
 *,:after,:before{box-sizing:border-box}
@@ -85,7 +84,6 @@ header a:hover {
 	max-width:1920px;
 	min-height:760px;
 	position:relative;
-	background: url('https://images.oyster.com/photos/fitness-center--v9449424-cc-720.jpg')  no-repeat center;
 	background-size: cover;
 	-webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
@@ -102,7 +100,7 @@ img{
 	height:100%;
 	position:absolute;
 	padding:200px 70px 50px 550px;
-	background:rgba(40,57,101,.9);
+	background: rgba(41, 58, 102, 0.75);
 }
 
 
@@ -186,7 +184,7 @@ img{
 	font-size:12px;
 }
 .login-form .group .button{
-	background:#1161ee;
+	background: rgba(21, 80, 229, 0.86);
 }
 .login-form .group label .icon{
 	width:15px;

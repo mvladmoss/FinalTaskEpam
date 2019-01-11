@@ -1,7 +1,7 @@
 package com.epam.fitness.command;
 
 import com.epam.fitness.model.Client;
-import com.epam.fitness.sale.SaleSystem;
+import com.epam.fitness.uitls.sale.SaleSystem;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.uitls.DateProducer;
 import com.epam.fitness.model.OrderInformation;

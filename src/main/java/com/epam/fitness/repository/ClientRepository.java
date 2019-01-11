@@ -63,7 +63,6 @@ public class ClientRepository extends AbstractRepository<Client> {
         long programId = client.getProgramId();
 
         return executeUpdate(INSERT_QUERY,Arrays.asList(clientId,coachId,name,surname,login,password,visitsNumber,personalSale,corporateSale,programId));
-
     }
 
 

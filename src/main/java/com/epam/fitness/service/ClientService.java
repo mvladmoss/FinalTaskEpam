@@ -86,6 +86,7 @@ public class ClientService {
             throw new ServiceException(exception.getMessage(), exception);
         }
     }
+
     public Long getNextIdInTable() throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ClientRepository clientRepository = repositoryCreator.getClientRepository();

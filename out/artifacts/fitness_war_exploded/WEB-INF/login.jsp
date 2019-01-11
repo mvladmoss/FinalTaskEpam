@@ -6,8 +6,8 @@
   <meta charset="UTF-8">
   <title>Day 001 Login Form</title>
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
-	  <link rel="stylesheet" href="../styless/loginStyle.css">
-	  <script src="../scripts/sliderHard.js" defer></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="../styless/loginStyles.css">
 </head>
 
 
@@ -16,9 +16,7 @@
   <div class="login-wrap">
 		<div class="login-html">
 	 <div class="header">
-	 		<div class="logo-header">
-	 			<img width="47" height="47" class="logo-header" src="../pictures/LOGO_1.png" alt="">
-	 		</div>
+
 		  <a href="controller?command=language&language=${sessionScope.nextLanguage}" style="float:right">RU</a>
 	  </div>
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign  In</label>
@@ -34,18 +32,7 @@
 						<label for="password" class="label">Password</label>
 						<input  name="password" id="password" type="password" class="input" data-type="password">
 					</div>
-					<%--<c:if test="${not empty errorLoginMessage}">
-						<div class="error">
-							<c:choose>
-								<c:when test="${errorLoginMessage == 'Authentication failed!'}">
-									No such user
-								</c:when>
-								<c:when test="${errorLoginMessage == 'You havent input login or password!Try again'}">
-									Input login and password please
-								</c:when>
-							</c:choose>
-						</div>
-					</c:if>--%>
+
 					<div class="group">
 						<input type="submit" class="button" value="Sign In">
 					</div>

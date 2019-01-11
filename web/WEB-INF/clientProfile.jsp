@@ -20,49 +20,10 @@
 </head>
 <body>
 <div id="wrapper">
-    <nav>
-        <ul class="top-menu">
-            <li id="home"><a href="${pageContext.servletContext.contextPath}/controller?command=main" onmouseover="changeStyle('home')" onmouseout="changeStyleBack('home')">HOME</a></li>
-            <li id="signOut" style="position: relative; left: 630px"><a href="${pageContext.servletContext.contextPath}/controller?command=sign_out"  onmouseover="changeStyle('signOut')" onmouseout="changeStyleBack('signOut')">SIGN OUT</a></li>
-            <li id="language" style="position: relative; left: 640px"><a href="${pageContext.servletContext.contextPath}/controller?command=language&currentPage=main&language=${sessionScope.nextLanguage}"  onmouseover="changeStyle('language')" onmouseout="changeStyleBack('language')">${sessionScope.language}</a></li>
-        </ul>
-    </nav>
-    <div id="heading">
-        <h1>PROFILE</h1>
-    </div>
-    <aside>
-        <h2>MENU</h2>
-        <nav>
-            <ul class="aside-menu">
-                <c:if test="${role == 'client'}">
-                    <li id="profile">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=profile" onmouseover="changeStyle('profile')" onmouseout="changeStyleBack('profile')" >Profile</a>
-                    </li>
-                    <li id="my_exercises" >
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises" onmouseover="changeStyle('my_exercises')" onmouseout="changeStyleBack('my_exercises')">My exercises</a>
-                    </li>
-                    <li id="my_nutrition" >
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_nutrition" onmouseover="changeStyle('my_nutrition')" onmouseout="changeStyleBack('my_nutrition')">My nutrition</a>
-                    </li>
-                    <li id="buyMembership">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=get_order_page" onmouseover="changeStyle('buyMembership')" onmouseout="changeStyleBack('buyMembership')" >Buy membership</a>
-                    </li>
-                    <li id="coaches">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=coaches"  onmouseover="changeStyle('coaches')" onmouseout="changeStyleBack('coaches')">Our coaches</a>
-                    </li>
-                </c:if>
-                <c:if test="${role == 'coach'}">
-                    <li id="myClients">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=all_coach_clients" onmouseover="changeStyle('myClients')" onmouseout="changeStyleBack('myClients')">My clients</a>
-                    </li>
-                </c:if>
-            </ul>
-        </nav>
-        <h2>OUR GYM</h2>
-        <p>
-            <img src="../images/gym.jpg" o width="250" height="181" alt="Our offices">
-        </p>
-    </aside>
+    <jsp:include page="menu.jsp">
+        <jsp:param name="pageTopic" value="profile"/>
+        <jsp:param name="currentPage" value="profile"/>
+    </jsp:include>
         <section>
             <div class = "container">
                 <div class="rightcolumn">

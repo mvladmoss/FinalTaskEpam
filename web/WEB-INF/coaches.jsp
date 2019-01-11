@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="../styless/clientProfileStyle.css" type="text/css">
     <link rel="stylesheet" href="../styless/clientExerciseStyle.css" type="text/css">
     <link rel="stylesheet" href="../styless/modalWindows.css" type="text/css">
-    <link rel="stylesheet" href="../styless/coachesStyle.css" type="text/css">
+    <link rel="stylesheet" href="../styless/coachesStyles.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
@@ -27,50 +27,11 @@
 </head>
 <body>
 <div id="wrapper">
-    <nav>
-        <ul class="top-menu">
-            <li id="home"><a href="${pageContext.servletContext.contextPath}/controller?command=main" onmouseover="changeStyle('home')" onmouseout="changeStyleBack('home')">HOME</a></li>
-            <li id="signOut" style="position: relative; left: 630px"><a href="${pageContext.servletContext.contextPath}/controller?command=sign_out"  onmouseover="changeStyle('signOut')" onmouseout="changeStyleBack('signOut')">SIGN OUT</a></li>
-            <li id="language" style="position: relative; left: 640px"><a href="${pageContext.servletContext.contextPath}/controller?command=language&currentPage=main&language=${sessionScope.nextLanguage}"  onmouseover="changeStyle('language')" onmouseout="changeStyleBack('language')">${sessionScope.language}</a></li>
+    <jsp:include page="menu.jsp">
+        <jsp:param name="pageTopic" value="coaches"/>
+        <jsp:param name="currentPage" value="coaches"/>
 
-        </ul>
-    </nav>
-    <div id="heading">
-        <h1>EXERCISES</h1>
-    </div>
-    <aside>
-        <h2>MENU</h2>
-        <nav>
-            <ul class="aside-menu">
-                <c:if test="${role == 'client'}">
-                    <li id="profile">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=profile" onmouseover="changeStyle('profile')" onmouseout="changeStyleBack('profile')" >Profile</a>
-                    </li>
-                    <li id="my_exercises" >
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises" onmouseover="changeStyle('my_exercises')" onmouseout="changeStyleBack('my_exercises')">My exercises</a>
-                    </li>
-                    <li id="my_nutrition" >
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_nutrition" onmouseover="changeStyle('my_nutrition')" onmouseout="changeStyleBack('my_nutrition')">My nutrition</a>
-                    </li>
-                    <li id="buyMembership">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=get_order_page" onmouseover="changeStyle('buyMembership')" onmouseout="changeStyleBack('buyMembership')" >Buy membership</a>
-                    </li>
-                    <li id="coaches">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=coaches"  onmouseover="changeStyle('coaches')" onmouseout="changeStyleBack('coaches')">Our coaches</a>
-                    </li>
-                </c:if>
-                <c:if test="${role == 'coach'}">
-                    <li id="myClients">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=all_coach_clients" onmouseover="changeStyle('myClients')" onmouseout="changeStyleBack('myClients')">My clients</a>
-                    </li>
-                </c:if>
-            </ul>
-        </nav>
-        <h2>OUR GYM</h2>
-        <p>
-            <img src="../images/gym.jpg"  width="250" height="181" alt="Our offices">
-        </p>
-    </aside>
+    </jsp:include>
     <section>
         <div class="container">
             <div class="rightcolumn">
@@ -82,6 +43,18 @@
                                     <c:choose>
                                         <c:when test="${coach_client_id==coach.id}">
                                             <li class="coach"><c:out value="${coach.name} ${coach.surname}(current coach)"/></li>
+                                            <input class="modal__check" type="checkbox" id="modal"/>
+                                            <div class="modal">
+                                                <label class="modal__closetwo" for="modal"></label>
+                                                <div class="modal__info">
+                                                    <label class="modal__close" for="modal">&times;</label>
+                                                    <form name="form" action="${pageContext.request.contextPath}/controller?command=add_comment&coach_id=${coach.id}" method="post">
+                                                        <textarea id="commentContent" name="commentContent" class="textArea"></textarea>
+                                                        <input class="button" type="submit" value="Save">
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <label for="modal" class="buttonSub changeButton" style="text-align: center;margin-top: 10px;">Comment</label>
                                         </c:when>
                                         <c:otherwise>
                                             <li class="coach"><c:out value="${coach.name} ${coach.surname} "/></li>

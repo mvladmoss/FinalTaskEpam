@@ -43,6 +43,8 @@ public class RepositoryCreator implements AutoCloseable {
 
     public NutritionRepository getNutritionRepository(){ return  new NutritionRepository(connection);}
 
+    public CommentRepository getCommentRepository(){ return  new CommentRepository(connection);}
+
     @Override
     public void close() {
         connectionPool.releaseConnection((ProxyConnection) connection);

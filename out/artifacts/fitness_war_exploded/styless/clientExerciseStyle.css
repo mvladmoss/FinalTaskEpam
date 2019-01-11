@@ -58,6 +58,7 @@
 .flex-text{
     width: 400px;
     font-size: 14px;
+    text-align: start;
     padding-left: 0;
     font-family: 'Poppins', sans-serif;
     color: #000;

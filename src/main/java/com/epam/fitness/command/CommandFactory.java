@@ -1,6 +1,8 @@
 package com.epam.fitness.command;
 
 import com.epam.fitness.command.client.RegistrationCommand;
+import com.epam.fitness.command.comment.AddComment;
+import com.epam.fitness.command.comment.ShowComments;
 import com.epam.fitness.command.nutrition.ShowClientNutritionCommand;
 import com.epam.fitness.command.exercise.AddExerciseCommand;
 import com.epam.fitness.command.client.ClientProfileCommand;
@@ -65,6 +67,14 @@ public class CommandFactory {
             }
             case DELETE_EXERCISE:{
                 resultCommand = new DeleteExerciseCommand();
+                break;
+            }
+            case ADD_COMMENT:{
+                resultCommand = new AddComment();
+                break;
+            }
+            case SHOW_COACH_COMMENTS:{
+                resultCommand = new ShowComments();
                 break;
             }
             case UPDATE_EXERCISE:{

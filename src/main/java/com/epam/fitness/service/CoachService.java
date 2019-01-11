@@ -15,7 +15,6 @@ import java.util.Optional;import com.epam.fitness.exception.ServiceException;
 
 public class CoachService  {
 
-    Collection collection = new ArrayList();
 
     public Optional<Coach> login(String login, String password) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {

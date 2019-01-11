@@ -13,8 +13,6 @@ public class CoachRepository extends AbstractRepository<Coach> {
 
     private static final String TABLE_NAME = "coach";
 
-
-
     public CoachRepository(Connection connection) {
         super(connection);
     }

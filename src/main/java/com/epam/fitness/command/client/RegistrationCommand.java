@@ -6,7 +6,7 @@ import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.model.Program;
-import com.epam.fitness.sale.SaleSystem;
+import com.epam.fitness.uitls.sale.SaleSystem;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.NutritionService;
 import com.epam.fitness.service.ProgramService;
@@ -48,7 +48,7 @@ public class RegistrationCommand implements Command {
         client.setName(name);
         client.setSurname(surname);
         client.setVisitNumber(START_VISIT_NUMBER);
-        float personalSale = SaleSystem.getSaleByVisitNumber(client.getVisitNumber());
+        float personalSale = SaleSystem.getSaleByVisitNumber(START_VISIT_NUMBER);
         client.setPersonalSale(personalSale);
         client.setCorporateSale(CORPORATE_SALE);
         Program program = createProgram();

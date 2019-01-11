@@ -19,6 +19,8 @@ public enum CommandType{
     UPDATE_EXERCISE("update_exercise"),
     UPDATE_NUTRITION("update_nutrition"),
     SHOW_CLIENT_NUTRITION("show_client_nutrition"),
+    ADD_COMMENT("add_comment"),
+    SHOW_COACH_COMMENTS("show_coach_comments"),
     LANGUAGE("language");
 
     private String command;

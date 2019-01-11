@@ -28,74 +28,36 @@
 </head>
 <body>
 <div id="wrapper">
-    <nav>
-        <ul class="top-menu">
-            <li id="home"><a href="${pageContext.servletContext.contextPath}/controller?command=main" onmouseover="changeStyle('home')" onmouseout="changeStyleBack('home')">HOME</a></li>
-            <li id="signOut" style="position: relative; left: 630px"><a href="${pageContext.servletContext.contextPath}/controller?command=sign_out"  onmouseover="changeStyle('signOut')" onmouseout="changeStyleBack('signOut')">SIGN OUT</a></li>
-            <li id="language" style="position: relative; left: 640px"><a href="${pageContext.servletContext.contextPath}/controller?command=language&currentPage=main&language=${sessionScope.nextLanguage}"  onmouseover="changeStyle('language')" onmouseout="changeStyleBack('language')">${sessionScope.language}</a></li>
-
-        </ul>
-    </nav>
-    <div id="heading">
-        <h1>EXERCISES</h1>
-    </div>
-    <aside>
-        <h2>MENU</h2>
-        <nav>
-            <ul class="aside-menu">
-                <c:if test="${role == 'client'}">
-                    <li id="profile">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=profile" onmouseover="changeStyle('profile')" onmouseout="changeStyleBack('profile')" >Profile</a>
-                    </li>
-                    <li id="my_exercises" >
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_exercises" onmouseover="changeStyle('my_exercises')" onmouseout="changeStyleBack('my_exercises')">My exercises</a>
-                    </li>
-                    <li id="my_nutrition" >
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=show_client_nutrition" onmouseover="changeStyle('my_nutrition')" onmouseout="changeStyleBack('my_nutrition')">My nutrition</a>
-                    </li>
-                    <li id="buyMembership">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=get_order_page" onmouseover="changeStyle('buyMembership')" onmouseout="changeStyleBack('buyMembership')" >Buy membership</a>
-                    </li>
-                    <li id="coaches">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=coaches"  onmouseover="changeStyle('coaches')" onmouseout="changeStyleBack('coaches')">Our coaches</a>
-                    </li>
-                </c:if>
-                <c:if test="${role == 'coach'}">
-                    <li id="myClients">
-                        <a href="${pageContext.servletContext.contextPath}/controller?command=all_coach_clients" onmouseover="changeStyle('myClients')" onmouseout="changeStyleBack('myClients')">My clients</a>
-                    </li>
-                </c:if>
-            </ul>
-        </nav>
-        <h2>OUR GYM</h2>
-        <p>
-            <img src="../images/gym.jpg"  width="250" height="181" alt="Our offices">
-        </p>
-    </aside>
+    <jsp:include page="menu.jsp">
+        <jsp:param name="pageTopic" value="exercises"/>
+        <jsp:param name="currentPage" value="show_client_exercises"/>
+    </jsp:include>
     <section>
         <div class="container">
             <div class="rightcolumn">
-                <jsp:useBean id="program" type="com.epam.fitness.model.Program" scope="request"/>
-                <input id="programIdBlock" value="${program.id}" style="display: none;">
-                <div class="tabs">
-                    <c:forEach var = "i" begin = "1" end = "${program.trainsPerWeek}">
-                        <input class="tabs__tab" type="radio" id="tabs__tab${i}" onclick="setCurrentTrainDayInForm('${i}')" name="tabstab" style="display: none;" checked="checked"/>
-                            <label class="tabs__title" for="tabs__tab${i}">Day <c:out value="${i}"/></label>
+                <c:choose>
+                    <c:when test="${is_membership_valid == true}">
+                        <jsp:useBean id="program" type="com.epam.fitness.model.Program" scope="request"/>
+                        <input id="programIdBlock" value="${program.id}" style="display: none;">
+                        <div class="tabs">
+                            <c:forEach var = "i" begin = "1" end = "${program.trainsPerWeek}">
+                                <input class="tabs__tab" type="radio" id="tabs__tab${i}" onclick="setCurrentTrainDayInForm('${i}')" name="tabstab" style="display: none;" checked="checked"/>
+                                <label class="tabs__title" for="tabs__tab${i}">Day <c:out value="${i}"/></label>
                                 <div class="tabs__text">
-                                <ul>
-                                    <c:forEach items="${program.exercises}" var="exerciseDto">
-                                        <c:if test="${exerciseDto.numberTrainDay==i}">
-                                            <div class="flex-container">
-                                                <div class="flex-item flex-text">
-                                                    <c:out value="${exerciseDto.exercise.name}(${exerciseDto.setNumber},${exerciseDto.repeatNumber})"/>
-                                                </div>
-                                                <div class="flex-item ">
-                                                    <input class="modal__check" type="checkbox" id="modal${exerciseDto.id}"/>
-                                                    <div class="modal">
-                                                        <label class="modal__closetwo" for="modal${exerciseDto.id}"></label>
-                                                        <div class="modal__info">
-                                                            <label class="modal__close" for="modal${exerciseDto.id}">&times;</label>
-                                                            <h2 class="edit" >Edit</h2>
+                                    <ul>
+                                        <c:forEach items="${program.exercises}" var="exerciseDto">
+                                            <c:if test="${exerciseDto.numberTrainDay==i}">
+                                                <div class="flex-container">
+                                                    <div class="flex-item flex-text">
+                                                        <c:out value="${exerciseDto.exercise.name}(${exerciseDto.setNumber},${exerciseDto.repeatNumber})"/>
+                                                    </div>
+                                                    <div class="flex-item ">
+                                                        <input class="modal__check" type="checkbox" id="modal${exerciseDto.id}"/>
+                                                        <div class="modal">
+                                                            <label class="modal__closetwo" for="modal${exerciseDto.id}"></label>
+                                                            <div class="modal__info">
+                                                                <label class="modal__close" for="modal${exerciseDto.id}">&times;</label>
+                                                                <h2 class="edit" >Edit</h2>
                                                                 <form action="${pageContext.request.contextPath}/controller?command=update_exercise&exerciseDtoId=${exerciseDto.id}" method="post">
                                                                     <div class="col-25" style="margin-left: -11px;">
                                                                         <label for="setNumber">Number of set</label>
@@ -111,60 +73,68 @@
                                                                     </div>
                                                                     <input type="submit" class="buttonSub" value="Update" id="update" style="margin-top: 10px;">
                                                                 </form>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <label for="modal${exerciseDto.id}"  style="width: 60px;
+                                                        <label for="modal${exerciseDto.id}"  style="width: 60px;
                                                     height: 22px;padding-top: 10px;"><img class="update" src="../images/update.png" height="40px" width="40px" border="0"></label>
+                                                    </div>
+                                                    <div class="flex-item delete">
+                                                        <p>
+                                                            <a href="${pageContext.request.contextPath}/controller?command=delete_exercise&exerciseDtoId=${exerciseDto.id}"><img src="../images/delete.jpg" width="40" height="40" alt="Удалить"></a>
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <div class="flex-item delete">
-                                                    <p>
-                                                        <a href="${pageContext.request.contextPath}/controller?command=delete_exercise&exerciseDtoId=${exerciseDto.id}"><img src="../images/delete.jpg" width="40" height="40" alt="Удалить"></a>
-                                                    </p>
+                                            </c:if>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+
+                            </c:forEach>
+                        </div>
+                        <input class="modal__check" type="checkbox" id="modal"/>
+                        <div class="modal">
+                            <label class="modal__closetwo" for="modal"></label>
+                            <div class="modal__info">
+                                <label class="modal__close" for="modal">&times;</label>
+                                <input type="search" oninput="makeRequest()" placeholder="Enter the name of exercise" name="searchType" id="searchType" style="width: 30%">
+                                <hr style="margin-left: -20px;width: 110%;">
+                                <form name="form" class="beatForm" action="${pageContext.request.contextPath}/controller?command=add_exercise&trainDay=${program.trainsPerWeek}" method="post">
+                                    <div id="reg" style="display: none">
+                                        <input type="button" class="buttonSub" onclick="chang('{exercise.id}')" style='width: 700px;' value="{exercise.name}">
+                                        <div id="informer{exercise.id}" class="b-toggle">
+                                            <div class="exercise">
+                                                <div class="col-25">
+                                                    <label for="setNumber">Sets</label>
+                                                </div>
+                                                <div class="col-75">
+                                                    <input id="setNumber{exercise.id}"  type="text">
+                                                </div>
+
+                                                <div class="col-25">
+                                                    <label for="setNumber">Repeats</label>
+                                                </div>
+                                                <div class="col-75">
+                                                    <input id="repeats{exercise.id}"  type="text">
                                                 </div>
                                             </div>
-                                        </c:if>
-                                    </c:forEach>
-                                </ul>
-                            </div>
-
-                    </c:forEach>
-                </div>
-                <input class="modal__check" type="checkbox" id="modal"/>
-                <div class="modal">
-                    <label class="modal__closetwo" for="modal"></label>
-                    <div class="modal__info">
-                        <label class="modal__close" for="modal">&times;</label>
-                        <input type="search" oninput="makeRequest()" placeholder="Enter the name of exercise" name="searchType" id="searchType" style="width: 30%">
-                        <hr style="margin-left: -20px;width: 110%;">
-                        <form name="form" class="beatForm" action="${pageContext.request.contextPath}/controller?command=add_exercise&trainDay=${program.trainsPerWeek}" method="post">
-                            <div id="reg" style="display: none">
-                                <input type="button" class="buttonSub" onclick="chang('{exercise.id}')" style='width: 700px;' value="{exercise.name}">
-                                <div id="informer{exercise.id}" class="b-toggle">
-                                    <div class="exercise">
-                                        <div class="col-25">
-                                            <label for="setNumber">Sets</label>
-                                        </div>
-                                        <div class="col-75">
-                                            <input id="setNumber{exercise.id}"  type="text">
-                                        </div>
-
-                                        <div class="col-25">
-                                            <label for="setNumber">Repeats</label>
-                                        </div>
-                                        <div class="col-75">
-                                            <input id="repeats{exercise.id}"  type="text">
+                                            <input type="submit" class="button" onclick="setExerciseProgram('{exercise.id}','{program.id}')" value="Add">
                                         </div>
                                     </div>
-                                    <input type="submit" class="button" onclick="setExerciseProgram('{exercise.id}','{program.id}')" value="Add">
-                                </div>
+                                    <br/>
+                                    <hr style="margin-left: -20px;width: 110%;"/>
+                                </form>
                             </div>
-                            <br/>
-                            <hr style="margin-left: -20px;width: 110%;"/>
-                        </form>
-                    </div>
+                        </div>
+                        <label for="modal" class="buttonSub" onclick="makeRequest()" style="text-align: center;margin-top: 10px;">Add exercise</label>
+
+                    </c:when>
+                    <c:otherwise>
+                        <c:out value="You can not have program until you don't buy membership"/>
+                        <a href="${pageContext.servletContext.contextPath}/controller?command=get_order_page">Buy</a>
+
+                    </c:otherwise>
+                </c:choose>
                 </div>
-                <label for="modal" class="buttonSub" onclick="makeRequest()" style="text-align: center;margin-top: 10px;">Add exercise</label>
-            </div>
 
         </div>
     </section>
@@ -172,34 +142,5 @@
 
 </body>
 </html>
-
-
-
-
-<%--<c:forEach items="${exercises}" var="exercise">
-    <div id="reg">
-        <input type="button" class="button" onclick="chang(${exercise.id})" value="${exercise.name}">
-        <div id="informer${exercise.id}" class="b-toggle">
-            <div class="exercise">
-                <div class="col-25">
-                    <label for="setNumber">Sets</label>
-                </div>
-                <div class="col-75">
-                    <input id="setNumber${exercise.id}"  type="text">
-                </div>
-
-                <div class="col-25">
-                    <label for="setNumber">Repeats</label>
-                </div>
-                <div class="col-75">
-                    <input id="repeats${exercise.id}"  type="text">
-                </div>
-            </div>
-            <input type="submit" class="button" onclick="setExerciseProgram('${exercise.id}','${program.id}')" value="Add">
-        </div>
-    </div>
-    <br/>
-    <hr style="margin-left: -20px;width: 110%;"/>
-</c:forEach>--%>
 
 

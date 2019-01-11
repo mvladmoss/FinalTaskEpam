@@ -16,6 +16,7 @@ public class Client implements Serializable,Identifiable {
     private Float corporateSale;
     private Long programId;
 
+    //For Tests maybe
     public static final String ID = "id_client";
     public static final String ID_COACH = "coach_id";
     public static final String NAME = "name";
@@ -28,11 +29,11 @@ public class Client implements Serializable,Identifiable {
     public static final String ID_PROGRAM = "program_id";
 
 
-    public Client(Long id, Long coachId, String name, String suranme, String login, String password, Integer visitNumber, Float personalSale, Float corporateSale, Long programId){
+    public Client(Long id, Long coachId, String name, String surname, String login, String password, Integer visitNumber, Float personalSale, Float corporateSale, Long programId){
         this.id = id;
         this.coachId = coachId;
         this.name = name;
-        this.surname = suranme;
+        this.surname = surname;
         this.login = login;
         this.password = password;
         this.visitNumber = visitNumber;
