@@ -59,6 +59,9 @@
     <c:if test="${param.pageTopic eq 'buy_gym_membership'}">
         <h1>${buy_gym_membership}</h1>
     </c:if>
+    <c:if test="${param.pageTopic eq 'show_comments'}">
+        <h1>${comments_about_me}</h1>
+    </c:if>
 
 </div>
 <aside>
@@ -94,6 +97,6 @@
     </nav>
     <h2>OUR GYM</h2>
     <p>
-        <img src="../images/gym.jpg" o width="250" height="181" alt="Our offices">
+        <img src="../images/gym.jpg" o width="250" height="181" style="margin-bottom: -5px;" alt="Our offices">
     </p>
 </aside>

@@ -25,9 +25,8 @@
 <body>
 <div id="wrapper">
     <jsp:include page="menu.jsp">
-        <jsp:param name="pageTopic" value="about_us"/>
+        <jsp:param name="pageTopic" value="nutrition"/>
         <jsp:param name="currentPage" value="show_client_nutrition"/>
-
     </jsp:include>
     <section>
         <div class="container">

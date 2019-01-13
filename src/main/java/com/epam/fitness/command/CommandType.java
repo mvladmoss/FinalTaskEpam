@@ -21,6 +21,7 @@ public enum CommandType{
     SHOW_CLIENT_NUTRITION("show_client_nutrition"),
     ADD_COMMENT("add_comment"),
     SHOW_COACH_COMMENTS("show_coach_comments"),
+    REJECT_COACH("reject_coach"),
     LANGUAGE("language");
 
     private String command;

@@ -1,6 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 
 <!doctype html>
 <html lang="${sessionScope.language}">
@@ -12,6 +14,7 @@
     <link rel="stylesheet" href="../styless/clientProfileStyle.css" type="text/css">
     <link rel="stylesheet" href="../styless/clientExerciseStyle.css" type="text/css">
     <link rel="stylesheet" href="../styless/modalWindows.css" type="text/css">
+    <link rel="stylesheet" href="../styless/coachCommentStyle.css" type="text/css">
     <link rel="stylesheet" href="../styless/clientNutritionStyles.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC" rel="stylesheet">
@@ -22,18 +25,34 @@
 <body>
 <div id="wrapper">
     <jsp:include page="menu.jsp">
-        <jsp:param name="pageTopic" value="about_us"/>
-        <jsp:param name="currentPage" value="show_client_nutrition"/>
-
+        <jsp:param name="pageTopic" value="show_comments"/>
+        <jsp:param name="currentPage" value="show_coach_comments"/>
     </jsp:include>
     <section>
         <div class="container">
-            <div class="rightcolumn">
-                <c:forEach var="coachComment" items="${comments}">
-                    <c:out value="${coachComment.commmentContent}"/>
-                    <hr>
-                    <br>
-                </c:forEach>
+            <div class="rightcolumn" style="overflow-y: scroll; overflow-x: hidden;height: 350px;">
+                <c:choose>
+                    <c:when test="${fn:length(comments) eq 0}">
+                        <h3><c:out value="There is no comments about you"/></h3>
+                    </c:when>
+                    <c:otherwise>
+                        <div style="margin-top: -60px;">
+                            <c:forEach var="coachComment" items="${comments}">
+                                <div class="flex-container" style="padding-top: 30px;">
+                                    <div class="flex-item">
+                                        <img src="../images/user.png" height="100px">
+                                    </div>
+                                    <div class="flex-item">
+                                        <h3><c:out value="${coachComment.value.name} ${coachComment.value.surname}"/></h3>
+                                        <br>
+                                        <h5><c:out value="${coachComment.key.commentContent}"/></h5>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+
             </div>
 
         </div>

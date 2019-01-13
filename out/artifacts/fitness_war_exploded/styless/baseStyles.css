@@ -194,10 +194,10 @@ section p {
 }
 
 figure {
-    display: inline-block;
-    margin: 0;
+    display: table-cell;
     font-family: 'Oswald', sans-serif;
     font-weight: 300;
+    margin-top: 20px;
 }
 
 figure img {
@@ -372,4 +372,18 @@ footer p {
     margin-top: 20px;
     font-size: 10px;
     text-align: right;
+}
+.textP{
+    font-family: 'Lato', sans-serif;
+    color: black;
+    font-size: 16px;
+}
+
+.tabImage{
+    margin-left: 48px;
+    margin-top: 5px;
+}
+
+.tabGrip{
+    margin-left: 48px;
 }

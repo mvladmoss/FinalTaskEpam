@@ -3,13 +3,18 @@ package com.epam.fitness.command.comment;
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
 import com.epam.fitness.exception.ServiceException;
+import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Comment;
+import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.CommentService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class ShowComments implements Command {
 
@@ -22,10 +27,20 @@ public class ShowComments implements Command {
         Long coachId = (Long) session.getAttribute("id");
         CommentService commentService = new CommentService();
         List<Comment> comments = commentService.findByCoachId(coachId);
-        request.setAttribute(COMMENTS,comments);
-        for(Comment comment : comments){
-            System.out.println(comment.getCommmentContent());
+        if(comments.size()!=0){
+             Map<Comment,Client> commentClientMap = makeMapCommentAppropriateClient(comments);
+             request.setAttribute(COMMENTS,commentClientMap);
         }
         return new CommandResult(COACH_COMMENTS_PAGE,false);
+    }
+
+    private Map<Comment,Client> makeMapCommentAppropriateClient(List<Comment> comments) throws ServiceException {
+        Map<Comment,Client> commentClientMap = new HashMap<>();
+        ClientService clientService = new ClientService();
+        for(Comment comment : comments){
+            Optional<Client> clientOptional = clientService.findById(comment.getClientId());
+            clientOptional.ifPresent(client -> commentClientMap.put(comment,client));
+        }
+        return commentClientMap;
     }
 }

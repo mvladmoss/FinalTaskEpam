@@ -42,37 +42,53 @@
                                 <div>
                                     <c:choose>
                                         <c:when test="${coach_client_id==coach.id}">
-                                            <li class="coach"><c:out value="${coach.name} ${coach.surname}(current coach)"/></li>
-                                            <input class="modal__check" type="checkbox" id="modal"/>
-                                            <div class="modal">
-                                                <label class="modal__closetwo" for="modal"></label>
-                                                <div class="modal__info">
-                                                    <label class="modal__close" for="modal">&times;</label>
-                                                    <form name="form" action="${pageContext.request.contextPath}/controller?command=add_comment&coach_id=${coach.id}" method="post">
-                                                        <textarea id="commentContent" name="commentContent" class="textArea"></textarea>
-                                                        <input class="button" type="submit" value="Save">
-                                                    </form>
+                                            <div  class="flex-container">
+                                                <div class="flex-item flex-text">
+                                                    <li class="coach" style="margin-left: 35px;"><c:out value="${coach.name} ${coach.surname}(current coach)"/></li>
+                                                </div>
+                                                <div class="flex-item">
+                                                <input class="modal__check" type="checkbox" id="modal"/>
+                                                <div class="modal">
+                                                    <label class="modal__closetwo" for="modal"></label>
+                                                    <div class="modal__info">
+                                                        <label class="modal__close" for="modal">&times;</label>
+                                                        <form name="form" action="${pageContext.request.contextPath}/controller?command=add_comment&coach_id=${coach.id}" method="post">
+                                                            <h2 style="color: black;font: 25px 'Oswald', sans-serif; margin-top: -5px">Your comment</h2>
+                                                            <textarea id="commentContent" name="commentContent" class="textArea"></textarea>
+                                                            <input class="button" type="submit" value="Save">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <label for="modal"><img class="update" src="../images/comment.png" height="40px" width="40px" border="0" title="comment coach" style=" padding-top: 15px;margin-left: -280px;">
+                                                </label>
+                                                </div>
+                                                <div class="flex-item">
+                                                    <a href="${pageContext.request.contextPath}/controller?command=reject_coach"><img src="../images/rejectCoach.png" width="40" height="40" style="margin-left: -320px;" title="reject coach" alt="Удалить">
+                                                    </a>
                                                 </div>
                                             </div>
-                                            <label for="modal" class="buttonSub changeButton" style="text-align: center;margin-top: 10px;">Comment</label>
                                         </c:when>
                                         <c:otherwise>
                                             <li class="coach"><c:out value="${coach.name} ${coach.surname} "/></li>
-                                            <form action="${pageContext.servletContext.contextPath}/controller?command=choose_coach&coachId=${coach.id}" method="post">
-                                                <input class="button li_button" type="submit" value="Change">
-                                            </form>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
                             </c:forEach>
                         </c:when>
                         <c:otherwise>
+                            <h2 style="color: black;font: 25px 'Oswald', sans-serif; margin-top: -5px;margin-left: 170px;">Choose any coach</h2>
                             <c:forEach items="${coaches}" var="coach">
                                 <div>
-                                    <li class="coach"><c:out value="${coach.name} ${coach.surname}"/></li>
-                                    <form action="${pageContext.servletContext.contextPath}/controller?command=choose_coach&coachId=${coach.id}" method="post">
-                                        <input class="button li_button" type="submit" value="Choose">
-                                    </form>
+                                    <div class="flex-container">
+                                        <div class="flex-item" style="margin-left: 20px; width: 130px">
+                                            <li class="coach"><c:out value="${coach.name} ${coach.surname}"/></li>
+                                        </div>
+                                        <div class="flex-item">
+                                            <a href="${pageContext.servletContext.contextPath}/controller?command=choose_coach&coachId=${coach.id}">
+                                                <img src="../images/acceptCoach.png" width="40" height="40" style=" margin-left: 30px;" title="Choose coach" alt="Удалить">
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </c:forEach>
                         </c:otherwise>

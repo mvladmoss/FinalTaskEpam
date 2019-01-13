@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="../styless/buyGymMembershipStyles.css" rel="stylesheet">
     <script src="../scripts/button.js"></script>
-    <script src="../scripts/setCosts.js"></script>
+    <script src="../scripts/setCost.js"></script>
     <script src="../scripts/setCommands.js"></script>
 
 </head>
@@ -24,7 +24,7 @@
 <div id="wrapper">
     <jsp:include page="menu.jsp">
         <jsp:param name="pageTopic" value="buy_gym_membership"/>
-        <jsp:param name="currentPage" value="buy_gym_membership"/>
+        <jsp:param name="currentPage" value="get_order_page"/>
     </jsp:include>
     <section>
         <div class = "container">
@@ -35,7 +35,7 @@
                         <label for="period_cost">Select the duration</label>
                     </div>
                     <div class="col-75">
-                        <select id="period_cost" onchange="setCosts()" name="period">
+                        <select id="period_cost" onchange="setCost()" name="period">
                             <option value="Choose tariff"></option>
                             <c:forEach items="${tariffs}" var="tariff">
                                 <option value="${tariff.value}">${tariff.key}</option>
@@ -71,7 +71,7 @@
                         <input type="text" id="final_cost" name="final_cost"  value="0.0$" readonly>
                     </div>
 
-                    <form name="form" action="${pageContext.servletContext.contextPath}/controller?command=update_gym_membership" method="post">
+                    <form name="form" action="${pageContext.servletContext.contextPath}/controller?command=update_gym_membership&period=" method="post">
                         <div  class="findButtonDiv">
                             <c:choose>
                                 <c:when test="${end_date_membership=='true'}">

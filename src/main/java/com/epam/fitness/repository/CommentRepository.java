@@ -46,7 +46,7 @@ public class CommentRepository extends AbstractRepository<Comment> {
         Long coachId = comment.getCoachId();
         Long clientId = comment.getClientId();
 
-        String commentContent = comment.getCommmentContent();
+        String commentContent = comment.getCommentContent();
         return executeUpdate(INSERT_QUERY,Arrays.asList(commentId,coachId,clientId,commentContent));
 
     }

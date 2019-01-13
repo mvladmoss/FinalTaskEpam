@@ -18,7 +18,7 @@ public class CommentBuilder implements Builder<Comment> {
             Long coachId = resultSet.getLong("coach_id");
             comment.setCoachId(coachId);
             String commentContent = resultSet.getString("commentContent");
-            comment.setCommmentContent(commentContent);
+            comment.setCommentContent(commentContent);
         }catch (SQLException exception){
             throw new RepositoryException(exception.getMessage(),exception);
         }

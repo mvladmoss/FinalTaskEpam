@@ -5,12 +5,12 @@ public class Comment implements Identifiable {
     private Long id;
     private Long clientId;
     private Long coachId;
-    private String commmentContent;
+    private String commentContent;
 
     public Comment(Long clientId, Long coachId, String commentContent){
         this.clientId = clientId;
         this.coachId = coachId;
-        this.commmentContent = commentContent;
+        this.commentContent = commentContent;
     }
 
     public Comment(){}
@@ -40,11 +40,11 @@ public class Comment implements Identifiable {
         this.coachId = coachId;
     }
 
-    public String getCommmentContent() {
-        return commmentContent;
+    public String getCommentContent() {
+        return commentContent;
     }
 
-    public void setCommmentContent(String commmentContent) {
-        this.commmentContent = commmentContent;
+    public void setCommentContent(String commmentContent) {
+        this.commentContent = commmentContent;
     }
 }

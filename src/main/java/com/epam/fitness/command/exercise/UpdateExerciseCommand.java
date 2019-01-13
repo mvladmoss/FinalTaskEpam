@@ -3,6 +3,7 @@ package com.epam.fitness.command.exercise;
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
 import com.epam.fitness.model.Client;
+import com.epam.fitness.model.Exercise;
 import com.epam.fitness.model.dto.ExerciseDto;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.ExerciseDtoService;
@@ -19,22 +20,26 @@ public class UpdateExerciseCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        updateExerciseDto(request);
+        HttpSession session = request.getSession();
+        if(session.getAttribute("role").equals("coach")){
+            setClientId(request);
+        }
+        return new CommandResult(profilePage,true);
+    }
+
+    private void updateExerciseDto(HttpServletRequest request) throws ServiceException {
         Long exerciseDtoId = Long.valueOf(request.getParameter("exerciseDtoId"));
         int repeats = Integer.parseInt(request.getParameter("repeats"));
         int setNumber = Integer.parseInt(request.getParameter("setNumber"));
         ExerciseDtoService exerciseDtoService = new ExerciseDtoService();
-        System.out.println(exerciseDtoId);
         Optional<ExerciseDto> exerciseDto = exerciseDtoService.findById(exerciseDtoId);
         exerciseDto.get().setSetNumber(setNumber);
         exerciseDto.get().setRepeatNumber(repeats);
         exerciseDtoService.save(exerciseDto.get());
-        HttpSession session = request.getSession();
-        if(session.getAttribute("role").equals("coach")){
-            setCLientId(request);
-        }
-        return new CommandResult(profilePage,true);
     }
-    private void setCLientId(HttpServletRequest request) throws ServiceException {
+
+    private void setClientId(HttpServletRequest request) throws ServiceException {
         long exerciseDtoId = Long.parseLong(request.getParameter("exerciseDtoId"));
         ClientService clientService = new ClientService();
         Optional<Client> clientOptional = clientService.findByExerciseDtoId(exerciseDtoId);

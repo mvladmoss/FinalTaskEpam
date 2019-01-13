@@ -66,7 +66,7 @@
                                                                         <input type="text" id="setNumber" style="width: 101%;" name="setNumber">
                                                                     </div>
                                                                     <div class="col-25" style="margin-left: -31px;">
-                                                                        <label for="repeats">Repeats</label>
+                                                                        <label for="repeats" style="margin-left: 10px;margin-top: 5px;">Repeats</label>
                                                                     </div>
                                                                     <div class="col-75">
                                                                         <input type="text" style="width: 101%; margin-left: 20px;;" id="repeats" name="repeats">
@@ -104,17 +104,17 @@
                                         <div id="informer{exercise.id}" class="b-toggle">
                                             <div class="exercise">
                                                 <div class="col-25">
-                                                    <label for="setNumber">Sets</label>
+                                                    <label for="setNumber" style="margin-top: 5px;">Sets</label>
                                                 </div>
                                                 <div class="col-75">
-                                                    <input id="setNumber{exercise.id}"  type="text">
+                                                    <input id="setNumber{exercise.id}" style="margin-left: -170px;width: 618px;"  type="text">
                                                 </div>
 
                                                 <div class="col-25">
-                                                    <label for="setNumber">Repeats</label>
+                                                    <label for="setNumber" style="margin-top: 5px;">Repeats</label>
                                                 </div>
                                                 <div class="col-75">
-                                                    <input id="repeats{exercise.id}"  type="text">
+                                                    <input id="repeats{exercise.id}" style="margin-left: -170px;width: 618px;"  type="text">
                                                 </div>
                                             </div>
                                             <input type="submit" class="button" onclick="setExerciseProgram('{exercise.id}','{program.id}')" value="Add">
