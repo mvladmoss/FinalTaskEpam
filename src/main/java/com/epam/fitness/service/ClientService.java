@@ -10,9 +10,11 @@ import com.epam.fitness.repository.specifications.client.CLientByProgramId;
 import com.epam.fitness.repository.specifications.client.ClientByLoginAndPassword;
 import com.epam.fitness.repository.specifications.client.ClientByNutritionId;
 import com.epam.fitness.repository.specifications.client.ClientsByCoachId;
+import com.sun.javafx.image.IntPixelGetter;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.*;
 
 public class ClientService {
 
@@ -95,5 +97,6 @@ public class ClientService {
             throw new ServiceException(exception.getMessage(), exception);
         }
     }
+
 }
 

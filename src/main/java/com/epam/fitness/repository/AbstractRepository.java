@@ -6,7 +6,7 @@ import com.epam.fitness.connection.ConnectionPool;
 import com.epam.fitness.connection.ProxyConnection;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Identifiable;
-import com.epam.fitness.uitls.StatementUtil;
+import com.epam.fitness.utils.StatementUtil;
 
 import java.sql.*;
 import java.util.*;

@@ -38,7 +38,6 @@ public class AddExerciseCommand implements Command {
         int setNumber = Integer.parseInt(request.getParameter("setNumber"));
         exerciseDto.setSetNumber(setNumber);
         int trainDay = Integer.parseInt(request.getParameter("trainDay"));
-        System.out.println(trainDay);
         exerciseDto.setNumberTrainDay(trainDay);
         long programId = Long.parseLong(request.getParameter("programId"));
         exerciseDto.setProgramId(programId);

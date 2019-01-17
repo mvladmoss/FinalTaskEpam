@@ -2,7 +2,6 @@ package com.epam.fitness.builder;
 
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Client;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.junit.Assert;
 import org.junit.Test;
 

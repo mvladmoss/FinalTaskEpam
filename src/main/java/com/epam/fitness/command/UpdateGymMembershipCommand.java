@@ -1,11 +1,11 @@
 package com.epam.fitness.command;
 
 import com.epam.fitness.model.Client;
-import com.epam.fitness.uitls.sale.SaleSystem;
+import com.epam.fitness.utils.sale.SaleSystem;
 import com.epam.fitness.service.ClientService;
-import com.epam.fitness.uitls.DateProducer;
+import com.epam.fitness.utils.DateProducer;
 import com.epam.fitness.model.OrderInformation;
-import com.epam.fitness.uitls.PeriodCost;
+import com.epam.fitness.utils.PeriodCost;
 import com.epam.fitness.service.OrderInformationService;
 
 import javax.servlet.http.HttpServletRequest;

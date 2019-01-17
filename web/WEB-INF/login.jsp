@@ -19,9 +19,9 @@
 
 		  <a href="controller?command=language&language=${sessionScope.nextLanguage}" style="float:right">RU</a>
 	  </div>
-		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign  In</label>
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab" >Sign  In</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
-		<div class="login-form">
+		<div class="login-form" >
 			<form action="${pageContext.servletContext.contextPath}/controller?command=login" method="post">
 				<div class="sign-in-htm">
 					<div class="group">

@@ -75,10 +75,12 @@
                         <div  class="findButtonDiv">
                             <c:choose>
                                 <c:when test="${end_date_membership=='true'}">
-                                    <input type="submit" class="button" value="Extend" id="findButton" style="margin: 10px 15px 5px -10px;">
+                                    <input type="submit" class="button" value="Extend" id="findButton" style="color: white; text-align: center; margin: 10px 15px 5px -10px;width: 80px; height: 50px; font: 14px Tahoma, sans-serif; background: #29c5e6;
+">
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="submit" class="buttonSub" value="Buy" id="findButton">
+                                    <input type="submit" class="button" value="Buy" id="findButton" style="color: white; text-align: center; margin: 10px 15px 5px -10px;width: 80px; height: 50px; font: 14px Tahoma, sans-serif; background: #29c5e6;
+">
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -91,7 +93,6 @@
 
 </body>
 </html>
-
 
 
 

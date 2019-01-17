@@ -17,6 +17,12 @@ public class NutritionBuilder implements Builder<Nutrition> {
             nutrition.setName(name);
             String description = resultSet.getString("description");
             nutrition.setDescription(description);
+            String morningNutrition = resultSet.getString("morning_nutrition");
+            nutrition.setMorningNutrition(morningNutrition);
+            String lunchNutrition = resultSet.getString("lunch_nutrition");
+            nutrition.setLunchNutrition(lunchNutrition);
+            String dinnerNutrition = resultSet.getString("dinner_nutrition");
+            nutrition.setDinnerNutrition(dinnerNutrition);
             return nutrition;
         }catch (SQLException exception){
             throw new RepositoryException(exception.getMessage(),exception);

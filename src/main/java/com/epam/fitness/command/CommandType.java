@@ -22,6 +22,7 @@ public enum CommandType{
     ADD_COMMENT("add_comment"),
     SHOW_COACH_COMMENTS("show_coach_comments"),
     REJECT_COACH("reject_coach"),
+    GYM_PHOTOS("gym_photos"),
     LANGUAGE("language");
 
     private String command;

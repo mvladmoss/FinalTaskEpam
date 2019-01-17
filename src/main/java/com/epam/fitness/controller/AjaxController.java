@@ -3,10 +3,10 @@ package com.epam.fitness.controller;
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Exercise;
 import com.epam.fitness.service.ExerciseService;
-import com.epam.fitness.uitls.json.JsonCreator;
-import com.epam.fitness.uitls.json.JsonExerciseCreator;
-import com.epam.fitness.uitls.search.SearchExerciseSystem;
-import com.epam.fitness.uitls.search.SearchSystem;
+import com.epam.fitness.utils.json.JsonCreator;
+import com.epam.fitness.utils.json.JsonExerciseCreator;
+import com.epam.fitness.utils.search.SearchExerciseSystem;
+import com.epam.fitness.utils.search.SearchSystem;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

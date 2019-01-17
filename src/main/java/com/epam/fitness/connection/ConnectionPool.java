@@ -1,15 +1,12 @@
 package com.epam.fitness.connection;
 
-
-import java.io.IOException;
-import java.io.InputStream;
+import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.Enumeration;
-import java.util.Properties;
+import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -17,16 +14,21 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class ConnectionPool {
 
-//    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class.getName());
     private BlockingQueue<ProxyConnection> connectionQueue;
     private static AtomicBoolean instanceCreated = new AtomicBoolean(false);
+    private ConnectionConfigurationCreator connectionConfigurationCreator;
+    private final static String PROPERTIES_FILE_NAME = "database.properties";
+    private final static String URL = "url";
+    private final static String USER = "user";
+    private final static String PASSWORD = "password";
+    private final static String DRIVER = "driver";
+    private final static String POOLSIZE = "poolSize";
 
     private String user;
     private String password;
     private String driver;
-
     private int poolSize;
-
     private String url;
 
     private static final ConnectionPool INSTANCE = new ConnectionPool();
@@ -35,7 +37,7 @@ public final class ConnectionPool {
 
     private ConnectionPool() {
         if (instanceCreated.get()) {
-//            LOGGER.fatal("Tried to clone connection pool with reflection api");
+            LOGGER.fatal("Tried to clone connection pool with reflection api");
             throw new RuntimeException("Tried to clone connection pool with reflection api");
         }
         instanceCreated.set(true);
@@ -55,7 +57,7 @@ public final class ConnectionPool {
                 ProxyConnection proxyConnection = new ProxyConnection(dbConnection);
                 connectionQueue.put(proxyConnection);
             } catch (InterruptedException | SQLException e) {
-//                LOGGER.fatal(e.getMessage());
+                LOGGER.fatal(e.getMessage());
                 throw new RuntimeException("Hasn't found connection with database");
             }
         }
@@ -64,32 +66,22 @@ public final class ConnectionPool {
 
     private void initPoolData() {
         connectionQueue = new LinkedBlockingQueue<>();
-
+        connectionConfigurationCreator = new ConnectionConfigurationCreator();
         try {
-            Class<? extends ConnectionPool> aClass = this.getClass();
-            ClassLoader classLoader = aClass.getClassLoader();
-            InputStream inputStream = classLoader.getResourceAsStream("database.properties");
-
-            Properties property = new Properties();
-            property.load(inputStream);
-
-            url = property.getProperty("db.url");
-            user = property.getProperty("db.user");
-            password = property.getProperty("db.password");
-            driver = property.getProperty("db.driver");
-
-            String poolSizeString = property.getProperty("db.poolSize");
+            Map<String,String> configurationDataMap = connectionConfigurationCreator.readDatabaseConfiguration(PROPERTIES_FILE_NAME);
+            url = configurationDataMap.get(URL);
+            user = configurationDataMap.get(USER);
+            password = configurationDataMap.get(PASSWORD);
+            driver = configurationDataMap.get(DRIVER);
+            String poolSizeString = configurationDataMap.get(POOLSIZE);
             poolSize = Integer.parseInt(poolSizeString);
-
             Class.forName(driver);
 
-        } catch (IOException e) {
-//            LOGGER.error(e.getMessage());
-            throw new IllegalArgumentException("File with properties not found! " + e.getMessage(), e);
         } catch (ClassNotFoundException e) {
-//            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             throw new IllegalArgumentException("Driver is not found! " + e.getMessage(), e);
         }
+
     }
 
 
@@ -102,7 +94,7 @@ public final class ConnectionPool {
         try {
             return connectionQueue.take();
         } catch (InterruptedException e) {
-//            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             throw new IllegalArgumentException(e);
         }
     }
@@ -116,13 +108,11 @@ public final class ConnectionPool {
             connectionQueue.put(connection);
 
         } catch (InterruptedException | SQLException e){
-//            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             throw new IllegalArgumentException(e.getMessage(),e);
         }
 
     }
-
-
 
     public void dispose() {
         for (int i = 0; i < poolSize; i++) {
@@ -133,13 +123,12 @@ public final class ConnectionPool {
                 }
                 proxyConnection.connection.close();
             } catch (InterruptedException | SQLException e) {
-//                LOGGER.error(e.getMessage());
+                LOGGER.error(e.getMessage());
                 throw new IllegalArgumentException(e.getMessage(),e);
             }
         }
         unregisterDriver();
     }
-
 
     private void unregisterDriver() {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -150,7 +139,7 @@ public final class ConnectionPool {
                 try {
                     DriverManager.deregisterDriver(driver);
                 } catch (SQLException e) {
-//                    LOGGER.error(e.getMessage());
+                    LOGGER.error(e.getMessage());
                     throw new IllegalArgumentException(e.getMessage(),e);
                 }
             }

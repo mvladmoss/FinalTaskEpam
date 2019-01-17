@@ -82,6 +82,10 @@ public class CommandFactory {
                 resultCommand = new RejectCoachCommand();
                 break;
             }
+            case GYM_PHOTOS:{
+                resultCommand = new ShowGymPhotos();
+                break;
+            }
             case UPDATE_EXERCISE:{
                 resultCommand = new UpdateExerciseCommand();
                 break;

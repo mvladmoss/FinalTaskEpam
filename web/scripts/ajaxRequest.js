@@ -13,28 +13,33 @@ function makeRequest(){
 function addExercises(){
     if(req.readyState === 4 && req.status === 200){
         var parsed = JSON.parse(req.responseText);
-        var newDiv = getDiv();
-        document.form.innerHTML = "";
-        document.form.appendChild(newDiv);
+        var flexItem = getFlexItemBlock();
+        var flexContainer = document.getElementById('flex-container');
+        flexContainer.innerHTML="";
+        flexContainer.appendChild(flexItem);
         for(var i = 0; i<parsed.exercises.length; i++){
-            var toAdd = document.getElementById('reg').innerHTML;
+            var toAdd = document.getElementById('flex-item').innerHTML;
             var programId = document.getElementById("programIdBlock");
             toAdd = toAdd.replace(/{exercise.id}/g,parsed.exercises[i].id);
             toAdd = toAdd.replace(/{exercise.name}/g,parsed.exercises[i].name);
+            toAdd = toAdd.replace(/{image_url}/g,parsed.exercises[i].image);
+            toAdd = toAdd.replace(/{description}/g,parsed.exercises[i].description);
             toAdd = toAdd.replace(/{program.id}/g,programId.value);
-            var div = document.createElement('div');
-            div.innerHTML = toAdd;
-            document.form.innerHTML += (toAdd);
+            var newFlexItem = document.createElement('div');
+            newFlexItem.innerHTML = toAdd;
+            newFlexItem.classList.add("flex-item-iter");
+            flexContainer.appendChild(newFlexItem);
         }
 
     }
 }
 
-function getDiv(){
-    var divText = document.getElementById('reg').innerHTML;
-    var newDiv = document.createElement('div');
-    newDiv.style.display = "none";
-    newDiv.id='reg';
-    newDiv.innerHTML = divText;
-    return newDiv;
+function getFlexItemBlock() {
+    var divText = document.getElementById('flex-item').innerHTML;
+    var newFlexItem = document.createElement('div');
+    newFlexItem.style.display = "none";
+    newFlexItem.id='flex-item';
+    newFlexItem.classList.add("flex-item");
+    newFlexItem.innerHTML = divText;
+    return newFlexItem;
 }

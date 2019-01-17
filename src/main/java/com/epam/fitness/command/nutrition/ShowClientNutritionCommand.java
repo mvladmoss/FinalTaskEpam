@@ -9,23 +9,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;import com.epam.fitness.exception.ServiceException;
-import com.epam.fitness.uitls.CurrentMembershipValidChecker;
+import com.epam.fitness.utils.CurrentMembershipValidChecker;
 
 
 public class ShowClientNutritionCommand implements Command {
 
     private final static String NUTRITION = "nutrition";
-    private final static String NUTRITION_PAGE = "/WEB-INF/clientNutrition.jsp";
+    private final static String NUTRITION_PAGE = "/WEB-INF/clientNutritions.jsp";
     private final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
-        String role = String.valueOf(session.getAttribute("id_coach's_client"));
+        String role = String.valueOf(session.getAttribute("role"));
         long clientId;
         if(role.equals("coach")){
-            clientId = Long.valueOf(request.getParameter("id_coach's_client"));
+            clientId = Long.valueOf(request.getParameter("client_id"));
         }
         else{
             clientId = (long) session.getAttribute("id");

@@ -5,7 +5,10 @@
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="text" var="text"/>
 
-<fmt:message bundle="${text}" key="aboutUs" var="abous_us"/>
+<fmt:message bundle="${text}" key="about_us" var="abous_us"/>
+<fmt:message bundle="${text}" key="about_gym" var="about_gym"/>
+<fmt:message bundle="${text}" key="quote_author" var="quote_author"/>
+<fmt:message bundle="${text}" key="our_team" var="our_team"/>
 
 
 <!doctype html>
@@ -33,11 +36,8 @@
     </jsp:include>
     <section>
         <blockquote>
-            <p>
-                &ldquo;FITNESS IS NOT ONLY ONE OF THE KEYS TO A HEALTHY BODY, BUT
-                ALSO THE BASIS OF DYNAMIC AND CREATIVE IDEAS&rdquo;
-            </p>
-            <cite>John F. Kennedy</cite>
+            <p>${about_gym}</p>
+            <cite>${quote_author}</cite>
         </blockquote>
         <div class="block" style="height:405px;overflow-y: scroll; margin-top:20px;">
             <div class="myText" style="width: 640px;margin-left: 20px;">
@@ -76,41 +76,41 @@
             <img src="../images/zal2.jpg" width="320" height="175" style="margin-left: 35px" alt="">
         </figure>
 
-        <h2>OUR TEAM</h2>
+        <h2>${our_team}</h2>
         <div class="team-row">
             <figure>
-                <img src="../images/ceo.jpg" width="136" height="96" alt="">
+                <img src="../images/workers/ceo.jpg" width="136" height="96" alt="">
                 <figcaption>John Doe<span>Manager</span></figcaption>
             </figure>
             <figure>
-                <img class="tabImage" src="../images/artDirecor.jpg" width="120" height="96" alt="">
+                <img class="tabImage" src="../images/workers/artDirecor.jpg" width="120" height="96" alt="">
                 <figcaption class="tabGrip">Ericka Nobriga<span>Art director</span></figcaption>
             </figure>
             <figure>
-                <img class="tabImage" src="../images/administrator.jpg" width="137" height="96" alt="">
+                <img class="tabImage" src="../images/workers/administrator.jpg" width="137" height="96" alt="">
                 <figcaption class="tabGrip">Saundra Pittsley<span>Administrator</span></figcaption>
             </figure>
             <figure>
-                <img class="tabImage" src="../images/administrator2.jpg" width="134" height="96" alt="">
+                <img class="tabImage" src="../images/workers/administrator2.jpg" width="134" height="96" alt="">
                 <figcaption class="tabGrip">Margery Venuti<span>Spa administrator</span></figcaption>
             </figure>
         </div>
         <div class="team-row">
 
             <figure>
-                <img src="../images/administrator1.jpg" width="120" height="96" alt="">
+                <img src="../images/workers/administrator1.jpg" width="120" height="96" alt="">
                 <figcaption>Julio Simser<span>Administrator</span></figcaption>
             </figure>
             <figure>
-                <img class="tabImage" src="../images/mass.jpg" width="136" height="96" alt="">
+                <img class="tabImage" src="../images/workers/mass.jpg" width="136" height="96" alt="">
                 <figcaption class="tabGrip">Cody Rousselle<span>masseur</span></figcaption>
             </figure>
             <figure>
-                <img class="tabImage" src="../images/mass2.jpg" width="137" height="96" alt="">
+                <img class="tabImage" src="../images/workers/mass2.jpg" width="137" height="96" alt="">
                 <figcaption class="tabGrip">Erik Wollman<span>masseur</span></figcaption>
             </figure>
             <figure>
-                <img class="tabImage" src="../images/mainCoach.jpg" width="134" height="96" alt="">
+                <img class="tabImage" src="../images/workers/mainCoach.jpg" width="134" height="96" alt="">
                 <figcaption class="tabGrip">Dona Shoff<span>Main coach</span></figcaption>
             </figure>
         </div>

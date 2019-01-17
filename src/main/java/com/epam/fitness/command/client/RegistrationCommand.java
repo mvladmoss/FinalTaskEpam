@@ -6,7 +6,7 @@ import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.model.Program;
-import com.epam.fitness.uitls.sale.SaleSystem;
+import com.epam.fitness.utils.sale.SaleSystem;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.NutritionService;
 import com.epam.fitness.service.ProgramService;

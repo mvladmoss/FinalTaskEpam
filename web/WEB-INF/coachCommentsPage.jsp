@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <title>Whitesquare</title>
     <link rel="stylesheet" href="../styless/baseStyles.css" type="text/css">
-    <link rel="stylesheet" href="../styless/clientProfileStyle.css" type="text/css">
+    <link rel="stylesheet" href="../styless/clientProfileStyles.css" type="text/css">
     <link rel="stylesheet" href="../styless/clientExerciseStyle.css" type="text/css">
     <link rel="stylesheet" href="../styless/modalWindows.css" type="text/css">
     <link rel="stylesheet" href="../styless/coachCommentStyle.css" type="text/css">

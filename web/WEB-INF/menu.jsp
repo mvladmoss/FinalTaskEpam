@@ -6,16 +6,16 @@
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="text" var="text"/>
 
-<fmt:message bundle="${text}" key="signOut" var="sign_out"/>
+<fmt:message bundle="${text}" key="sign_out" var="sign_out"/>
 <fmt:message bundle="${text}" key="home" var="home"/>
 <fmt:message bundle="${text}" key="menu" var="menu"/>
 <fmt:message bundle="${text}" key="profile" var="profile"/>
-<fmt:message bundle="${text}" key="aboutUs" var="abous_us"/>
-<fmt:message bundle="${text}" key="myExercises" var="my_exercises"/>
-<fmt:message bundle="${text}" key="myNutrition" var="my_nutrition"/>
-<fmt:message bundle="${text}" key="buyMembership" var="buy_membership"/>
-<fmt:message bundle="${text}" key="ourCoaches" var="our_coaches"/>
-<fmt:message bundle="${text}" key="myClients" var="my_clients"/>
+<fmt:message bundle="${text}" key="about_us" var="abous_us"/>
+<fmt:message bundle="${text}" key="my_exercises" var="my_exercises"/>
+<fmt:message bundle="${text}" key="my_nutrition" var="my_nutrition"/>
+<fmt:message bundle="${text}" key="buy_membership" var="buy_membership"/>
+<fmt:message bundle="${text}" key="our_coaches" var="our_coaches"/>
+<fmt:message bundle="${text}" key="my_clients" var="my_clients"/>
 <fmt:message bundle="${text}" key="coaches" var="coaches"/>
 <fmt:message bundle="${text}" key="coach_clients" var="coach_clients"/>
 <fmt:message bundle="${text}" key="profile_topic" var="profile_topic"/>
@@ -23,6 +23,8 @@
 <fmt:message bundle="${text}" key="exercises" var="exercises"/>
 <fmt:message bundle="${text}" key="buy_gym_membership" var="buy_gym_membership"/>
 <fmt:message bundle="${text}" key="comments_about_me" var="comments_about_me"/>
+<fmt:message bundle="${text}" key="our_gym" var="our_gym"/>
+<fmt:message bundle="${text}" key="gym_photos" var="gym_photos"/>
 
 <nav style="border-radius: 6px;">
     <ul class="top-menu">
@@ -62,6 +64,9 @@
     <c:if test="${param.pageTopic eq 'show_comments'}">
         <h1>${comments_about_me}</h1>
     </c:if>
+    <c:if test="${param.pageTopic eq 'gym_photos'}">
+        <h1>${gym_photos}</h1>
+    </c:if>
 
 </div>
 <aside>
@@ -95,8 +100,8 @@
             </c:if>
         </ul>
     </nav>
-    <h2>OUR GYM</h2>
-    <p>
-        <img src="../images/gym.jpg" o width="250" height="181" style="margin-bottom: -5px;" alt="Our offices">
-    </p>
+    <h2>${our_gym}</h2>
+    <a href="${pageContext.servletContext.contextPath}/controller?command=gym_photos">
+        <img src="../images/gym.jpg" o width="250" height="181" style="margin-bottom: -5px;" border="0" alt="Our offices">
+    </a>
 </aside>

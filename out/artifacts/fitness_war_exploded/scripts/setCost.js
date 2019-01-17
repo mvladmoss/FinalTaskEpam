@@ -7,7 +7,6 @@ function setCost(){
     document.getElementById("final_cost").value = finalCost;
     var controllerAdress = document.form.action.match("(.*?\\&)");
     document.form.action = controllerAdress[0] + "period=" + String(period) + "&cost=" + finalCost;
-    alert(document.form.action);
 }
 
 function calculateFinalCost(cost) {

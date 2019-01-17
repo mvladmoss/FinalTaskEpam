@@ -46,10 +46,11 @@ html{
 
 body{
 	margin:0;
-	color:#6a6f8c;
+	color:white;
 
-	background:url(/images/mainFon.jpg) no-repeat center;
+	background:url(/images/mainFon.jpg) no-repeat ;
 	font:600 16px/18px 'Open Sans',sans-serif;
+	background-size: 1580px 900px;
 }
 *,:after,:before{box-sizing:border-box}
 .clearfix:after,.clearfix:before{content:'';display:table}
@@ -82,7 +83,7 @@ header a:hover {
 	width:100%;
 	margin:auto;
 	max-width:1920px;
-	min-height:760px;
+	min-height:1080px;
 	position:relative;
 	background-size: cover;
 	-webkit-transition: all 0.3s ease-in-out;
@@ -173,14 +174,14 @@ img{
 	border:none;
 	padding:15px 20px;
 	border-radius:25px;
-	background:rgba(255,255,255,.1);
+	background:rgba(255,255,255,.20);
 }
 .login-form .group input[data-type="password"]{
 	text-security:circle;
 	-webkit-text-security:circle;
 }
 .login-form .group .label{
-	color:#aaa;
+	color:white;
 	font-size:12px;
 }
 .login-form .group .button{

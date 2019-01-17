@@ -12,10 +12,11 @@ import java.util.Optional;
 
 public class NutritionRepository extends AbstractRepository {
 
-    private final static String INSERT_QUERY = "insert into nutrition (id_nutrition,name,description) " +
-            "values(?,?,?) " +
+    private final static String INSERT_QUERY = "insert into nutrition (id_nutrition,name,description,morning_nutrition,lunch_nutrition,dinner_nutrition) " +
+            "values(?,?,?,?,?,?) " +
             "on duplicate key " +
-            "update id_nutrition = values(id_nutrition), name = values(name), description = values(description)";
+            "update id_nutrition = values(id_nutrition), name = values(name), description = values(description),morning_nutrition = values(morning_nutrition)," +
+            "lunch_nutrition = values(lunch_nutrition),dinner_nutrition = values(dinner_nutrition)";
 
     private static final String TABLE_NAME = "nutrition";
 
@@ -45,7 +46,10 @@ public class NutritionRepository extends AbstractRepository {
         Long id = nutrition.getId();
         String name = nutrition.getName();
         String desciption = nutrition.getDescription();
-        return executeUpdate(INSERT_QUERY,Arrays.asList(id,name,desciption));
+        String morningNutrition = nutrition.getMorningNutrition();
+        String lunchNutrition = nutrition.getLunchNutrition();
+        String dinnerNutrition = nutrition.getDinnerNutrition();
+        return executeUpdate(INSERT_QUERY,Arrays.asList(id,name,desciption,morningNutrition,lunchNutrition,dinnerNutrition));
     }
 
 }

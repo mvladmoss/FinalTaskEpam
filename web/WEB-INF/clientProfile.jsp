@@ -2,6 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="text" var="text"/>
+
+<fmt:message bundle="${text}" key="name" var="name"/>
+<fmt:message bundle="${text}" key="surname" var="surname"/>
+<fmt:message bundle="${text}" key="login" var="login"/>
+<fmt:message bundle="${text}" key="coach" var="coach"/>
+<fmt:message bundle="${text}" key="visit_number" var="visit_number"/>
+<fmt:message bundle="${text}" key="private_discount" var="private_discount"/>
+<fmt:message bundle="${text}" key="corporate_discount" var="corporate_discount"/>
+<fmt:message bundle="${text}" key="membership_valid_until" var="membership_valid_until"/>
+
 <!doctype html>
 <html lang="${sessionScope.language}">
 <head>
@@ -14,7 +26,7 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link href="../styless/clientProfileStyle.css" rel="stylesheet">
+    <link href="../styless/clientProfileStyles.css" rel="stylesheet">
     <script src="../scripts/button.js"></script>
 
 </head>
@@ -26,34 +38,33 @@
     </jsp:include>
         <section>
             <div class = "container">
-                <div class="rightcolumn">
+                <div class="rightcolumn" style="width: 100%;">
                     <div class="card">
 
                         <jsp:useBean id="user" type="com.epam.fitness.model.Client" scope="request"/>
                         <div class="col-25">
-                            <label for="Name">Name</label>
+                            <label for="Name">${name}</label>
                         </div>
                         <div class="col-75">
                             <input type="text" id="Name" name="Name" value="${user.name}" readonly>
                         </div>
 
-
                         <div class="col-25">
-                            <label for="SurName">Surname</label>
+                            <label for="SurName">${surname}</label>
                         </div>
                         <div class="col-75">
                             <input type="text" id="SurName" name="SurName" value="${user.surname}" readonly>
                         </div>
 
                         <div class="col-25">
-                            <label for="login">Login</label>
+                            <label for="login">${login}</label>
                         </div>
                         <div class="col-75">
                             <input type="text" id="login" name="login" value="${user.login}" readonly>
                         </div>
 
                         <div class="col-25">
-                            <label for="coach_name">Coach</label>
+                            <label for="coach_name">${coach}</label>
                         </div>
                         <div class="col-75">
                             <c:choose>
@@ -67,41 +78,50 @@
                         </div>
 
                         <div class="col-25">
-                            <label for="visits_number">Visits Number</label>
+                            <label for="visits_number">${visit_number}</label>
                         </div>
                         <div class="col-75">
                             <input type="text" id="visits_number" name="visits_number"  value="${user.visitNumber}" readonly>
                         </div>
 
                         <div class="col-25">
-                            <label for="sale">Private sale</label>
+                            <label for="sale">${private_discount}</label>
                         </div>
                         <div class="col-75">
                             <input type="text" id="sale" name="sale"  value="${user.personalSale}%" readonly>
                         </div>
 
                         <div class="col-25">
-                            <label for="is_corporate">Corporate sale</label>
+                            <label for="is_corporate">${corporate_discount}</label>
                         </div>
                         <div class="col-75">
                             <input type="text" id="is_corporate" name="is_corporate"  value="${user.corporateSale}%" readonly>
                         </div>
 
                         <div class="col-25">
-                            <label for="end_date_of_trains">Membership is valid until</label>
+                            <label for="end_date_of_trains">${membership_valid_until}</label>
                         </div>
                         <c:choose>
 
-                            <c:when test="${end_date_of_trains != null}">
+                            <c:when test="${end_date_of_trains == null}">
                                 <div class="col-75">
-                                    <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="${end_date_of_trains}" readonly>
+                                    <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="You haven't membership yet" readonly>
                                 </div>
                             </c:when>
 
                             <c:otherwise>
-                                <div class="col-75">
-                                    <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="You haven't membership yet" readonly>
-                                </div>
+                                <c:choose>
+                                    <c:when test="${sessionScope.language eq 'EN'}">
+                                        <div class="col-75">
+                                            <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="<fmt:formatDate value="${end_date_of_trains}" pattern="dd-MM-YYYY" />" readonly>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="col-75">
+                                            <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="<fmt:formatDate value="${end_date_of_trains}" pattern="dd.MM.YYYY" />" readonly>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:otherwise>
                         </c:choose>
                     </div>

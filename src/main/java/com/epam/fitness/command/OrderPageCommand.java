@@ -1,7 +1,7 @@
 package com.epam.fitness.command;
 
 import com.epam.fitness.model.Client;
-import com.epam.fitness.uitls.PeriodCost;
+import com.epam.fitness.utils.PeriodCost;
 import com.epam.fitness.model.OrderInformation;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.OrderInformationService;

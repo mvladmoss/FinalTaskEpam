@@ -19,6 +19,8 @@ public class ExerciseBuilder implements Builder<Exercise> {
             exercise.setName(name);
             String description = resultSet.getString("description");
             exercise.setDescription(description);
+            String image = resultSet.getString("image");
+            exercise.setImage(image);
             return exercise;
         }catch (SQLException exception){
             throw new RepositoryException(exception.getMessage(),exception);
