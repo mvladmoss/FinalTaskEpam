@@ -21,7 +21,7 @@
     <script src="../scripts/button.js"></script>
     <script src="../scripts/setPeriods.js"></script>
     <script src="../scripts/floatWindow.js"></script>
-    <script src="../scripts/ajaxConnection.js"></script>
+    <script src="../scripts/ajaxConnections.js"></script>
     <script src="../scripts/ajaxRequest.js"></script>
     <script src="../scripts/search.js"></script>
 </head>

@@ -2,11 +2,13 @@
 var req;
 
 function makeRequest(){
+    alert("dsad000");
     req = newXMLHttpRequest();
     req.onreadystatechange = getReadyStateHandler(req, addExercises);
     req.open("POST", "Ajaxcontroller", true);
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     var currentSerach = document.getElementById("searchType").value;
+    alert(currentSerach);
     req.send("searchArgument=" + currentSerach);
 }
 

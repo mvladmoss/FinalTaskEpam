@@ -162,6 +162,14 @@ img{
 	display:block;
 }
 
+
+input[type="text"]::-webkit-input-placeholder {
+	color: rgba(252, 252, 252, 0.51);
+}
+input[type="password"]::-webkit-input-placeholder {
+	color: rgba(252, 252, 252, 0.51);
+}
+
 .login-form .group .button,
 .login-form .group .input{
 	outline:none;
