@@ -8,7 +8,6 @@ function makeRequest(){
     req.open("POST", "Ajaxcontroller", true);
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     var currentSerach = document.getElementById("searchType").value;
-    alert(currentSerach);
     req.send("searchArgument=" + currentSerach);
 }
 
