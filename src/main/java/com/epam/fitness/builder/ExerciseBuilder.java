@@ -15,7 +15,7 @@ public class ExerciseBuilder implements Builder<Exercise> {
             exercise.setId(id);
             Long equipmentId = resultSet.getLong("equipment_id");
             exercise.setEquipmentId(equipmentId);
-            String name = resultSet.getString("name");
+            String name = resultSet.getString("namee");
             exercise.setName(name);
             String description = resultSet.getString("description");
             exercise.setDescription(description);

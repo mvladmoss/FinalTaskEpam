@@ -12,8 +12,8 @@ public class Client implements Serializable,Identifiable {
     private String login;
     private String password;
     private Integer visitNumber;
-    private Float personalSale;
-    private Float corporateSale;
+    private Float personalDiscount;
+    private Float corporateDiscount;
     private Long programId;
 
     //For Tests maybe
@@ -24,8 +24,8 @@ public class Client implements Serializable,Identifiable {
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
     public static final String VISITS_NUMBER = "visits_number";
-    public static final String PERSONAL_SALE = "personal_sale";
-    public static final String CORPORATE_SALE = "corporate_sale";
+    public static final String PERSONAL_DISCOUNT = "personal_discount";
+    public static final String CORPORATE_DISCOUNT = "corporate_discount";
     public static final String ID_PROGRAM = "program_id";
 
 
@@ -37,8 +37,8 @@ public class Client implements Serializable,Identifiable {
         this.login = login;
         this.password = password;
         this.visitNumber = visitNumber;
-        this.personalSale = personalSale;
-        this.corporateSale = corporateSale;
+        this.personalDiscount = personalSale;
+        this.corporateDiscount = corporateSale;
         this.programId = programId;
     }
 
@@ -72,12 +72,12 @@ public class Client implements Serializable,Identifiable {
         this.visitNumber = visitNumber;
     }
 
-    public void setPersonalSale(float personalSale) {
-        this.personalSale = personalSale;
+    public void setPersonalSale(float personalDiscount) {
+        this.personalDiscount = personalDiscount;
     }
 
-    public void setCorporateSale(float corporateSale) {
-        this.corporateSale = corporateSale;
+    public void setCorporateSale(float corporateDiscount) {
+        this.corporateDiscount = corporateDiscount;
     }
 
     public Long getId() {
@@ -104,12 +104,12 @@ public class Client implements Serializable,Identifiable {
         return visitNumber;
     }
 
-    public float getCorporateSale() {
-        return corporateSale;
+    public float getCorporateDiscount() {
+        return corporateDiscount;
     }
 
-    public float getPersonalSale() {
-        return personalSale;
+    public float getPersonalDiscount() {
+        return personalDiscount;
     }
 
     public String getName() {
@@ -140,13 +140,13 @@ public class Client implements Serializable,Identifiable {
                 Objects.equals(getLogin(), client.getLogin()) &&
                 Objects.equals(getPassword(), client.getPassword()) &&
                 Objects.equals(getVisitNumber(), client.getVisitNumber()) &&
-                Objects.equals(getPersonalSale(), client.getPersonalSale()) &&
-                Objects.equals(getCorporateSale(), client.getCorporateSale()) &&
+                Objects.equals(getPersonalDiscount(), client.getPersonalDiscount()) &&
+                Objects.equals(getCorporateDiscount(), client.getCorporateDiscount()) &&
                 Objects.equals(getProgramId(), client.getProgramId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(),getCoachId(),getName(),getSurname(),getLogin(),getPassword(),getVisitNumber(),getPersonalSale(),getCorporateSale(),getProgramId());
+        return Objects.hash(getId(),getCoachId(),getName(),getSurname(),getLogin(),getPassword(),getVisitNumber(),getPersonalDiscount(),getCorporateDiscount(),getProgramId());
     }
 }

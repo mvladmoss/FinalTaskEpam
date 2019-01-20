@@ -34,7 +34,4 @@ public class LanguageFilter implements Filter {
         filterChain.doFilter(request, response);
     }
 
-    @Override
-    public void destroy() {
-    }
 }

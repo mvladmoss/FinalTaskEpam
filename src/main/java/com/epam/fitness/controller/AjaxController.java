@@ -19,18 +19,17 @@ import java.util.List;
 
 public class AjaxController extends HttpServlet {
 
+
     private SearchSystem searchSystem = new SearchExerciseSystem();
     private JsonCreator jsonCreator = new JsonExerciseCreator();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("see");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp){
         proccessRequest(req,resp);
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("see");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         proccessRequest(req,resp);
     }
 

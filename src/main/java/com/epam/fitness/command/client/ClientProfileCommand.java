@@ -22,7 +22,7 @@ public class ClientProfileCommand implements Command {
     private static final String USER = "user";
     private static final String COACH_NAME = "coach_name";
     private static final String COACH_SURNAME = "coach_surname";
-    private static final String CLIENT_PROFILE_PAGE = "/WEB-INF/clientProfile.jsp";
+    private static final String CLIENT_PROFILE_PAGE = "/WEB-INF/client/clientProfile.jsp";
     private static final String END_DATE_OF_TRAINS = "end_date_of_trains";
 
 

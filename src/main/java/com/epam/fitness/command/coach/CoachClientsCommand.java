@@ -14,7 +14,7 @@ import java.util.List;import com.epam.fitness.exception.ServiceException;
 public class CoachClientsCommand implements Command {
 
     private final static String ALL_CLIENTS = "all_clients";
-    private final static String COACH_CLIENTS_PAGE = "/WEB-INF/coachClients.jsp";
+    private final static String COACH_CLIENTS_PAGE = "/WEB-INF/coach/coachClients.jsp";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

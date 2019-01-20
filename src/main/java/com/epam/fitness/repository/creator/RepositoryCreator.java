@@ -14,7 +14,7 @@ public class RepositoryCreator implements AutoCloseable {
 
     public RepositoryCreator() {
         connectionPool = ConnectionPool.getInstance();
-        connection = connectionPool.takeConnection();
+        connection = connectionPool.getConnection();
     }
 
     public ClientRepository getClientRepository() {
@@ -47,6 +47,6 @@ public class RepositoryCreator implements AutoCloseable {
 
     @Override
     public void close() {
-        connectionPool.releaseConnection((ProxyConnection) connection);
+        connectionPool.releaseConnection(connection);
     }
 }

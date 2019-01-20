@@ -14,13 +14,13 @@ public class ClientRepository extends AbstractRepository<Client> {
 
     private static final String TABLE_NAME = "client";
     private final static String INSERT_QUERY = "insert into client (id_client,coach_id,name,surname,login,password,visits_number," +
-            "personal_sale,corporate_sale,program_id)" +
+            "personal_discount,corporate_discount,program_id)" +
             "values(?,?,?,?,?,?,?,?,?,?) " +
             "on duplicate key " +
             "update id_client = values(id_client), coach_id = values(coach_id), name = values(name)," +
             "surname = values(surname), login = values(login), password = values(password)," +
-            "visits_number = values(visits_number), personal_sale = values(personal_sale)," +
-            "corporate_sale = values(corporate_sale), program_id = values(program_id)";
+            "visits_number = values(visits_number), personal_discount = values(personal_discount)," +
+            "corporate_discount = values(corporate_discount), program_id = values(program_id)";
 
     public ClientRepository(Connection connection){
         super(connection);
@@ -48,6 +48,7 @@ public class ClientRepository extends AbstractRepository<Client> {
     }
 
     public Long save(Client client) throws RepositoryException {
+
         Long clientId = client.getId();
         Long coachId = client.getCoachId();
 
@@ -58,8 +59,8 @@ public class ClientRepository extends AbstractRepository<Client> {
 
         int visitsNumber = client.getVisitNumber();
 
-        float personalSale = client.getPersonalSale();
-        float corporateSale = client.getCorporateSale();
+        float personalSale = client.getPersonalDiscount();
+        float corporateSale = client.getCorporateDiscount();
         long programId = client.getProgramId();
 
         return executeUpdate(INSERT_QUERY,Arrays.asList(clientId,coachId,name,surname,login,password,visitsNumber,personalSale,corporateSale,programId));

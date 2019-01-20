@@ -49,8 +49,8 @@ public class ClientBuilderTest {
         when(resultSet.getString(Client.LOGIN)).thenReturn(LOGIN);
         when(resultSet.getString(Client.PASSWORD)).thenReturn(PASSWORD);
         when(resultSet.getInt(Client.VISITS_NUMBER)).thenReturn(VISITS_NUMBER);
-        when(resultSet.getFloat(Client.PERSONAL_SALE)).thenReturn(PERSONAL_SALE);
-        when(resultSet.getFloat(Client.CORPORATE_SALE)).thenReturn(CORPORATE_SALE);
+        when(resultSet.getFloat(Client.PERSONAL_DISCOUNT)).thenReturn(PERSONAL_SALE);
+        when(resultSet.getFloat(Client.CORPORATE_DISCOUNT)).thenReturn(CORPORATE_SALE);
         when(resultSet.getLong(Client.ID_PROGRAM)).thenReturn(ID_PROGRAM);
 
         ClientBuilder clientBuilder = new ClientBuilder();

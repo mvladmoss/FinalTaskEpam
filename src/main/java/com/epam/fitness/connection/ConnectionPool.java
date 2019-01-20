@@ -1,149 +1,184 @@
 package com.epam.fitness.connection;
 
+import com.epam.fitness.connection.ProxyConnection;
 import org.apache.log4j.Logger;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import com.mysql.jdbc.Driver;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.*;
 import java.util.Enumeration;
-import java.util.Map;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Properties;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.locks.ReentrantLock;
+
+/**
+ * Custom realization of ConnectionPool
+ * for Pufar application
+ */
+public class ConnectionPool {
+
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
 
 
-public final class ConnectionPool {
-
-    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class.getName());
-    private BlockingQueue<ProxyConnection> connectionQueue;
-    private static AtomicBoolean instanceCreated = new AtomicBoolean(false);
-    private ConnectionConfigurationCreator connectionConfigurationCreator;
-    private final static String PROPERTIES_FILE_NAME = "database.properties";
-    private final static String URL = "url";
-    private final static String USER = "user";
-    private final static String PASSWORD = "password";
-    private final static String DRIVER = "driver";
-    private final static String POOLSIZE = "poolSize";
-
-    private String user;
-    private String password;
-    private String driver;
-    private int poolSize;
-    private String url;
-
-    private static final ConnectionPool INSTANCE = new ConnectionPool();
+    /** The Constant PROPERTY_PATH. */
+    private static final String PROPERTY_PATH = "database.properties";
 
 
+    /** The Constant INITIAL_CAPACITY. */
+    private static final int INITIAL_CAPACITY = 15;
 
-    private ConnectionPool() {
-        if (instanceCreated.get()) {
-            LOGGER.fatal("Tried to clone connection pool with reflection api");
-            throw new RuntimeException("Tried to clone connection pool with reflection api");
-        }
-        instanceCreated.set(true);
-    }
+    /** The free connections. */
+    private ArrayBlockingQueue<Connection> freeConnections = new ArrayBlockingQueue<>(INITIAL_CAPACITY);
 
+    /** The release connections. */
+    private ArrayBlockingQueue<Connection> releaseConnections = new ArrayBlockingQueue<>(INITIAL_CAPACITY);
 
-    public void initPool() {
-        initPoolData();
-        createConnections();
-    }
+    /** The lock. */
+    private static ReentrantLock lock = new ReentrantLock();
 
+    /** The connection pool. */
+    private static ConnectionPool connectionPool;
 
-    private void createConnections() {
-        for (int index = 0; index < poolSize; index++) {
+    /**
+     * Gets the single instance of ConnectionPool.
+     *
+     * @return single instance of ConnectionPool
+     */
+    public static ConnectionPool getInstance(){
+
+        if(connectionPool == null){
             try {
-                Connection dbConnection = DriverManager.getConnection(url,user,password);
-                ProxyConnection proxyConnection = new ProxyConnection(dbConnection);
-                connectionQueue.put(proxyConnection);
-            } catch (InterruptedException | SQLException e) {
-                LOGGER.fatal(e.getMessage());
-                throw new RuntimeException("Hasn't found connection with database");
-            }
-        }
-    }
-
-
-    private void initPoolData() {
-        connectionQueue = new LinkedBlockingQueue<>();
-        connectionConfigurationCreator = new ConnectionConfigurationCreator();
-        try {
-            Map<String,String> configurationDataMap = connectionConfigurationCreator.readDatabaseConfiguration(PROPERTIES_FILE_NAME);
-            url = configurationDataMap.get(URL);
-            user = configurationDataMap.get(USER);
-            password = configurationDataMap.get(PASSWORD);
-            driver = configurationDataMap.get(DRIVER);
-            String poolSizeString = configurationDataMap.get(POOLSIZE);
-            poolSize = Integer.parseInt(poolSizeString);
-            Class.forName(driver);
-
-        } catch (ClassNotFoundException e) {
-            LOGGER.error(e.getMessage());
-            throw new IllegalArgumentException("Driver is not found! " + e.getMessage(), e);
-        }
-
-    }
-
-
-    public static ConnectionPool getInstance() {
-        return INSTANCE;
-    }
-
-
-    public ProxyConnection takeConnection(){
-        try {
-            return connectionQueue.take();
-        } catch (InterruptedException e) {
-            LOGGER.error(e.getMessage());
-            throw new IllegalArgumentException(e);
-        }
-    }
-
-    public void releaseConnection(ProxyConnection connection) {
-        try {
-            if (!connection.getAutoCommit()) {
-                connection.rollback();
-                connection.setAutoCommit(true);
-            }
-            connectionQueue.put(connection);
-
-        } catch (InterruptedException | SQLException e){
-            LOGGER.error(e.getMessage());
-            throw new IllegalArgumentException(e.getMessage(),e);
-        }
-
-    }
-
-    public void dispose() {
-        for (int i = 0; i < poolSize; i++) {
-            try {
-                ProxyConnection proxyConnection = connectionQueue.take();
-                if (!proxyConnection.getAutoCommit()) {
-                    proxyConnection.commit();
-                }
-                proxyConnection.connection.close();
-            } catch (InterruptedException | SQLException e) {
-                LOGGER.error(e.getMessage());
-                throw new IllegalArgumentException(e.getMessage(),e);
-            }
-        }
-        unregisterDriver();
-    }
-
-    private void unregisterDriver() {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        Enumeration<Driver> drivers = DriverManager.getDrivers();
-        while (drivers.hasMoreElements()) {
-            Driver driver = drivers.nextElement();
-            if (driver.getClass().getClassLoader() == loader) {
-                try {
-                    DriverManager.deregisterDriver(driver);
-                } catch (SQLException e) {
-                    LOGGER.error(e.getMessage());
-                    throw new IllegalArgumentException(e.getMessage(),e);
+                lock.lock();
+                if(connectionPool == null){
+                    connectionPool = new ConnectionPool();
                 }
             }
+            catch (SQLException e) {
+                LOGGER.error("Can not get Instance", e);
+                throw new RuntimeException("Can not get Instance", e);
+            } finally {
+                lock.unlock();
+            }
         }
+
+        return connectionPool;
+    }
+
+    /**
+     * Instantiates a new connection pool.
+     *
+     * @throws SQLException the SQL exception
+     */
+    private ConnectionPool() throws SQLException {
+
+        try {
+            lock.lock();
+
+            if(connectionPool != null){
+                throw new UnsupportedOperationException();
+            }
+            else {
+                DriverManager.registerDriver(new Driver());
+                init();
+            }
+        }
+        finally {
+            lock.unlock();
+        }
+
+    }
+
+    /**
+     * Inits the.
+     */
+    private void init() {
+
+        Properties properties = new Properties();
+
+        try {
+            ClassLoader classLoader = getClass().getClassLoader();
+            InputStream inputStream = classLoader.getResourceAsStream(PROPERTY_PATH);
+            properties.load(inputStream);
+        }catch (IOException e) {
+            LOGGER.error("Error while reading properties", e);
+        }
+        String connectionURL = properties.getProperty("url");
+        String initialCapacityString = properties.getProperty("poolSize");
+        Integer initialCapacity = Integer.valueOf(initialCapacityString);
+
+        for (int i = 0; i < initialCapacity; i++) {
+            try {
+                Connection connection = new ProxyConnection(DriverManager.getConnection(connectionURL, properties));
+                freeConnections.add(connection);
+            }
+            catch (SQLException e) {
+                LOGGER.error("Pool can not initialize", e);
+                throw new RuntimeException("Pool can not initialize", e);
+            }
+        }
+
+    }
+
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     */
+    public Connection getConnection() {
+        try {
+            Connection connection = freeConnections.take();
+            releaseConnections.offer(connection);
+
+            return connection;
+        }
+        catch (InterruptedException  e) {
+            throw new RuntimeException("Can not get database", e);
+        }
+
+    }
+
+    /**
+     * Release connection.
+     *
+     * @param connection the connection
+     */
+    public void releaseConnection(Connection connection) {
+
+        releaseConnections.remove(connection);
+        freeConnections.offer(connection);
+
+    }
+
+    /**
+     * Destroy.
+     */
+    public void destroy(){
+
+        for (int i = 0; i < freeConnections.size(); i++) {
+            try {
+                ProxyConnection connection = (ProxyConnection) freeConnections.take();
+                connection.realClose();
+            }
+            catch (InterruptedException e) {
+                LOGGER.error("Connection close exception", e);
+            }
+        }
+
+        try {
+            Enumeration<java.sql.Driver> drivers = DriverManager.getDrivers();
+            while (drivers.hasMoreElements()) {
+                java.sql.Driver driver = drivers.nextElement();
+                DriverManager.deregisterDriver(driver);
+
+            }
+        }
+        catch (SQLException e) {
+            LOGGER.error("Drivers were not deregistrated", e);
+        }
+
     }
 
 }

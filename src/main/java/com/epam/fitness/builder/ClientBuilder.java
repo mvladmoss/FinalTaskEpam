@@ -27,10 +27,10 @@ public class ClientBuilder implements Builder<Client> {
             client.setPassword(password);
             int visits_number = resultSet.getInt("visits_number");
             client.setVisitNumber(visits_number);
-            float personalSale = resultSet.getFloat("personal_sale");
-            client.setPersonalSale(personalSale);
-            float corporateSale = resultSet.getFloat("corporate_sale");
-            client.setCorporateSale(corporateSale);
+            float personalDiscount = resultSet.getFloat("personal_discount");
+            client.setPersonalSale(personalDiscount);
+            float corporateDiscount = resultSet.getFloat("corporate_discount");
+            client.setCorporateSale(corporateDiscount);
             Long programId = resultSet.getLong("program_id");
             client.setProgramId(programId);
             return client;

@@ -27,7 +27,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
 
     public List<T> executeQuery(String sql, Builder<T> builder,List<Object> parameters) throws RepositoryException {
         List<T> objects = new ArrayList<>();
-        try (ProxyConnection dbConnection = ConnectionPool.getInstance().takeConnection()) {
+        try (ProxyConnection dbConnection = (ProxyConnection) ConnectionPool.getInstance().getConnection()) {
             PreparedStatement preparedStatement = dbConnection.prepareStatement(sql);
 
             StatementUtil.prepare(preparedStatement, parameters);

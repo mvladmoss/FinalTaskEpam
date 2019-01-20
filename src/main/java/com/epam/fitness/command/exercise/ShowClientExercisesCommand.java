@@ -10,14 +10,16 @@ import com.epam.fitness.service.ProgramService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;import com.epam.fitness.exception.ServiceException;
+import java.util.*;
+
+import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.utils.CurrentMembershipValidChecker;
 
 
 public class ShowClientExercisesCommand implements Command {
 
     private final static String PROGRAM = "program";
-    private final static String EXERCISE_PAGE = "/WEB-INF/clientExercise.jsp";
+    private final static String EXERCISE_PAGE = "/WEB-INF/client/clientExercise.jsp";
     private final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 
@@ -49,8 +51,5 @@ public class ShowClientExercisesCommand implements Command {
         }
         return new CommandResult(EXERCISE_PAGE,false);
     }
-
-
-
 
 }

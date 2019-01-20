@@ -1199,14 +1199,14 @@
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="302" parent="286" name="personal_sale">
+    <column id="302" parent="286" name="personal_discount">
       <Position>8</Position>
       <DataType>float|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="303" parent="286" name="corporate_sale">
+    <column id="303" parent="286" name="corporate_discount">
       <Position>9</Position>
       <DataType>float|0s</DataType>
       <NotNull>1</NotNull>

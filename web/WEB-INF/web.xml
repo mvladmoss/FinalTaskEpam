@@ -23,9 +23,22 @@
         <url-pattern>/Ajaxcontroller</url-pattern>
     </servlet-mapping>
 
+    <error-page>
+        <location>/WEB-INF/error.jsp</location>
+    </error-page>
+
+
+
     <welcome-file-list>
         <welcome-file>/WEB-INF/login.jsp</welcome-file>
     </welcome-file-list>
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>fitnessTag</taglib-uri>
+            <taglib-location>/WEB-INF/tld/membershipTariifs.tld</taglib-location>
+        </taglib>
+    </jsp-config>
 
     <filter>
         <filter-name>languageFilter</filter-name>

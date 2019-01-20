@@ -15,7 +15,7 @@ import com.epam.fitness.utils.CurrentMembershipValidChecker;
 public class ShowClientNutritionCommand implements Command {
 
     private final static String NUTRITION = "nutrition";
-    private final static String NUTRITION_PAGE = "/WEB-INF/clientNutritions.jsp";
+    private final static String NUTRITION_PAGE = "/WEB-INF/client/clientNutrition.jsp";
     private final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 

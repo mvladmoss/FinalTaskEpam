@@ -8,7 +8,7 @@ public class OrderInformation implements Identifiable{
 
     private Long id;
     private BigDecimal cost;
-    private Timestamp paymenData;
+    private Timestamp paymentData;
     private Date trainEndDate;
     private Long clientId;
 
@@ -29,11 +29,11 @@ public class OrderInformation implements Identifiable{
     }
 
     public Timestamp getPaymenData() {
-        return paymenData;
+        return paymentData;
     }
 
-    public void setPaymenData(Timestamp paymenData) {
-        this.paymenData = paymenData;
+    public void setPaymenData(Timestamp paymentData) {
+        this.paymentData = paymentData;
     }
 
     public Date getTrainEndDate() {

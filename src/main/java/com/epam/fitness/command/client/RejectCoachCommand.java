@@ -5,7 +5,6 @@ import com.epam.fitness.command.CommandResult;
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.service.ClientService;
-import com.epam.fitness.service.CoachService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

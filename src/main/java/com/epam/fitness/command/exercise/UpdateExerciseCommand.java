@@ -3,7 +3,6 @@ package com.epam.fitness.command.exercise;
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
 import com.epam.fitness.model.Client;
-import com.epam.fitness.model.Exercise;
 import com.epam.fitness.model.dto.ExerciseDto;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.ExerciseDtoService;

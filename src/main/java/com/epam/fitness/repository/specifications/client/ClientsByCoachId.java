@@ -3,6 +3,7 @@ package com.epam.fitness.repository.specifications.client;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ClientsByCoachId implements SqlSpecification {
@@ -19,7 +20,7 @@ public class ClientsByCoachId implements SqlSpecification {
 
     @Override
     public List<Object> getParameters() {
-        return Arrays.asList(coachId);
+        return Collections.singletonList(coachId);
     }
 
 }

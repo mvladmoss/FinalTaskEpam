@@ -1,5 +1,6 @@
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<%@page isErrorPage = "true" %>
+<%@ page isErrorPage="true" contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <html>
 <head>
@@ -23,6 +24,7 @@
         <td><b>Status code:</b></td>
         <td>${pageContext.errorData.statusCode}</td>
     </tr>
+
 
     <tr valign = "top">
         <td><b>Stack trace:</b></td>
