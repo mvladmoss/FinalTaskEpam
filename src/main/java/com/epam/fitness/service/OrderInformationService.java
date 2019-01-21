@@ -22,11 +22,11 @@ public class OrderInformationService {
         }
     }
 
-    public long addOrder(OrderInformation orderInformation) throws ServiceException {
+    public void save(OrderInformation orderInformation) throws ServiceException {
         try(RepositoryCreator repositoryCreator = new RepositoryCreator()){
             OrderInformationRepository orderInformationRepository = repositoryCreator.getOrderInformationRepository();
             try {
-                return orderInformationRepository.save(orderInformation);
+                orderInformationRepository.save(orderInformation);
             } catch (RepositoryException e) {
                 throw new ServiceException(e.getMessage(),e);
             }

@@ -17,7 +17,7 @@ public class LastOrderByClientId implements SqlSpecification {
 
     @Override
     public String getSql() {
-        return " where client_id = (?) and end_date >= current_date() order by end_date desc limit 1";
+        return " where client_id = (?) and membership_end_date >= current_date() order by membership_end_date desc limit 1";
     }
 
     @Override

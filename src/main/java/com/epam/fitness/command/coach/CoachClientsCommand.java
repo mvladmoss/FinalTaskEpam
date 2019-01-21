@@ -2,6 +2,7 @@ package com.epam.fitness.command.coach;
 
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
+import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.service.ClientService;
 
@@ -19,7 +20,7 @@ public class CoachClientsCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
-        long id = (long) session.getAttribute("id");
+        Long id = (long) session.getAttribute(SessionAttributes.ID);
         ClientService clientService = new ClientService();
         List<Client> allClients = clientService.findByCoachId(id);
         session.setAttribute(ALL_CLIENTS, allClients);

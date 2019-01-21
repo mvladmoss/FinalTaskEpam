@@ -585,7 +585,7 @@ public class ProxyConnection implements Connection, AutoCloseable{
      * Creates the struct.
      *
      * @param typeName the type name
-     * @param attributes the attributes
+     * @param attributes the SessionAttributes
      * @return the struct
      * @throws SQLException the SQL exception
      */

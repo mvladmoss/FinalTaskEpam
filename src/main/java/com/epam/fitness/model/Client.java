@@ -11,7 +11,7 @@ public class Client implements Serializable,Identifiable {
     private String surname;
     private String login;
     private String password;
-    private Integer visitNumber;
+    private Integer membership_purchased_number;
     private Float personalDiscount;
     private Float corporateDiscount;
     private Long programId;
@@ -23,20 +23,20 @@ public class Client implements Serializable,Identifiable {
     public static final String SURNAME = "surname";
     public static final String LOGIN = "login";
     public static final String PASSWORD = "password";
-    public static final String VISITS_NUMBER = "visits_number";
+    public static final String MEMBERSHIP_PURCHASED_NUMBER = "membership_purchased_number";
     public static final String PERSONAL_DISCOUNT = "personal_discount";
     public static final String CORPORATE_DISCOUNT = "corporate_discount";
     public static final String ID_PROGRAM = "program_id";
 
 
-    public Client(Long id, Long coachId, String name, String surname, String login, String password, Integer visitNumber, Float personalSale, Float corporateSale, Long programId){
+    public Client(Long id, Long coachId, String name, String surname, String login, String password, Integer membership_purchased_number, Float personalSale, Float corporateSale, Long programId){
         this.id = id;
         this.coachId = coachId;
         this.name = name;
         this.surname = surname;
         this.login = login;
         this.password = password;
-        this.visitNumber = visitNumber;
+        this.membership_purchased_number = membership_purchased_number;
         this.personalDiscount = personalSale;
         this.corporateDiscount = corporateSale;
         this.programId = programId;
@@ -68,8 +68,8 @@ public class Client implements Serializable,Identifiable {
         this.password = password;
     }
 
-    public void setVisitNumber(int visitNumber) {
-        this.visitNumber = visitNumber;
+    public void setMembershipPurchasedNumber(int membership_purchased_number) {
+        this.membership_purchased_number = membership_purchased_number;
     }
 
     public void setPersonalSale(float personalDiscount) {
@@ -100,8 +100,8 @@ public class Client implements Serializable,Identifiable {
         return password;
     }
 
-    public int getVisitNumber() {
-        return visitNumber;
+    public int getMembershipPurchasedNumber() {
+        return membership_purchased_number;
     }
 
     public float getCorporateDiscount() {
@@ -139,7 +139,7 @@ public class Client implements Serializable,Identifiable {
                 Objects.equals(getSurname(), client.getSurname()) &&
                 Objects.equals(getLogin(), client.getLogin()) &&
                 Objects.equals(getPassword(), client.getPassword()) &&
-                Objects.equals(getVisitNumber(), client.getVisitNumber()) &&
+                Objects.equals(getMembershipPurchasedNumber(), client.getMembershipPurchasedNumber()) &&
                 Objects.equals(getPersonalDiscount(), client.getPersonalDiscount()) &&
                 Objects.equals(getCorporateDiscount(), client.getCorporateDiscount()) &&
                 Objects.equals(getProgramId(), client.getProgramId());
@@ -147,6 +147,7 @@ public class Client implements Serializable,Identifiable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(),getCoachId(),getName(),getSurname(),getLogin(),getPassword(),getVisitNumber(),getPersonalDiscount(),getCorporateDiscount(),getProgramId());
+        return Objects.hash(getId(),getCoachId(),getName(),getSurname(),getLogin(),getPassword(),getMembershipPurchasedNumber(),getPersonalDiscount(),getCorporateDiscount(),getProgramId());
     }
+
 }

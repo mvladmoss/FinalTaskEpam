@@ -70,7 +70,7 @@
 }
 
 input[type=text], input[type=datetime-local] {
-    width: 95%;
+    width: 70%;
     padding: 2px;
     border: 1px solid #29c5e6;
     border-radius: 5px;

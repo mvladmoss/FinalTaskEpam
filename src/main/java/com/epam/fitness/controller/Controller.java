@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
 import java.io.IOException;
 
-
 public class Controller extends HttpServlet {
 
 
@@ -39,7 +38,6 @@ public class Controller extends HttpServlet {
         processRequest(request, response);
     }
 
-
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String command = request.getParameter(COMMAND);
@@ -51,7 +49,6 @@ public class Controller extends HttpServlet {
             commandResult  = action.execute(request, response);
         } catch (ServiceException e) {
             LOGGER.error(e.getMessage(), e);
-            System.out.println(request.getContextPath());
             commandResult = new CommandResult(ERROR_PAGE, false);
         }
 

@@ -6,7 +6,9 @@ import com.epam.fitness.connection.ConnectionPool;
 import com.epam.fitness.connection.ProxyConnection;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Identifiable;
+import com.epam.fitness.repository.helper.QueryHelper;
 import com.epam.fitness.utils.StatementUtil;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.*;
@@ -15,9 +17,12 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
 
     Connection connection;
 
+    private static final Logger LOGGER = Logger.getLogger(AbstractRepository.class);
     private static final String GET_ALL_QUERY = "SELECT * FROM ";
     private final String WHERE_ID_CONDITION = " WHERE id_" + getTableName() + "=(?)";
     private final String MAX_TABLE_ID_CONDITION = " order by(id_" + getTableName() + ") desc limit 1";
+    protected final String DELETE_QUERY = "delete from " + getTableName() + " where id_" + getTableName() + "=(?)";
+
 
     AbstractRepository(Connection connection){
         this.connection = connection;
@@ -71,6 +76,35 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
     }
 
     @Override
+    public Long save(T object) throws RepositoryException {
+        String sql;
+        Map<String, Object> fields = getFields(object);
+        if (object.getId() == null) {
+            sql = QueryHelper.makeInsertQuery(fields, getTableName());
+        } else {
+            sql = QueryHelper.makeUpdateQuery(fields, getTableName());
+        }
+        return executeSave(sql, fields);
+    }
+
+    private Long executeSave(String query, Map<String, Object> fields) throws RepositoryException {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            StatementUtil.prepare(preparedStatement,fields,getTableName());
+            LOGGER.info(preparedStatement.toString());
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            Long generatedId = null;
+            while(resultSet.next()){
+                generatedId = resultSet.getLong(1);
+            }
+            return generatedId;
+        } catch (SQLException e) {
+            throw new RepositoryException(e.getMessage(), e);
+        }
+    }
+
+    @Override
     public Optional<T> findById(Long id) throws RepositoryException {
         Builder builder = BuilderFactory.create(getTableName());
         String query = GET_ALL_QUERY + getTableName() + WHERE_ID_CONDITION;
@@ -88,8 +122,10 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         Builder builder = BuilderFactory.create(getTableName());
         String query = GET_ALL_QUERY + getTableName() + MAX_TABLE_ID_CONDITION;
         Optional<T> itemOptional = executeQueryForSingleResult(query, builder,Collections.emptyList());
-        Long nextId = itemOptional.map( item -> item.getId() + 1).orElse(0l);
+        Long nextId = itemOptional.map( item -> item.getId() + 1).orElse(0L);
         return nextId;
     }
+
+    protected abstract Map<String, Object> getFields(T obj);
 
 }

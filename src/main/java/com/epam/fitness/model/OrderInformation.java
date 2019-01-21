@@ -9,7 +9,7 @@ public class OrderInformation implements Identifiable{
     private Long id;
     private BigDecimal cost;
     private Timestamp paymentData;
-    private Date trainEndDate;
+    private Date membershipEndDate;
     private Long clientId;
 
     public Long getId() {
@@ -28,22 +28,21 @@ public class OrderInformation implements Identifiable{
         this.cost = cost;
     }
 
-    public Timestamp getPaymenData() {
+    public Timestamp getPaymentData() {
         return paymentData;
     }
 
-    public void setPaymenData(Timestamp paymentData) {
+    public void setPaymentData(Timestamp paymentData) {
         this.paymentData = paymentData;
     }
 
-    public Date getTrainEndDate() {
-        return trainEndDate;
+    public Date getMembershipEndDate() {
+        return membershipEndDate;
     }
 
-    public void setTrainEndDate(Date trainEndDate) {
-        this.trainEndDate = trainEndDate;
+    public void setMembershipEndDate(Date membershipEndDate) {
+        this.membershipEndDate = membershipEndDate;
     }
-
 
     public Long getClientId() {
         return clientId;

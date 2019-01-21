@@ -2,21 +2,16 @@ package com.epam.fitness.repository;
 
 import com.epam.fitness.builder.ProgramBuilder;
 import com.epam.fitness.exception.RepositoryException;
+import com.epam.fitness.model.OrderInformation;
 import com.epam.fitness.model.Program;
+import com.epam.fitness.repository.database.constants.OrderInformationTableConstants;
+import com.epam.fitness.repository.database.constants.ProgramTableConstants;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
 import java.sql.Connection;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ProgramRepository extends AbstractRepository<Program> {
-
-    private final static String INSERT_QUERY = "insert into program (id_program,nutrition_id,description,trains_per_week) " +
-            "values(?,?,?,?) " +
-            "on duplicate key " +
-            "update id_program = values(id_program), nutrition_id = values(nutrition_id), " +
-            "description = values(description), trains_per_week = values(trains_per_week)";
 
     private static final String TABLE_NAME = "program";
 
@@ -44,12 +39,13 @@ public class ProgramRepository extends AbstractRepository<Program> {
                 Optional.empty();
     }
 
-    public Long save(Program program) throws RepositoryException {
-        Long programId = program.getId();
-        Long nutritionId = program.getNutrition().getId();
-        String description = program.getDescription();
-        int trainsPerWeek = program.getTrainsPerWeek();
-        return executeUpdate(INSERT_QUERY,Arrays.asList(programId,nutritionId,description,trainsPerWeek));
+    @Override
+    protected Map<String, Object> getFields(Program program) {
+        Map<String,Object> fields = new HashMap<>();
+        fields.put(ProgramTableConstants.ID.getFieldName(),program.getId());
+        fields.put(ProgramTableConstants.NUTRITION_ID.getFieldName(),program.getNutrition().getId());
+        fields.put(ProgramTableConstants.TRAINS_PER_WEEK.getFieldName(),program.getTrainsPerWeek());
+        return fields;
     }
 
 

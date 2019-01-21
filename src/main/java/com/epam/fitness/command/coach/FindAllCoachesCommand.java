@@ -2,6 +2,7 @@ package com.epam.fitness.command.coach;
 
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
+import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Coach;
 import com.epam.fitness.service.CoachService;
@@ -16,7 +17,7 @@ import java.util.Optional;
 public class FindAllCoachesCommand implements Command {
 
     private final static String COACHES = "coaches";
-    private static final String COACHES_PAGE = "/WEB-INF/coach/coaches.jsp";
+    private static final String COACHES_PAGE = "/WEB-INF/coach/allCoaches.jsp";
     private static final String ID_OF_CLIENT_COACH = "coach_client_id";
     private final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
@@ -26,7 +27,7 @@ public class FindAllCoachesCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
-        Long clientId = (Long) session.getAttribute("id");
+        Long clientId = (Long) session.getAttribute(SessionAttributes.ID);
         CoachService coachService = new CoachService();
         List<Coach> coaches = coachService.findAll();
         request.setAttribute(COACHES,coaches);

@@ -2,8 +2,10 @@ package com.epam.fitness.command.exercise;
 
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
+import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Program;
+import com.epam.fitness.model.UserRole;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.ProgramService;
 
@@ -21,18 +23,19 @@ public class ShowClientExercisesCommand implements Command {
     private final static String PROGRAM = "program";
     private final static String EXERCISE_PAGE = "/WEB-INF/client/clientExercise.jsp";
     private final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
+    private final static String CLIENT_ID = "client_id";
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
-        String role = String.valueOf(session.getAttribute("role"));
+        String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
         Long clientId;
-        if(role.equals("coach")){
-            clientId = Long.valueOf(request.getParameter("client_id"));
+        if(role.equals(UserRole.COACH)){
+            clientId = Long.valueOf(request.getParameter(CLIENT_ID));
         }
         else{
-            clientId = (long) session.getAttribute("id");
+            clientId = (long) session.getAttribute(SessionAttributes.ID);
         }
         if(!membershipValidChecker.isCurrentMembershipValid(clientId)){
             return new CommandResult(EXERCISE_PAGE,false);

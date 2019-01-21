@@ -48,5 +48,4 @@ public class Coach implements Identifiable {
         this.password = password;
     }
 
-
 }

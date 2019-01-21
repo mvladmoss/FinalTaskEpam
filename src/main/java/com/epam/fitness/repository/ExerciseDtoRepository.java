@@ -2,25 +2,18 @@ package com.epam.fitness.repository;
 
 import com.epam.fitness.builder.ExerciseDtoBuilder;
 import com.epam.fitness.exception.RepositoryException;
+import com.epam.fitness.model.Comment;
 import com.epam.fitness.model.dto.ExerciseDto;
+import com.epam.fitness.repository.database.constants.CommentTableConstants;
+import com.epam.fitness.repository.database.constants.ExerciseDtoTableConstants;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
 import java.sql.Connection;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ExerciseDtoRepository extends AbstractRepository<ExerciseDto> {
 
-    private final static String INSERT_QUERY = "insert into exercise_program (id,program_id,exercise_id," +
-            "repeat_number,set_number,number_train_day) " +
-            "values(?,?,?,?,?,?) " +
-            "on duplicate key " +
-            "update id = values(id), program_id = values(program_id), exercise_id = values(exercise_id)," +
-            "repeat_number = values(repeat_number), set_number = values(set_number), " +
-            "number_train_day = values(number_train_day)";
-
-    private final static String DELETE_QUERY = "delete from exercise_program where id=(?)";
+    private final static String TABLE_NAME = "exercise_program";
 
     public ExerciseDtoRepository(Connection connection) {
         super(connection);
@@ -28,14 +21,13 @@ public class ExerciseDtoRepository extends AbstractRepository<ExerciseDto> {
 
     @Override
     protected String getTableName() {
-        return null;
+        return TABLE_NAME;
     }
 
     @Override
     public List<ExerciseDto> query(SqlSpecification specification) throws RepositoryException {
         String query = "select * from exercise " + specification.getSql();
-        List<ExerciseDto> exercises = executeQuery(query,new ExerciseDtoBuilder(), specification.getParameters());
-        return exercises;
+        return executeQuery(query,new ExerciseDtoBuilder(), specification.getParameters());
     }
 
     @Override
@@ -46,21 +38,16 @@ public class ExerciseDtoRepository extends AbstractRepository<ExerciseDto> {
                 Optional.empty();
     }
 
-    public Long save(ExerciseDto exerciseDto) throws RepositoryException {
-        Optional<Long> id = Optional.ofNullable(exerciseDto.getId());
-        String idString;
-        idString = id.map(String::valueOf).orElse(null);
-        long programId = exerciseDto.getProgramId();
-        String programIdString = String.valueOf(programId);
-        long exerciseId = exerciseDto.getExercise().getId();
-        String exerciseIdString = String.valueOf(exerciseId);
-        int repeatNumber = exerciseDto.getRepeatNumber();
-        String repeatNumberString = String.valueOf(repeatNumber);
-        int setNumber = exerciseDto.getSetNumber();
-        String setNumberString = String.valueOf(setNumber);
-        int trainDay = exerciseDto.getNumberTrainDay();
-        String trainDayString = String.valueOf(trainDay);
-        return executeUpdate(INSERT_QUERY,Arrays.asList(idString,programIdString,exerciseIdString,repeatNumberString,setNumberString,trainDayString));
+    @Override
+    protected Map<String, Object> getFields(ExerciseDto exerciseDto) {
+        Map<String,Object> fields = new HashMap<>();
+        fields.put(ExerciseDtoTableConstants.ID.getFieldName(),exerciseDto.getId());
+        fields.put(ExerciseDtoTableConstants.PROGRAM_ID.getFieldName(),exerciseDto.getProgramId());
+        fields.put(ExerciseDtoTableConstants.EXERCISE_ID.getFieldName(),exerciseDto.getExercise().getId());
+        fields.put(ExerciseDtoTableConstants.REPEAT_NUMBER.getFieldName(),exerciseDto.getRepeatNumber());
+        fields.put(ExerciseDtoTableConstants.SET_NUMBER.getFieldName(),exerciseDto.getSetNumber());
+        fields.put(ExerciseDtoTableConstants.NUMBER_TRAIN_DAY.getFieldName(),exerciseDto.getNumberTrainDay());
+        return fields;
     }
 
     public Long delete(long exerciseDtoId) throws RepositoryException {

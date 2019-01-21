@@ -2,6 +2,7 @@ package com.epam.fitness.command.client;
 
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
+import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.service.ClientService;
@@ -18,7 +19,7 @@ public class RejectCoachCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
-        Long clientId = (Long) session.getAttribute("id");
+        Long clientId = (Long) session.getAttribute(SessionAttributes.ID);
         ClientService clientService = new ClientService();
         Optional<Client> client = clientService.findById(clientId);
         if(client.isPresent()){

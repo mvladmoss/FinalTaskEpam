@@ -3,10 +3,15 @@ package com.epam.fitness.repository;
 import com.epam.fitness.builder.ExerciseBuilder;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Exercise;
+import com.epam.fitness.model.dto.ExerciseDto;
+import com.epam.fitness.repository.database.constants.ExerciseDtoTableConstants;
+import com.epam.fitness.repository.database.constants.ExerciseTableConstants;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class ExerciseRepository extends AbstractRepository<Exercise> {
@@ -35,5 +40,15 @@ public class ExerciseRepository extends AbstractRepository<Exercise> {
         return exercise.size() == 1 ?
                 Optional.of(exercise.get(0)) :
                 Optional.empty();
+    }
+
+    @Override
+    protected Map<String, Object> getFields(Exercise exercise) {
+        Map<String,Object> fields = new HashMap<>();
+        fields.put(ExerciseTableConstants.ID.getFieldName(),exercise.getId());
+        fields.put(ExerciseTableConstants.NAME.getFieldName(),exercise.getName());
+        fields.put(ExerciseTableConstants.DESCRIPTION.getFieldName(),exercise.getDescription());
+        fields.put(ExerciseTableConstants.IMAGE.getFieldName(),exercise.getImage());
+        return fields;
     }
 }

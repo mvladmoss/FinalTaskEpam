@@ -20,7 +20,7 @@ public class NutritionService {
         }
     }
 
-    public long save(Nutrition nutrition) throws ServiceException {
+    public Long save(Nutrition nutrition) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             NutritionRepository nutritionRepository = repositoryCreator.getNutritionRepository();
             return nutritionRepository.save(nutrition);

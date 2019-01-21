@@ -15,7 +15,7 @@ public class ExerciseDtoById implements SqlSpecification {
 
     @Override
     public String getSql() {
-        return "right join exercise_program on exercise.id_exercise = exercise_program.exercise_id where exercise_program.id=(?)";
+        return "right join exercise_program on exercise.id_exercise = exercise_program.exercise_id where exercise_program.id_exercise_program=(?)";
     }
 
     @Override

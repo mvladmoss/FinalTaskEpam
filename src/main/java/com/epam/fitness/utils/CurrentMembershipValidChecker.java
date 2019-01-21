@@ -13,7 +13,7 @@ public class CurrentMembershipValidChecker {
         OrderInformationService orderInformationService = new OrderInformationService();
         Optional<OrderInformation> orderInformationOptional = orderInformationService.findByClientId(clientId);
         return orderInformationOptional.filter(orderInformation ->
-                isCurrentDateLessEndTrainDate(orderInformation.getTrainEndDate())).isPresent();
+                isCurrentDateLessEndTrainDate(orderInformation.getMembershipEndDate())).isPresent();
     }
 
     private boolean isCurrentDateLessEndTrainDate(Date endTrainDate){

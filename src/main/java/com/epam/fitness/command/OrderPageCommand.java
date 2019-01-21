@@ -1,5 +1,6 @@
 package com.epam.fitness.command;
 
+import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.utils.CurrentMembershipValidChecker;
 import com.epam.fitness.utils.PeriodCost;
@@ -17,8 +18,7 @@ import java.util.Optional;import com.epam.fitness.exception.ServiceException;
 
 public class OrderPageCommand implements Command {
 
-    private static final String ORDER_PAGE = "/WEB-INF/orderPages.jsp";
-    private static final String TARIFFS = "tariffs";
+    private static final String ORDER_PAGE = "/WEB-INF/orderPage.jsp";
     private static final String CLIENT_PERSONAL_SALE = "client_personal_discount";
     private static final String CLIENT_CORPORATE_SALE = "client_corporate_discount";
     private final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
@@ -28,7 +28,7 @@ public class OrderPageCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
-        long clientId = (long) session.getAttribute("id");
+        long clientId = (long) session.getAttribute(SessionAttributes.ID);
         ClientService clientService = new ClientService();
         Optional<Client> client = clientService.findById(clientId);
         if(client.isPresent()){

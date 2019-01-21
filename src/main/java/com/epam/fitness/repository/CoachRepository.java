@@ -3,10 +3,13 @@ package com.epam.fitness.repository;
 import com.epam.fitness.builder.CoachBuilder;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Coach;
+import com.epam.fitness.repository.database.constants.CoachTableConstants;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class CoachRepository extends AbstractRepository<Coach> {
@@ -21,6 +24,7 @@ public class CoachRepository extends AbstractRepository<Coach> {
     protected String getTableName() {
         return TABLE_NAME;
     }
+
 
     @Override
     public List<Coach> query(SqlSpecification specification) throws RepositoryException {
@@ -37,6 +41,16 @@ public class CoachRepository extends AbstractRepository<Coach> {
                 Optional.empty();
     }
 
+    @Override
+    protected Map<String, Object> getFields(Coach coach) {
+        Map<String,Object> fields = new HashMap<>();
+        fields.put(CoachTableConstants.ID.getFieldName(),coach.getId());
+        fields.put(CoachTableConstants.NAME.getFieldName(),coach.getName());
+        fields.put(CoachTableConstants.SURNAME.getFieldName(),coach.getSurname());
+        fields.put(CoachTableConstants.LOGIN.getFieldName(),coach.getLogin());
+        fields.put(CoachTableConstants.PASSWORD.getFieldName(),coach.getPassword());
+        return fields;
+    }
 
 
 

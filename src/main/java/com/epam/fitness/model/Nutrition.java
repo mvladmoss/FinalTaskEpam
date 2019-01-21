@@ -4,7 +4,6 @@ public class Nutrition implements Identifiable {
 
     private Long id;
     private String name;
-    private String description;
     private String morningNutrition;
     private String lunchNutrition;
     private String dinnerNutrition;
@@ -23,14 +22,6 @@ public class Nutrition implements Identifiable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getMorningNutrition() {

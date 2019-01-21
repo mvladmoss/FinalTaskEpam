@@ -2,10 +2,12 @@ package com.epam.fitness.command.authorization;
 
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
+import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.model.Program;
+import com.epam.fitness.model.UserRole;
 import com.epam.fitness.utils.sale.SaleSystem;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.NutritionService;
@@ -18,8 +20,6 @@ import javax.servlet.http.HttpSession;
 public class RegistrationCommand implements Command {
 
     private static final String COMMAND_MAIN = "controller?command=main";
-    private final static String CLIENT_ROLE = "client";
-    private final static String DESCRIPTION_NONE = "none";
     private final static Integer START_VISIT_NUMBER = 0;
     private final static Float CORPORATE_SALE = 0.0f;
     private final static Integer TRAINS_PER_WEEK = 3;
@@ -28,12 +28,11 @@ public class RegistrationCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         Client client = buildClient(request);
         ClientService clientService = new ClientService();
-        Long clientId = clientService.getNextIdInTable();
+        Long clientId = clientService.save(client);
         client.setID(clientId);
-        clientService.save(client);
         HttpSession session = request.getSession();
-        session.setAttribute("id",client.getId());
-        session.setAttribute("role", CLIENT_ROLE);
+        session.setAttribute(SessionAttributes.ID,client.getId());
+        session.setAttribute(SessionAttributes.ROLE, UserRole.CLIENT);
         return new CommandResult(COMMAND_MAIN,true);
     }
 
@@ -47,7 +46,7 @@ public class RegistrationCommand implements Command {
         client.setPassword(password);
         client.setName(name);
         client.setSurname(surname);
-        client.setVisitNumber(START_VISIT_NUMBER);
+        client.setMembershipPurchasedNumber(START_VISIT_NUMBER);
         float personalSale = SaleSystem.getSaleByVisitNumber(START_VISIT_NUMBER);
         client.setPersonalSale(personalSale);
         client.setCorporateSale(CORPORATE_SALE);
@@ -62,19 +61,16 @@ public class RegistrationCommand implements Command {
         program.setNutrition(nutrition);
         program.setTrainsPerWeek(TRAINS_PER_WEEK);
         ProgramService  programService = new ProgramService();
-        Long programId = programService.getNextIdInTable();
+        Long programId = programService.save(program);
         program.setId(programId);
-        programService.save(program);
         return program;
     }
 
     private Nutrition createNutrition() throws ServiceException {
         Nutrition nutrition = new Nutrition();
         NutritionService nutritionService = new NutritionService();
-        Long nutritionId = nutritionService.getNextIdInTable();
+        Long nutritionId  = nutritionService.save(nutrition);
         nutrition.setId(nutritionId);
-        nutrition.setDescription(DESCRIPTION_NONE);
-        nutritionService.save(nutrition);
         return nutrition;
     }
 }

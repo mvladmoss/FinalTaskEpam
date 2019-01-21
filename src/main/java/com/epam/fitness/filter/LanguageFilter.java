@@ -1,9 +1,9 @@
 package com.epam.fitness.filter;
 
+import com.epam.fitness.utils.page.Page;
+
 import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 
@@ -13,10 +13,6 @@ public class LanguageFilter implements Filter {
     private static final String EN = "EN";
     private static final String LANGUAGE = "language";
     private static final String NEXT_LANGUAGE = "nextLanguage";
-
-    @Override
-    public void init(FilterConfig filterConfig) {
-    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

@@ -49,6 +49,14 @@ public class CommandFactory {
                 resultCommand = new SingOutCommand();
                 break;
             }
+            case NO_ACCESS:{
+                resultCommand = new NoAccessPageCommand();
+                break;
+            }
+            case LOGIN_PAGE:{
+                resultCommand = new LoginPageCommand();
+                break;
+            }
             case PROFILE: {
                 resultCommand = new ClientProfileCommand();
                 break;

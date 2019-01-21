@@ -3,24 +3,15 @@ package com.epam.fitness.repository;
 import com.epam.fitness.builder.OrderInformationBuilder;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.OrderInformation;
+import com.epam.fitness.repository.database.constants.OrderInformationTableConstants;
 import com.epam.fitness.repository.specifications.SqlSpecification;
-import java.math.BigDecimal;
 import java.sql.Connection;
-import java.util.Date;
-import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class OrderInformationRepository extends AbstractRepository<OrderInformation> {
 
 
     private static final String TABLE_NAME = "order_information";
-    private final static String INSERT_QUERY = "insert into order_information (id_order_information,cost,payment_data,end_date,client_id)" +
-            " values(?,?,?,?,?) on duplicate key " +
-            "update id_order_information = values(id_order_information), cost = values(cost), payment_data = values(payment_data)," +
-            "end_date = values(end_date), client_id = values(client_id)";
-
 
     public OrderInformationRepository(Connection connection) {
         super(connection);
@@ -47,21 +38,15 @@ public class OrderInformationRepository extends AbstractRepository<OrderInformat
                 Optional.empty();
     }
 
-
-    public Long save(OrderInformation order) throws RepositoryException {
-        BigDecimal cost = order.getCost();
-        String costString = String.valueOf(cost);
-        Timestamp paymentData = order.getPaymenData();
-        String paymentDataString = String.valueOf(paymentData);
-        Date endDate = order.getTrainEndDate();
-        String endDateString = String.valueOf(endDate);
-        long clientId = order.getClientId();
-        String clientIdString = String.valueOf(clientId);
-        return executeUpdate(INSERT_QUERY,Arrays.asList(null,costString,paymentDataString,endDateString,clientIdString));
-
+    @Override
+    protected Map<String, Object> getFields(OrderInformation orderInformation) {
+        Map<String,Object> fields = new HashMap<>();
+        fields.put(OrderInformationTableConstants.ID.getFieldName(),orderInformation.getId());
+        fields.put(OrderInformationTableConstants.COST.getFieldName(),orderInformation.getCost());
+        fields.put(OrderInformationTableConstants.PAYMENT_DATA.getFieldName(),orderInformation.getPaymentData());
+        fields.put(OrderInformationTableConstants.MEMBERSHIP_END_DATE.getFieldName(),orderInformation.getMembershipEndDate());
+        fields.put(OrderInformationTableConstants.CLIENT_ID.getFieldName(),orderInformation.getClientId());
+        return fields;
     }
-
-
-
 
 }

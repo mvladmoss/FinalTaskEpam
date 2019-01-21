@@ -4,18 +4,15 @@ import com.epam.fitness.builder.CommentBuilder;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Comment;
+import com.epam.fitness.repository.database.constants.CommentTableConstants;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
 import java.sql.Connection;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class CommentRepository extends AbstractRepository<Comment> {
 
     private static final String TABLE_NAME = "comment";
-    private final static String INSERT_QUERY = "insert into comment (id_comment,coach_id,client_id,commentContent)" +
-            " values(?,?,?,?);";
 
     public CommentRepository(Connection connection) {
         super(connection);
@@ -41,13 +38,13 @@ public class CommentRepository extends AbstractRepository<Comment> {
                 Optional.empty();
     }
 
-    public Long save(Comment comment) throws RepositoryException {
-        Long commentId = comment.getId();
-        Long coachId = comment.getCoachId();
-        Long clientId = comment.getClientId();
-
-        String commentContent = comment.getCommentContent();
-        return executeUpdate(INSERT_QUERY,Arrays.asList(commentId,coachId,clientId,commentContent));
-
+    @Override
+    protected Map<String, Object> getFields(Comment comment) {
+        Map<String,Object> fields = new HashMap<>();
+        fields.put(CommentTableConstants.ID.getFieldName(),comment.getId());
+        fields.put(CommentTableConstants.CLIENT_ID.getFieldName(),comment.getClientId());
+        fields.put(CommentTableConstants.COACH_ID.getFieldName(),comment.getCoachId());
+        fields.put(CommentTableConstants.COMMENT_CONTENT.getFieldName(),comment.getCommentContent());
+        return fields;
     }
 }

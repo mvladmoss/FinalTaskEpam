@@ -33,10 +33,10 @@ public class ExerciseDtoService {
         }
     }
 
-    public long save(ExerciseDto exerciseDto) throws ServiceException {
+    public void save(ExerciseDto exerciseDto) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ExerciseDtoRepository exerciseDtoRepository = repositoryCreator.getExerciseDtoRepository();
-            return exerciseDtoRepository.save(exerciseDto);
+            exerciseDtoRepository.save(exerciseDto);
         } catch (RepositoryException exception) {
             throw new ServiceException(exception.getMessage(), exception);
         }

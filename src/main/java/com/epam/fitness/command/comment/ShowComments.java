@@ -2,6 +2,7 @@ package com.epam.fitness.command.comment;
 
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
+import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Comment;
@@ -18,23 +19,23 @@ import java.util.Optional;
 
 public class ShowComments implements Command {
 
-    private static final String COACH_COMMENTS_PAGE = "/WEB-INF/coachCommentsPage.jsp";
+    private static final String COACH_COMMENTS_PAGE = "/WEB-INF/coach/coachCommentsPage.jsp";
     private static final String COMMENTS = "comments";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
-        Long coachId = (Long) session.getAttribute("id");
+        Long coachId = (Long) session.getAttribute(SessionAttributes.ID);
         CommentService commentService = new CommentService();
         List<Comment> comments = commentService.findByCoachId(coachId);
         if(comments.size()!=0){
-             Map<Comment,Client> commentClientMap = makeMapCommentAppropriateClient(comments);
+             Map<Comment,Client> commentClientMap = makeCommentMapForAppropriateClient(comments);
              request.setAttribute(COMMENTS,commentClientMap);
         }
         return new CommandResult(COACH_COMMENTS_PAGE,false);
     }
 
-    private Map<Comment,Client> makeMapCommentAppropriateClient(List<Comment> comments) throws ServiceException {
+    private Map<Comment,Client> makeCommentMapForAppropriateClient(List<Comment> comments) throws ServiceException {
         Map<Comment,Client> commentClientMap = new HashMap<>();
         ClientService clientService = new ClientService();
         for(Comment comment : comments){

@@ -28,7 +28,7 @@ public class ProgramService {
         }
     }
 
-    public long save(Program program) throws ServiceException {
+    public Long save(Program program) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ProgramRepository programRepository = repositoryCreator.getProgramRepository();
             return programRepository.save(program);

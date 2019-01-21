@@ -2,21 +2,16 @@ package com.epam.fitness.repository;
 
 import com.epam.fitness.builder.NutritionBuilder;
 import com.epam.fitness.exception.RepositoryException;
+import com.epam.fitness.model.Exercise;
 import com.epam.fitness.model.Nutrition;
+import com.epam.fitness.repository.database.constants.ExerciseTableConstants;
+import com.epam.fitness.repository.database.constants.NutritionTableConstants;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
 import java.sql.Connection;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-public class NutritionRepository extends AbstractRepository {
-
-    private final static String INSERT_QUERY = "insert into nutrition (id_nutrition,name,description,morning_nutrition,lunch_nutrition,dinner_nutrition) " +
-            "values(?,?,?,?,?,?) " +
-            "on duplicate key " +
-            "update id_nutrition = values(id_nutrition), name = values(name), description = values(description),morning_nutrition = values(morning_nutrition)," +
-            "lunch_nutrition = values(lunch_nutrition),dinner_nutrition = values(dinner_nutrition)";
+public class NutritionRepository extends AbstractRepository<Nutrition> {
 
     private static final String TABLE_NAME = "nutrition";
 
@@ -42,14 +37,16 @@ public class NutritionRepository extends AbstractRepository {
                 Optional.empty();
     }
 
-    public Long save(Nutrition nutrition) throws RepositoryException {
-        Long id = nutrition.getId();
-        String name = nutrition.getName();
-        String desciption = nutrition.getDescription();
-        String morningNutrition = nutrition.getMorningNutrition();
-        String lunchNutrition = nutrition.getLunchNutrition();
-        String dinnerNutrition = nutrition.getDinnerNutrition();
-        return executeUpdate(INSERT_QUERY,Arrays.asList(id,name,desciption,morningNutrition,lunchNutrition,dinnerNutrition));
+
+    @Override
+    protected Map<String, Object> getFields(Nutrition nutrition) {
+        Map<String,Object> fields = new HashMap<>();
+        fields.put(NutritionTableConstants.ID.getFieldName(),nutrition.getId());
+        fields.put(NutritionTableConstants.NAME.getFieldName(),nutrition.getName());
+        fields.put(NutritionTableConstants.MORNING_NUTRITION.getFieldName(),nutrition.getMorningNutrition());
+        fields.put(NutritionTableConstants.LUNCH_NUTRITION.getFieldName(),nutrition.getLunchNutrition());
+        fields.put(NutritionTableConstants.DINNER_NUTRITION.getFieldName(),nutrition.getDinnerNutrition());
+        return fields;
     }
 
 }

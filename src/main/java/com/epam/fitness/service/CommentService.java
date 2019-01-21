@@ -23,10 +23,10 @@ public class CommentService {
         }
     }
 
-    public long save(Comment comment) throws ServiceException {
+    public void save(Comment comment) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             CommentRepository commentRepository = repositoryCreator.getCommentRepository();
-            return commentRepository.save(comment);
+            commentRepository.save(comment);
         } catch (RepositoryException exception) {
             throw new ServiceException(exception.getMessage(), exception);
         }

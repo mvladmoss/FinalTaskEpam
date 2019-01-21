@@ -12,4 +12,6 @@ public interface Repository<T>{
     Optional<T> findById(Long id) throws RepositoryException;
     List<T> findAll() throws RepositoryException;
     Long getNextTableId() throws RepositoryException;
+    Long save(T object) throws RepositoryException;
+
 }

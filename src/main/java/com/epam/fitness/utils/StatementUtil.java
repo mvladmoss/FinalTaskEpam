@@ -1,8 +1,11 @@
 package com.epam.fitness.utils;
 
+import com.epam.fitness.repository.helper.QueryHelper;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 
 public class StatementUtil {
@@ -15,6 +18,25 @@ public class StatementUtil {
             } else {
                 preparedStatement.setObject(i + 1, parameters.get(i));
             }
+        }
+    }
+
+    public static void prepare(PreparedStatement preparedStatement, Map<String,Object> fields, String tableName) throws SQLException {
+        int i = 1;
+        for (Map.Entry<String, Object> entry : fields.entrySet()) {
+            Object value = entry.getValue();
+            String key = entry.getKey();
+            if (!key.equals(QueryHelper.ID + "_" + tableName)) {
+                if (value == null) {
+                    preparedStatement.setNull(i++, getType(value));
+                } else {
+                    preparedStatement.setString(i++, String.valueOf(value));
+                }
+            }
+        }
+        Object id = fields.get(QueryHelper.ID + "_" + tableName);
+        if (id != null) {
+            preparedStatement.setString(i++, String.valueOf(id));
         }
     }
 

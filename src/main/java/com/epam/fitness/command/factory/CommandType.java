@@ -23,6 +23,8 @@ public enum CommandType{
     SHOW_COACH_COMMENTS("show_coach_comments"),
     REJECT_COACH("reject_coach"),
     GYM_PHOTOS("gym_photos"),
+    LOGIN_PAGE("login_page"),
+    NO_ACCESS("no_access"),
     LANGUAGE("language");
 
     private String command;

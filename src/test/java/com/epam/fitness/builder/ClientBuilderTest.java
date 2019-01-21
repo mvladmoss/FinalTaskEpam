@@ -19,7 +19,7 @@ public class ClientBuilderTest {
     private static final String SURNAME = "Moskovkin";
     private static final String LOGIN = "vladmoss";
     private static final String PASSWORD = "123";
-    private static final Integer VISITS_NUMBER = 1;
+    private static final Integer MEMBERSHIP_PURCHASED_NUMBER = 1;
     private static final Float PERSONAL_SALE = 5.5f;
     private static final Float CORPORATE_SALE = 0.0f;
     private static final Long ID_PROGRAM = 5l;
@@ -33,7 +33,7 @@ public class ClientBuilderTest {
             SURNAME,
             LOGIN,
             PASSWORD,
-            VISITS_NUMBER,
+            MEMBERSHIP_PURCHASED_NUMBER,
             PERSONAL_SALE,
             CORPORATE_SALE,
             ID_PROGRAM);
@@ -48,7 +48,7 @@ public class ClientBuilderTest {
         when(resultSet.getString(Client.SURNAME)).thenReturn(SURNAME);
         when(resultSet.getString(Client.LOGIN)).thenReturn(LOGIN);
         when(resultSet.getString(Client.PASSWORD)).thenReturn(PASSWORD);
-        when(resultSet.getInt(Client.VISITS_NUMBER)).thenReturn(VISITS_NUMBER);
+        when(resultSet.getInt(Client.MEMBERSHIP_PURCHASED_NUMBER)).thenReturn(MEMBERSHIP_PURCHASED_NUMBER);
         when(resultSet.getFloat(Client.PERSONAL_DISCOUNT)).thenReturn(PERSONAL_SALE);
         when(resultSet.getFloat(Client.CORPORATE_DISCOUNT)).thenReturn(CORPORATE_SALE);
         when(resultSet.getLong(Client.ID_PROGRAM)).thenReturn(ID_PROGRAM);

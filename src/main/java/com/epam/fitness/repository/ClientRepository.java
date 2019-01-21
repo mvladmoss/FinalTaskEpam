@@ -3,24 +3,15 @@ package com.epam.fitness.repository;
 import com.epam.fitness.builder.ClientBuilder;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Client;
+import com.epam.fitness.repository.database.constants.ClientTableConstants;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
 import java.sql.Connection;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ClientRepository extends AbstractRepository<Client> {
 
     private static final String TABLE_NAME = "client";
-    private final static String INSERT_QUERY = "insert into client (id_client,coach_id,name,surname,login,password,visits_number," +
-            "personal_discount,corporate_discount,program_id)" +
-            "values(?,?,?,?,?,?,?,?,?,?) " +
-            "on duplicate key " +
-            "update id_client = values(id_client), coach_id = values(coach_id), name = values(name)," +
-            "surname = values(surname), login = values(login), password = values(password)," +
-            "visits_number = values(visits_number), personal_discount = values(personal_discount)," +
-            "corporate_discount = values(corporate_discount), program_id = values(program_id)";
 
     public ClientRepository(Connection connection){
         super(connection);
@@ -47,26 +38,19 @@ public class ClientRepository extends AbstractRepository<Client> {
                 Optional.empty();
     }
 
-    public Long save(Client client) throws RepositoryException {
+    public Map<String,Object> getFields(Client client) {
+        Map<String,Object> fields = new HashMap<>();
+        fields.put(ClientTableConstants.ID.getFieldName(), client.getId());
+        fields.put(ClientTableConstants.COACH_ID.getFieldName(), client.getCoachId());
+        fields.put(ClientTableConstants.NAME.getFieldName(), client.getName());
+        fields.put(ClientTableConstants.SURNAME.getFieldName(), client.getSurname());
+        fields.put(ClientTableConstants.LOGIN.getFieldName(), client.getLogin());
+        fields.put(ClientTableConstants.PASSWORD.getFieldName(), client.getPassword());
+        fields.put(ClientTableConstants.MEMBERSHIP_PURCHASED_NUMBER.getFieldName(), client.getMembershipPurchasedNumber());
+        fields.put(ClientTableConstants.PERSONAL_DISCOUNT.getFieldName(), client.getPersonalDiscount());
+        fields.put(ClientTableConstants.CORPORATE_DISCOUNT.getFieldName(), client.getCorporateDiscount());
+        fields.put(ClientTableConstants.PROGRAM_ID.getFieldName(), client.getProgramId());
 
-        Long clientId = client.getId();
-        Long coachId = client.getCoachId();
-
-        String name = client.getName();
-        String surname = client.getSurname();
-        String login = client.getLogin();
-        String password = client.getPassword();
-
-        int visitsNumber = client.getVisitNumber();
-
-        float personalSale = client.getPersonalDiscount();
-        float corporateSale = client.getCorporateDiscount();
-        long programId = client.getProgramId();
-
-        return executeUpdate(INSERT_QUERY,Arrays.asList(clientId,coachId,name,surname,login,password,visitsNumber,personalSale,corporateSale,programId));
+        return fields;
     }
-
-
-
-
 }

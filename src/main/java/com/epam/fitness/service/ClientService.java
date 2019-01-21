@@ -80,7 +80,7 @@ public class ClientService {
         }
     }
 
-    public long save(Client client) throws ServiceException {
+    public Long save(Client client) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ClientRepository clientRepository = repositoryCreator.getClientRepository();
             return clientRepository.save(client);
