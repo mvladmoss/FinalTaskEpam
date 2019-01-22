@@ -15,7 +15,7 @@ public class NutritionByClientId implements SqlSpecification {
 
     @Override
     public String getSql() {
-        return " left join program on nutrition.id_nutrition=program.nutrition_id left join client " +
+        return " join program on nutrition.id_nutrition=program.nutrition_id join client " +
                 "on client.program_id = program.id_program where id_client = (?)";
     }
 

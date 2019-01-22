@@ -28,9 +28,14 @@
 
 <nav style="border-radius: 6px;">
     <ul class="top-menu">
-        <li id="home"><a href="${pageContext.servletContext.contextPath}/controller?command=main" onmouseover="changeStyle('home')" onmouseout="changeStyleBack('home')">${home}</a></li>
-        <li id="signOut" style="position: relative; left: 630px"><a href="${pageContext.servletContext.contextPath}/controller?command=sign_out"  onmouseover="changeStyle('signOut')" onmouseout="changeStyleBack('signOut')">${sign_out}</a></li>
-        <li id="language" style="position: relative; left: 640px"><a href="${pageContext.servletContext.contextPath}/controller?command=language&currentPage=${param.currentPage}&language=${sessionScope.nextLanguage}"  onmouseover="changeStyle('language')" onmouseout="changeStyleBack('language')">${sessionScope.language}</a></li>
+        <li id="home"><a href="${pageContext.servletContext.contextPath}/controller?command=main" >${home}</a></li>
+        <li id="signOut" style="position: relative; left: 630px"><a href="${pageContext.servletContext.contextPath}/controller?command=sign_out"  >${sign_out}</a></li>
+        <li id="language" style="position: relative; left: 640px">
+            <form action="${pageContext.servletContext.contextPath}/controller?command=language" method="post">
+                <input name="currentPage" value="${param.currentPage}" style="display: none;">
+                <input name="language" value="${sessionScope.nextLanguage}" style="display: none;">
+                <input type="submit" value="${sessionScope.language}" style="border: none;background: none;list-style-position: inside;font-family: 'Poppins', sans-serif;font-size: 16px;">
+            </form>
     </ul>
 </nav>
 <div id="heading">

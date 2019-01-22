@@ -12,20 +12,13 @@ public class ExerciseDtoBuilder implements Builder<ExerciseDto> {
     @Override
     public ExerciseDto build(ResultSet resultSet) throws RepositoryException {
         Exercise exercise = new ExerciseBuilder().build(resultSet);
-        ExerciseDto exerciseDto = new ExerciseDto();
-        exerciseDto.setExercise(exercise);
         try {
             long id = resultSet.getLong(ExerciseDtoTableConstants.ID.getFieldName());
-            exerciseDto.setId(id);
             int repeatNumber = resultSet.getInt(ExerciseDtoTableConstants.REPEAT_NUMBER.getFieldName());
-            exerciseDto.setRepeatNumber(repeatNumber);
             int setNumber = resultSet.getInt(ExerciseDtoTableConstants.SET_NUMBER.getFieldName());
-            exerciseDto.setSetNumber(setNumber);
             int numberOfTrainDay = resultSet.getInt(ExerciseDtoTableConstants.NUMBER_TRAIN_DAY.getFieldName());
-            exerciseDto.setNumberTrainDay(numberOfTrainDay);
-            long program_id = resultSet.getLong(ExerciseDtoTableConstants.PROGRAM_ID.getFieldName());
-            exerciseDto.setProgramId(program_id);
-            return exerciseDto;
+            long programId = resultSet.getLong(ExerciseDtoTableConstants.PROGRAM_ID.getFieldName());
+            return new ExerciseDto(id,exercise,programId,repeatNumber,setNumber,numberOfTrainDay);
         }catch (SQLException exception){
             throw new RepositoryException(exception.getMessage(),exception);
         }

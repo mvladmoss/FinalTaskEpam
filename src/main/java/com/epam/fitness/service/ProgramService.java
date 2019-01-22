@@ -37,13 +37,5 @@ public class ProgramService {
         }
     }
 
-    //Вынести в abstractRepository easy
-    public Long getNextIdInTable() throws ServiceException {
-        try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
-            ProgramRepository programRepository = repositoryCreator.getProgramRepository();
-            return programRepository.getNextTableId();
-        } catch (RepositoryException exception) {
-            throw new ServiceException(exception.getMessage(), exception);
-        }
-    }
+
 }

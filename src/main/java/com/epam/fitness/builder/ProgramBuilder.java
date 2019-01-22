@@ -19,16 +19,8 @@ public class ProgramBuilder implements Builder<Program> {
             Long id = resultSet.getLong(ProgramTableConstants.ID.getFieldName());
             program.setId(id);
             Long nutritionId = resultSet.getLong(ProgramTableConstants.NUTRITION_ID.getFieldName());
-            NutritionService nutritionService = new NutritionService();
-            try {
-                Optional<Nutrition> nutritionOptional = nutritionService.findById(nutritionId);
-                nutritionOptional.ifPresent(nutrition -> program.setNutrition(nutrition));
-            } catch (ServiceException e) {
-                e.printStackTrace();
-            }
             Integer trainsPerWeek = resultSet.getInt(ProgramTableConstants.TRAINS_PER_WEEK.getFieldName());
-            program.setTrainsPerWeek(trainsPerWeek);
-            return program;
+            return new Program();
         }catch (SQLException exception){
             throw new RepositoryException(exception.getMessage(),exception);
         }

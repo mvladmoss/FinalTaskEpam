@@ -24,7 +24,12 @@
     </servlet-mapping>
 
     <error-page>
-        <location>/WEB-INF/error.jsp</location>
+        <location>/WEB-INF/error/standardErrorPage.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/error/errorPage404.jsp</location>
     </error-page>
 
     <welcome-file-list>

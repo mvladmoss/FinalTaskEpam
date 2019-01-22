@@ -46,6 +46,7 @@ public class OrderInformationRepository extends AbstractRepository<OrderInformat
         fields.put(OrderInformationTableConstants.PAYMENT_DATA.getFieldName(),orderInformation.getPaymentData());
         fields.put(OrderInformationTableConstants.MEMBERSHIP_END_DATE.getFieldName(),orderInformation.getMembershipEndDate());
         fields.put(OrderInformationTableConstants.CLIENT_ID.getFieldName(),orderInformation.getClientId());
+        fields.put(OrderInformationTableConstants.CARD_NUMBER.getFieldName(),orderInformation.getCardNumber());
         return fields;
     }
 

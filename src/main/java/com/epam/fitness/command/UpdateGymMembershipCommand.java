@@ -15,7 +15,11 @@ import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.sql.Timestamp;
-import java.util.Optional;import com.epam.fitness.exception.ServiceException;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.epam.fitness.exception.ServiceException;
 
 
 public class UpdateGymMembershipCommand implements Command {
@@ -23,26 +27,36 @@ public class UpdateGymMembershipCommand implements Command {
     private static final String PROFILE_PAGE = "/controller?command=profile";
     private static final String COST = "cost";
     private static final String PERIOD = "period";
+    private static final String CARD_NUMBER = "cardNumber";
+    private static final String PAYMENT_ERROR = "payment_error";
+    private static final String ORDER_PAGE = "/controller?command=get_order_page";
+    private final static Pattern PATTERN = Pattern.compile("\\d{16}");
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        String cardNumber = request.getParameter(CARD_NUMBER);
+        if(isCardNumberValid(cardNumber)){
+            request.setAttribute(PAYMENT_ERROR,true);
+            return new CommandResult(ORDER_PAGE,false);
+        }
         HttpSession session = request.getSession();
-        long clientID = (long) session.getAttribute(SessionAttributes.ID);
+        Long clientID = (Long) session.getAttribute(SessionAttributes.ID);
         increaseClientVisitNumber(clientID);
         BigDecimal cost = new BigDecimal(request.getParameter(COST));
         java.sql.Date newEndMembershipDate = defineNewEndMembershipEndDate(request,clientID);
-        OrderInformation newOrderInformation = makeOrder(cost,new Timestamp(new Date().getTime()), newEndMembershipDate, clientID);
+        OrderInformation newOrderInformation = makeOrder(cost,new Timestamp(new Date().getTime()), newEndMembershipDate, clientID,cardNumber);
         OrderInformationService orderInformationService = new OrderInformationService();
         orderInformationService.save(newOrderInformation);
         return new CommandResult(PROFILE_PAGE,true);
     }
 
-    private OrderInformation makeOrder(BigDecimal cost, Timestamp paymentData, java.sql.Date endDate, long clientId){
+    private OrderInformation makeOrder(BigDecimal cost, Timestamp paymentData, java.sql.Date endDate, long clientId,String cardNumber){
         OrderInformation orderInformation = new OrderInformation();
         orderInformation.setClientId(clientId);
         orderInformation.setPaymentData(paymentData);
         orderInformation.setCost(cost);
         orderInformation.setMembershipEndDate(endDate);
+        orderInformation.setCardNumber(cardNumber);
         return  orderInformation;
     }
 
@@ -71,8 +85,12 @@ public class UpdateGymMembershipCommand implements Command {
             client.setPersonalSale(newPersonalDiscount);
             clientService.save(client);
         }
+
     }
 
-
+    private boolean isCardNumberValid(String cardNumber){
+        Matcher matcher = PATTERN.matcher(cardNumber);
+        return matcher.matches();
+    }
 
 }

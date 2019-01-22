@@ -22,6 +22,7 @@
     <link href="https://fonts.googleapis.com/css?family=Lato|Sarabun" rel="stylesheet">
     <script src="../scripts/buttonStyleChanger.js"></script>
     <script src="../scripts/gymCostSetters.js"></script>
+    <script src="../scripts/notification.js"></script>
 </head>
 
 <body>
@@ -31,6 +32,7 @@
         <jsp:param name="currentPage" value="get_order_page"/>
     </jsp:include>
     <section>
+
         <div class = "container">
             <div class="rightcolumn" style="min-height: 270px;">
                 <div class="card">
@@ -47,49 +49,56 @@
                         <label for="cost" voc>Cost</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="cost" name="cost" value="0.0$" readonly>
+                        <input type="text" id="cost" name="cost" value="0.0$" style="width: 95%;" readonly>
                     </div>
 
                     <div class="col-25">
                         <label for="personal_discount">Personal discount</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="personal_discount" name="personal_discount" value="${client_personal_discount}" readonly>
+                        <input type="text" id="personal_discount" style="width: 95%;" name="personal_discount" value="${client_personal_discount}" readonly>
                     </div>
 
                     <div class="col-25">
                         <label for="corporate_discount">Corporate discount</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="corporate_discount" name="corporate_discount" value="${client_corporate_discount}" readonly>
+                        <input type="text" id="corporate_discount" style="width: 95%;" name="corporate_discount" value="${client_corporate_discount}" readonly>
                     </div>
 
                     <div class="col-25">
                         <label for="final_cost">Final cost</label>
                     </div>
                     <div class="col-75">
-                        <input type="text" id="final_cost" name="final_cost"  value="0.0$" readonly>
+                        <input type="text" id="final_cost" name="final_cost" style="width: 95%;"  value="0.0$" readonly>
                     </div>
                     <input class="modal__check" type="checkbox" id="modal"/>
                     <div class="modal">
                         <label class="modal__closetwo" for="modal"></label>
                         <div class="modal__info" style="min-height: 160px;max-width: 600px;">
-                            <form name="form" action="${pageContext.servletContext.contextPath}/controller?command=update_gym_membership&period=" method="post" style="margin-top: 10px;">
+                            <form name="form" action="${pageContext.servletContext.contextPath}/controller?command=update_gym_membership" method="post" style="margin-top: 10px;">
+                                <input id="period" name="period" style="display: none;">
                                 <label class="modal__close" for="modal">&times;</label>
                                 <label for="cardNumber" style="padding-top: 5px;margin-top: 5px;font-size: 14px; font-family: 'Poppins', sans-serif; color: black;"> Card number</label>
-                                <input id="cardNumber" type="text" style="margin-top: -8px;">
+                                <input id="cardNumber" name="cardNumber" type="text" style="margin-top: -8px;">
                                 <label for="finalCostModalWindow" style="display: table-cell;position: absolute;margin-top: 17px;font-size: 14px; font-family: 'Poppins', sans-serif; color: black;">Final cost</label>
-                                <input id="finalCostModalWindow" type="text" style="margin-top:10px;margin-left: 98px;" readonly>
+                                <input id="finalCostModalWindow" name="cost" type="text" style="margin-top:10px;margin-left: 98px;" readonly>
                                 <input class="button" type="submit" style="position: absolute;margin-top: 60px; margin-left: -530px">
                             </form>
                         </div>
                     </div>
                     <c:choose>
                         <c:when test="${end_date_membership=='true'}">
-                            <label for="modal" class="buttonSub" >Extend</label>
+                            <label onclick="checkSelectOption()" class="buttonSub" >Extend</label>
+                            <c:if test="${payment_error == true}">
+                                <h2 style="position: absolute;color: red;margin-left: 100px;padding-top: 214px;">Was input incorrect card data.Please try again</h2>
+                            </c:if>
                         </c:when>
                         <c:otherwise>
-                            <label for="modal" class="buttonSub" >Buy</label>
+                            <label  onclick="checkSelectOption()" class="buttonSub">Buy</label>
+                            <c:if test="${payment_error == true}">
+                                <h2 style="position: absolute;color: red;margin-left: 100px;padding-top: 214px;">Was input incorrect card data.Please try again</h2>
+                            </c:if>
                         </c:otherwise>
                     </c:choose>
                 </div>

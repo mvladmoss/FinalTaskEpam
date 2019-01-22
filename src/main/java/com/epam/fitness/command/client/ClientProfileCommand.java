@@ -36,7 +36,6 @@ public class ClientProfileCommand implements Command {
 
         if(client.isPresent()) {
             request.setAttribute(UserRole.CLIENT, client.get());
-            System.out.println(client.get().getId());
             long coachId = client.get().getCoachId();
             CoachService coachService = new CoachService();
             Optional<Coach> coach = coachService.findById(coachId);

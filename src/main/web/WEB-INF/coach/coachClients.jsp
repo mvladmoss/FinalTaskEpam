@@ -49,10 +49,16 @@
                                     </div>
                                 </div>
                                 <div class="flex-item " style="margin-left: 40px;">
-                                    <a href="${pageContext.request.contextPath}/controller?command=show_client_exercises&client_id=${client.id}"><img src="../../images/gantelya.png" width="40" height="40" alt="Exercises"></a>
+                                    <form action="${pageContext.request.contextPath}/controller?command=show_client_exercises" method="post">
+                                        <input id="coach_client_id" name="coach_client_id" value="${client.id}" style="display: none;">
+                                        <button type="submit" style="display: contents;"><img src="../../images/gantelya.png" width="40" height="40" alt="Exercises" style="display: inline;"></button>
+                                    </form>
                                 </div>
                                 <div class="flex-item ">
-                                    <a href="${pageContext.request.contextPath}/controller?command=show_client_nutrition&client_id=${client.id}"><img src="../../images/nutrition.png" width="40" height="40" alt="Exercises"></a>
+                                    <form action="${pageContext.request.contextPath}/controller?command=show_client_nutrition" method="post">
+                                        <input id="coach_client_id" name="coach_client_id" value="${client.id}" style="display: none;">
+                                        <button type="submit" style="display: contents;"><img src="../../images/nutrition.png" width="40" height="40" alt="Exercises" style="display: inline"></button>
+                                    </form>
                                 </div>
                                 <br>
                             </div>

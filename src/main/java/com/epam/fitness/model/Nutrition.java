@@ -8,6 +8,16 @@ public class Nutrition implements Identifiable {
     private String lunchNutrition;
     private String dinnerNutrition;
 
+    public Nutrition(Long id, String name, String morningNutrition, String lunchNutrition, String dinnerNutrition){
+        this.id = id;
+        this.name = name;
+        this.morningNutrition = morningNutrition;
+        this.lunchNutrition = lunchNutrition;
+        this.dinnerNutrition = dinnerNutrition;
+    }
+
+    public Nutrition(){}
+
     public Long getId() {
         return id;
     }

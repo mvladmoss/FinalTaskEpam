@@ -13,7 +13,6 @@ public class JsonExerciseCreator implements JsonCreator<Exercise> {
         for(Exercise exercise : exercises) {
             JSONObject object = new JSONObject();
             object.put("id",exercise.getId());
-            object.put("equipmentId",exercise.getEquipmentId());
             object.put("name",exercise.getName());
             object.put("description",exercise.getDescription());
             object.put("image",exercise.getImage());

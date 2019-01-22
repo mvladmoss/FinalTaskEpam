@@ -12,23 +12,37 @@ import com.epam.fitness.service.CoachService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;import com.epam.fitness.exception.ServiceException;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.epam.fitness.exception.ServiceException;
+import com.sun.org.apache.regexp.internal.RE;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 
 public class LoginCommand implements Command {
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
 
     private static final String LOGIN_PAGE = "/WEB-INF/login.jsp";
-    private static final String ERROR_LOGIN_MESSAGE = "errorLoginMessage";
+    private static final String AUTHENTICATION_ERROR = "authentication_error";
+    private static final String INCORRECT_LOGIN_DATA = "incorrect_login_data";
+    private static final String EMPTY_PASSWORD_DATA = "empty_password_data";
     private static final String COMMAND_MAIN = "controller?command=main";
-
+    private static final Pattern PATTERN = Pattern.compile("^[\\w][\\w\\d-_.]{1,20}$");
+    private static final String EMPTY_STRING = "";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String login = request.getParameter(LOGIN);
         String password = request.getParameter(PASSWORD);
-
-        boolean isClientOrCoachFind = false;
+        if(!isLoginValid(login)){
+            return forwardToLoginWithError(request,INCORRECT_LOGIN_DATA);
+        }
+        if(!isPasswordValid(password)){
+            return forwardToLoginWithError(request,EMPTY_PASSWORD_DATA);
+        }
+        boolean isClientOrCoachFind;
         if(!initializeCoachIfExist(login,password,request)){
             isClientOrCoachFind = initializeClientIfExist(login,password,request);
         }else{
@@ -38,8 +52,7 @@ public class LoginCommand implements Command {
         if(isClientOrCoachFind){
             return new CommandResult(COMMAND_MAIN, true);
         }  else {
-            request.setAttribute(ERROR_LOGIN_MESSAGE, true);
-            return new CommandResult(LOGIN_PAGE, false);
+            return forwardToLoginWithError(request,AUTHENTICATION_ERROR);
         }
     }
 
@@ -71,8 +84,23 @@ public class LoginCommand implements Command {
         session.setAttribute(SessionAttributes.ID, userID);
         String entityName = entity.getClass().getSimpleName().toLowerCase();
         session.setAttribute(SessionAttributes.ROLE,entityName);
-
     }
+
+    private boolean isLoginValid(String login){
+        Matcher loginMatcher = PATTERN.matcher(login);
+        return loginMatcher.matches();
+    }
+
+    private boolean isPasswordValid(String password){
+        return !password.equals(EMPTY_STRING);
+    }
+
+    private CommandResult forwardToLoginWithError(HttpServletRequest request,String ERROR){
+        request.setAttribute(ERROR, true);
+        return new CommandResult(LOGIN_PAGE, false);
+    }
+
+
 
 
 }

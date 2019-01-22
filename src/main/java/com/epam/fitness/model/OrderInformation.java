@@ -11,6 +11,18 @@ public class OrderInformation implements Identifiable{
     private Timestamp paymentData;
     private Date membershipEndDate;
     private Long clientId;
+    private String cardNumber;
+
+    public OrderInformation(Long id, BigDecimal cost, Timestamp paymentData, Date membershipEndDate, Long clientId, String cardNumber) {
+        this.id = id;
+        this.cost = cost;
+        this.paymentData = paymentData;
+        this.membershipEndDate = membershipEndDate;
+        this.clientId = clientId;
+        this.cardNumber = cardNumber;
+    }
+
+    public OrderInformation(){}
 
     public Long getId() {
         return id;
@@ -50,5 +62,13 @@ public class OrderInformation implements Identifiable{
 
     public void setClientId(Long clientId) {
         this.clientId = clientId;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 }

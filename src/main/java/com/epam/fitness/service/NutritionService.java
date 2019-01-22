@@ -39,12 +39,4 @@ public class NutritionService {
         }
     }
 
-    public Long getNextIdInTable() throws ServiceException {
-        try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
-            NutritionRepository nutritionRepository = repositoryCreator.getNutritionRepository();
-            return nutritionRepository.getNextTableId();
-        } catch (RepositoryException exception) {
-            throw new ServiceException(exception.getMessage(), exception);
-        }
-    }
 }

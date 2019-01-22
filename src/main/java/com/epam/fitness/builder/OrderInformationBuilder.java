@@ -13,17 +13,14 @@ import java.util.Date;
 public class OrderInformationBuilder implements Builder<OrderInformation> {
     @Override
     public OrderInformation build(ResultSet resultSet) throws RepositoryException {
-        OrderInformation orderInformation = new OrderInformation();
         try {
             Long orderID = resultSet.getLong(OrderInformationTableConstants.ID.getFieldName());
-            orderInformation.setId(orderID);
             BigDecimal cost = resultSet.getBigDecimal(OrderInformationTableConstants.COST.getFieldName());
-            orderInformation.setCost(cost);
             Timestamp paymentData = resultSet.getTimestamp(OrderInformationTableConstants.PAYMENT_DATA.getFieldName());
-            orderInformation.setPaymentData(paymentData);
             Date membership_end_date = resultSet.getDate(OrderInformationTableConstants.MEMBERSHIP_END_DATE.getFieldName());
-            orderInformation.setMembershipEndDate(membership_end_date);
-            return orderInformation ;
+            Long clientId = resultSet.getLong(OrderInformationTableConstants.CLIENT_ID.getFieldName());
+            String cardNumber = resultSet.getString(OrderInformationTableConstants.CARD_NUMBER.getFieldName());
+            return new OrderInformation(orderID,cost,paymentData,membership_end_date,clientId,cardNumber) ;
         }catch (SQLException exception){
             throw new RepositoryException(exception.getMessage(),exception);
         }

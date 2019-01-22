@@ -20,7 +20,7 @@ public class Controller extends HttpServlet {
 
 
     private static final String COMMAND = "command";
-    private static final String ERROR_PAGE = "/WEB-INF/error.jsp";
+    private static final String ERROR_PAGE = "/WEB-INF/standardErrorPage.jsp";
     private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
 
     @Override

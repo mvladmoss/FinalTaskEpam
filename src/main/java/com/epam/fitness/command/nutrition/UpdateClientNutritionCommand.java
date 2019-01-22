@@ -17,35 +17,39 @@ import java.util.Optional;import com.epam.fitness.exception.ServiceException;
 
 public class UpdateClientNutritionCommand implements Command {
 
-    private String profilePage = "/controller?command=show_client_nutrition&client_id=";
+    private static final String PROFILE_PAGE = "/controller?command=show_client_nutrition";
     private final static String MORNING = "morning";
     private final static String LUNCH = "lunch";
     private final static String DINNER = "dinner";
     private final static String NUTRITION_ID = "nutrition_id";
     private final static String NUTRITION_TIME = "nutrition_time";
     private final static String NUTRITION_DESCRIPTION = "nutrition_description";
+    private final static String COACH_CLIENT_ID = "coach_client_id";
+
 
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
-        setNewNutrition(request);
+        Long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
+        setNewNutrition(nutritionId,request);
         HttpSession session = request.getSession();
         if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
-            setClientId(nutritionId);
+            setClientId(nutritionId,request);
         }
-        return new CommandResult(profilePage,true);
+        return new CommandResult(PROFILE_PAGE,true);
     }
 
-    private void setClientId(Long nutritionId) throws ServiceException {
+    private void setClientId(Long nutritionId,HttpServletRequest request) throws ServiceException {
 
         ClientService clientService = new ClientService();
         Optional<Client> clientOptional = clientService.findByNutritionId(nutritionId);
-        clientOptional.ifPresent(client -> profilePage+=client.getId());
+        clientOptional.ifPresent(client -> {
+            HttpSession session = request.getSession();
+            session.setAttribute(COACH_CLIENT_ID,client.getId());
+        });
     }
 
-    private void setNewNutrition(HttpServletRequest request) throws ServiceException {
-        Long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
+    private void setNewNutrition(Long nutritionId,HttpServletRequest request) throws ServiceException {
         String nutritionTime = request.getParameter(NUTRITION_TIME);
         NutritionService nutritionService = new NutritionService();
         Optional<Nutrition> nutritionOptional = nutritionService.findById(nutritionId);

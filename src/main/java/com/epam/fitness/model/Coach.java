@@ -8,6 +8,16 @@ public class Coach implements Identifiable {
     private String login;
     private String password;
 
+    public Coach(Long id, String name, String surname, String login, String password){
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+    }
+
+    public Coach(){}
+
     public Long getId() {
         return id;
     }

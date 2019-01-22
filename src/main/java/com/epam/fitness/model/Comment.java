@@ -13,6 +13,13 @@ public class Comment implements Identifiable {
         this.commentContent = commentContent;
     }
 
+    public Comment(Long id, Long clientId, Long coachId, String commentContent){
+        this.id = id;
+        this.clientId = clientId;
+        this.coachId = coachId;
+        this.commentContent = commentContent;
+    }
+
     public Comment(){}
 
     @Override
@@ -48,3 +55,4 @@ public class Comment implements Identifiable {
         this.commentContent = commmentContent;
     }
 }
+

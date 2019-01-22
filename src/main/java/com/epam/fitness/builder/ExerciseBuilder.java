@@ -10,17 +10,12 @@ import java.sql.SQLException;
 public class ExerciseBuilder implements Builder<Exercise> {
     @Override
     public Exercise build(ResultSet resultSet) throws RepositoryException {
-        Exercise exercise = new Exercise();
         try {
             Long id = resultSet.getLong(ExerciseTableConstants.ID.getFieldName());
-            exercise.setId(id);
             String name = resultSet.getString(ExerciseTableConstants.NAME.getFieldName());
-            exercise.setName(name);
             String description = resultSet.getString(ExerciseTableConstants.DESCRIPTION.getFieldName());
-            exercise.setDescription(description);
             String image = resultSet.getString(ExerciseTableConstants.IMAGE.getFieldName());
-            exercise.setImage(image);
-            return exercise;
+            return new Exercise(id,name,description,image);
         }catch (SQLException exception){
             throw new RepositoryException(exception.getMessage(),exception);
         }

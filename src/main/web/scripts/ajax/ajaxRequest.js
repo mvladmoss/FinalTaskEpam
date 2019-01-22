@@ -2,13 +2,12 @@
 var req;
 
 function makeRequest(){
-    alert("dsad000");
     req = newXMLHttpRequest();
     req.onreadystatechange = getReadyStateHandler(req, addExercises);
     req.open("POST", "Ajaxcontroller", true);
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    var currentSerach = document.getElementById("searchType").value;
-    req.send("searchArgument=" + currentSerach);
+    var currentSearch = document.getElementById("searchType").value;
+    req.send("searchArgument=" + currentSearch);
 }
 
 function addExercises(){
@@ -19,16 +18,15 @@ function addExercises(){
         flexContainer.innerHTML="";
         flexContainer.appendChild(flexItem);
         for(var i = 0; i<parsed.exercises.length; i++){
-            var toAdd = document.getElementById('flex-item').innerHTML;
-            var programId = document.getElementById("programIdBlock");
-            toAdd = toAdd.replace(/{exercise.id}/g,parsed.exercises[i].id);
-            toAdd = toAdd.replace(/{exercise.name}/g,parsed.exercises[i].name);
-            toAdd = toAdd.replace(/{image_url}/g,parsed.exercises[i].image);
-            toAdd = toAdd.replace(/{description}/g,parsed.exercises[i].description);
-            toAdd = toAdd.replace(/{program.id}/g,programId.value);
+            document.getElementById('description').innerText = parsed.exercises[i].description ;
+            document.getElementById("img").src =  parsed.exercises[i].image;
+            document.getElementById("exerciseName").innerText =  parsed.exercises[i].name;
+            var flexItemToAdd = document.getElementById('flex-item').innerHTML;
+            flexItemToAdd = flexItemToAdd.replace(/{exercise.id}/g,parsed.exercises[i].id);
             var newFlexItem = document.createElement('div');
-            newFlexItem.innerHTML = toAdd;
+            newFlexItem.innerHTML = flexItemToAdd;
             newFlexItem.classList.add("flex-item-iter");
+            newFlexItem.id='flex-item'+parsed.exercises[i].id;
             flexContainer.appendChild(newFlexItem);
         }
 

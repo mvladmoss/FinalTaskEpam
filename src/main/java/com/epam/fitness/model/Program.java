@@ -7,11 +7,18 @@ import java.util.List;
 public class Program implements Identifiable{
 
     private Long id;
-    private Nutrition nutrition;
+    private Long nutritionId;
     private String name;
     private int trainsPerWeek;
     private List<ExerciseDto> exercises;
 
+    public Program(Long id, Long nutritionId, String name, int trainsPerWeek, List<ExerciseDto> exercises) {
+        this.id = id;
+        this.nutritionId = nutritionId;
+        this.name = name;
+        this.trainsPerWeek = trainsPerWeek;
+        this.exercises = exercises;
+    }
 
     public Long getId() {
         return id;
@@ -21,12 +28,12 @@ public class Program implements Identifiable{
         this.id = id;
     }
 
-    public Nutrition getNutrition() {
-        return nutrition;
+    public Long getNutritionId() {
+        return nutritionId;
     }
 
-    public void setNutrition(Nutrition nutrition) {
-        this.nutrition = nutrition;
+    public void setNutritionId(Long nutritionId) {
+        this.nutritionId = nutritionId;
     }
 
     public String getName() {

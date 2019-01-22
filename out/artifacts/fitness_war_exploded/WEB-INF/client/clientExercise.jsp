@@ -30,14 +30,28 @@
         <div class="container">
             <div class="rightcolumn">
                 <c:choose>
-                    <c:when test="${is_membership_valid == true}">
+                    <c:when test="${is_membership_valid == false}">
+                        <div class="flex-container">
+                            <div class="flex-item" style="color:#516b9e;width:500px;">
+                                <h3>You can not choose exercises until you don't buy membership</h3>
+                            </div>
+                            <div class="flex-item" style="margin-top: -10px; margin-left: -15px;">
+                                <form action="${pageContext.servletContext.contextPath}/controller?command=get_order_page" method="post">
+                                    <input type="submit" class="button" style="color: white; text-align: center; margin: 10px 15px 5px -10px;width: 80px; height: 50px; font: 14px Tahoma, sans-serif; background: #29c5e6;
+" value="Buy">
+                                </form>
+                            </div>
+                        </div>
+                    </c:when>
+
+                    <c:otherwise>
                         <jsp:useBean id="program" type="com.epam.fitness.model.Program" scope="request"/>
                         <input id="programIdBlock" value="${program.id}" style="display: none;">
                         <div class="tabs">
                             <c:forEach var = "i" begin = "1" end = "${program.trainsPerWeek}">
                                 <input class="tabs__tab" type="radio" id="tabs__tab${i}" onclick="setCurrentTrainDayInForm('${i}')" name="tabstab" style="display: none;" checked="checked"/>
                                 <label class="tabs__title" for="tabs__tab${i}">Day <c:out value="${i}"/></label>
-                                <div class="tabs__text">
+                                <div class="tabs__text" style="overflow-y: scroll;max-height: 340px;">
                                     <ul>
                                         <c:forEach items="${program.exercises}" var="exerciseDto">
                                             <c:if test="${exerciseDto.numberTrainDay==i}">
@@ -52,7 +66,7 @@
                                                             <div class="modal__info">
                                                                 <label class="modal__close" for="modal${exerciseDto.id}">&times;</label>
                                                                 <h2 class="edit" >Edit</h2>
-                                                                <form action="${pageContext.request.contextPath}/controller?command=update_exercise&exerciseDtoId=${exerciseDto.id}" method="post">
+                                                                <form action="${pageContext.request.contextPath}/controller?command=update_exercise" method="post">
                                                                     <div class="col-25" style="margin-left: -11px;">
                                                                         <label for="setNumber">Number of set</label>
                                                                     </div>
@@ -65,6 +79,7 @@
                                                                     <div class="col-75">
                                                                         <input type="text" style="width: 101%; margin-left: 20px;;" id="repeats" name="repeats">
                                                                     </div>
+                                                                    <input id="exerciseDtoId" name="exerciseDtoId" value="${exerciseDto.id}" style="display: none">
                                                                     <input type="submit" class="buttonSub" value="Update" id="update" style="margin-top: 10px;">
                                                                 </form>
                                                             </div>
@@ -74,7 +89,10 @@
                                                     </div>
                                                     <div class="flex-item delete">
                                                         <p>
-                                                            <a href="${pageContext.request.contextPath}/controller?command=delete_exercise&exerciseDtoId=${exerciseDto.id}"><img src="../../images/delete.jpg" width="40" height="40" alt="Удалить"></a>
+                                                            <form action="${pageContext.request.contextPath}/controller?command=delete_exercise" method="post">
+                                                                <input id="exerciseDtoId" name="exerciseDtoId" value="${exerciseDto.id}" style="display: none;">
+                                                                <button type="submit" style="display: contents;"><img src="../../images/delete.jpg" width="40" height="40" alt="Удалить" style="display: inline"></button>
+                                                            </form>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -92,13 +110,14 @@
                                 <label class="modal__close" for="modal">&times;</label>
                                 <input type="search"  oninput="makeRequest()" placeholder="Enter the name of exercise" name="searchType" id="searchType" style="width: 40%;border-radius: 4px 4px 4px 4px;height: 30px;font: 20px 'Oswald', sans-serif;">
                                 <hr style="margin-left: -20px;width: 110%;">
-                                <form name="form" class="beatForm" action="${pageContext.request.contextPath}/controller?command=add_exercise&trainDay=${program.trainsPerWeek}" method="post">
+                                <form name="form" class="beatForm" action="${pageContext.request.contextPath}/controller?command=add_exercise" method="post">
+                                    <input id="trainDay" name="trainDay" value="${program.trainsPerWeek}" style="display: none;">
                                     <div id="reg" >
                                         <div class="flex-container-iter" id="flex-container">
                                             <div class="flex-item" id="flex-item" >
-                                                <h2 style="background: #29c5e6;font: 13px 'Oswald', sans-serif;color: #fff;padding: 10px;margin: 20px 0 0 0;border-radius: 15px 15px 0 0;width: 190px;min-height: 40px;">{exercise.name}</h2>
+                                                <h2 id="exerciseName" style="background: #29c5e6;font: 13px 'Oswald', sans-serif;color: #fff;padding: 10px;margin: 20px 0 0 0;border-radius: 15px 15px 0 0;width: 190px;min-height: 40px;"></h2>
                                                 <p>
-                                                    <img src="{image_url}" o width="250" height="181" style="margin-top:-20px;width: 210px;height: 150px;" alt="Our offices">
+                                                    <img id="img" width="250" height="181" style="margin-top:-20px;width: 210px;height: 150px;" alt="Our offices">
                                                 </p>
                                                 <div class="flex-container" style="margin-top: -30px;">
                                                     <div class="flex-item">
@@ -108,7 +127,7 @@
                                                             <div class="modal__info">
                                                                 <label class="modal__close" for="modal{exercise.id}">&times;</label>
                                                                 <h2 class="edit">Description</h2>
-                                                                <h3 style="color: black;text-align: left;font-weight: normal;">{description}</h3>
+                                                                <h3 id="description" style="color: black;text-align: left;font-weight: normal;"></h3>
                                                             </div>
                                                         </div>
                                                         <label for="modal{exercise.id}"  style="width: 60px;
@@ -137,7 +156,7 @@
                                                                         <input id="repeats{exercise.id}" style="margin-left: -120px;width: 618px;"  type="text">
                                                                     </div>
                                                                 </div>
-                                                                <input type="submit" class="buttonSub" onclick="setExerciseProgram('{exercise.id}','{program.id}')" style="margin-top: 10px;" value="Add">
+                                                                <input type="submit" class="buttonSub" onclick="setExerciseProgram('{exercise.id}',${program.id})" style="margin-top: 10px;" value="Add">
                                                             </div>
                                                         </div>
                                                         <label for="modalChoose{exercise.id}"  style="width: 60px;
@@ -153,19 +172,6 @@
                         </div>
                         <label for="modal" class="buttonSub" onclick="makeRequest()" style="color: white;text-align: center;margin-top: 10px;padding-top: 15px;width: 80px;height: 30px;font: 14px Tahoma, sans-serif;background: #29c5e6">Add exercise</label>
 
-                    </c:when>
-                    <c:otherwise>
-                        <div class="flex-container">
-                            <div class="flex-item" style="color:#516b9e;width:500px;">
-                                <h3>You can not choose exercises until you don't buy membership</h3>
-                            </div>
-                            <div class="flex-item" style="margin-top: -10px; margin-left: -15px;">
-                                <form action="${pageContext.servletContext.contextPath}/controller?command=get_order_page" method="post">
-                                    <input type="submit" class="button" style="color: white; text-align: center; margin: 10px 15px 5px -10px;width: 80px; height: 50px; font: 14px Tahoma, sans-serif; background: #29c5e6;
-" value="Buy">
-                                </form>
-                            </div>
-                        </div>
                     </c:otherwise>
                 </c:choose>
                 </div>
@@ -176,5 +182,6 @@
 
 </body>
 </html>
+
 
 

@@ -6,6 +6,7 @@ public enum OrderInformationTableConstants {
     COST("cost"),
     PAYMENT_DATA("payment_data"),
     MEMBERSHIP_END_DATE("membership_end_date"),
+    CARD_NUMBER("card_number"),
     CLIENT_ID("client_id");
 
     private String fieldName;

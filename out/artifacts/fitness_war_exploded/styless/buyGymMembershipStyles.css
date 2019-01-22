@@ -75,6 +75,7 @@ input[type=text], input[type=datetime-local] {
     border: 1px solid #29c5e6;
     border-radius: 5px;
     resize: vertical;
+    outline: none;
 }
 
 select{

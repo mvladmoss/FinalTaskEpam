@@ -24,6 +24,4 @@ public class CoachByLoginAndPassword implements SqlSpecification {
     public List<Object> getParameters() {
         return Arrays.asList(login, password);
     }
-
-
 }

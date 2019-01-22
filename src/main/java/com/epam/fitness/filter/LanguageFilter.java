@@ -1,6 +1,5 @@
 package com.epam.fitness.filter;
 
-import com.epam.fitness.utils.page.Page;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

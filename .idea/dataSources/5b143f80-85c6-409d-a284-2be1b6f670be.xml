@@ -1507,31 +1507,37 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="358" parent="292" name="PRIMARY">
+    <column id="358" parent="292" name="card_number">
+      <Position>6</Position>
+      <DataType>char(30)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="359" parent="292" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id_order_information</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="359" parent="293" name="id_program">
+    <column id="360" parent="293" name="id_program">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="360" parent="293" name="nutrition_id">
+    <column id="361" parent="293" name="nutrition_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="361" parent="293" name="trains_per_week">
+    <column id="362" parent="293" name="trains_per_week">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="362" parent="293" name="PRIMARY">
+    <key id="363" parent="293" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id_program</ColNames>
       <Primary>1</Primary>

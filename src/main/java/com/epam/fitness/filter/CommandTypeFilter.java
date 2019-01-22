@@ -33,8 +33,6 @@ public class CommandTypeFilter implements Filter  {
         if (commandTypes.contains(commandType)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            /*HttpServletResponse response = (HttpServletResponse)servletResponse;
-            response.sendRedirect(NO_ACCESS_PAGE);*/
             RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher(NO_ACCESS_PAGE);
             requestDispatcher.forward(servletRequest, servletResponse);
         }

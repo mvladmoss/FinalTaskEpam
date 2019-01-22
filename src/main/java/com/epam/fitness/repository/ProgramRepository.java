@@ -43,7 +43,7 @@ public class ProgramRepository extends AbstractRepository<Program> {
     protected Map<String, Object> getFields(Program program) {
         Map<String,Object> fields = new HashMap<>();
         fields.put(ProgramTableConstants.ID.getFieldName(),program.getId());
-        fields.put(ProgramTableConstants.NUTRITION_ID.getFieldName(),program.getNutrition().getId());
+        fields.put(ProgramTableConstants.NUTRITION_ID.getFieldName(),program.getNutritionId());
         fields.put(ProgramTableConstants.TRAINS_PER_WEEK.getFieldName(),program.getTrainsPerWeek());
         return fields;
     }

@@ -32,7 +32,11 @@
   <div class="login-wrap">
 		<div class="login-html">
 	 <div class="header">
-		  <a href="controller?command=language&language=${sessionScope.nextLanguage}" style="float:right">${sessionScope.language}</a>
+		 <form action="${pageContext.servletContext.contextPath}/controller?command=language" method="post">
+			 <input name="currentPage" value="${param.currentPage}" style="display: none;">
+			 <input name="language" value="${sessionScope.nextLanguage}" style="display: none;">
+			 <input type="submit" value="${sessionScope.language}" style="border: none;background: none;list-style-position: inside;font-family: 'Poppins', sans-serif;font-size: 16px;height: 40px;margin-left: 1500px;color: white">
+		 </form>
 	  </div>
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab" >${enter}</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">${registration}</label>
@@ -41,13 +45,25 @@
 					<form action="${pageContext.servletContext.contextPath}/controller?command=login" method="post">
 					<div class="group">
 						<label for="login" class="label">${username}</label>
-						<input  id="login" oninput="check()" name="login" type="text" class="input" required placeholder="${username_placeholder}" title="${username_pattern_error}">
+						<input  id="login" oninput="checkLogin()" name="login" type="text" class="input" required placeholder="${username_placeholder}" title="${username_pattern_error}">
 					</div>
 					<div class="group">
 						<label for="password" class="label">${password}</label>
 						<input  name="password" id="password" type="password" class="input" placeholder="${password_placeholder}" title="${password_pattern_error}" >
 					</div>
-						<c:if test="${errorLoginMessage eq true}">
+						<c:if test="${login_exist_error eq true}">
+							<h3 style="color: red;margin-top: -10px;margin-left: 3px;width: 450px;font-size: 11px;">User with such login exist</h3>
+						</c:if>
+						<c:if test="${incorrect_login_data eq true}">
+							<h3 style="color: red;margin-top: -10px;margin-left: 3px;width: 450px;font-size: 11px;">Enter invalid  format of login .Please try again
+								Login pattern:2-20 characters, which can be letters and numbers, the first character is necessarily a letter
+							</h3>
+						</c:if>
+						<c:if test="${empty_password_data eq true}">
+							<br>
+							<h3 style="color: red;margin-top: -20px;margin-left: 3px;">Please enter password</h3>
+						</c:if>
+						<c:if test="${authentication_error eq true}">
 							<br>
 							<h3 style="color: red;margin-top: -20px;margin-left: 3px;">Enter invalid login or password.Please try again</h3>
 						</c:if>
@@ -60,20 +76,20 @@
 			<div class="sign-up-htm">
 					<form action="${pageContext.servletContext.contextPath}/controller?command=client_registration" method="post">
 						<div class="group">
-							<label for="loginRegister" class="label">${username}</label>
-							<input id="loginRegister" name="loginRegister" type="text" title="Required field" class="input" required>
+							<label for="login_register" class="label">${username}</label>
+							<input id="login_register"  name="login_register" type="text" class="input" required placeholder="${username_placeholder}" title="${username_pattern_error}">
 						</div>
 						<div class="group">
-							<label for="passwordRegister" class="label">${password}</label>
-							<input id="passwordRegister" name="passwordRegister" type="password" title="Required field" required class="input" data-type="password">
+							<label for="password_register" class="label">${password}</label>
+							<input id="password_register" name="password_register" type="password" title="minimum 3 symbols" required class="input" data-type="password">
 						</div>
 						<div class="group">
-							<label for="nameRegister" class="label">${name}</label>
-							<input id="nameRegister" name="nameRegister" type="text" class="input" title="Required field" required data-type="text">
+							<label for="name_register" class="label">${name}</label>
+							<input id="name_register" name="name_register" type="text" class="input" title="3-20 letters" required data-type="text">
 						</div>
 						<div class="group">
-							<label for="surnameRegister" class="label">${surname}</label>
-							<input id="surnameRegister" name="surnameRegister" type="text" title="Required field" required class="input">
+							<label for="surname_register" class="label">${surname}</label>
+							<input id="surname_register" name="surname_register" type="text" title="3-20 letters" required class="input">
 						</div>
 
 						<div class="group">

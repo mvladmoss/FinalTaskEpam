@@ -82,6 +82,9 @@ public class CommandAccess {
         commandTypes.add(CommandType.LANGUAGE);
         commandTypes.add(CommandType.NO_ACCESS);
         commandTypes.add(CommandType.LOGIN_PAGE);
+        commandTypes.add(CommandType.CLIENT_REGISTRATION);
+        commandTypes.add(CommandType.SIGN_OUT);
+
         return commandTypes;
     }
 

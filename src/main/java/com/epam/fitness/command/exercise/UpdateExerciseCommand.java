@@ -18,10 +18,11 @@ import com.sun.org.apache.regexp.internal.RE;
 
 public class UpdateExerciseCommand implements Command {
 
-    private String profilePage = "/controller?command=show_client_exercises&client_id=";
-    private static final String REPEATS = "repeats";
-    private static final String SET_NUMBER = "setNumber";
-    private String EXERCISE_DTO_ID = "exerciseDtoId";
+    private final static String PROFILE_PAGE = "/controller?command=show_client_exercises";
+    private final static String REPEATS = "repeats";
+    private final static String SET_NUMBER = "setNumber";
+    private final static String EXERCISE_DTO_ID = "exerciseDtoId";
+    private final static String COACH_CLIENT_ID = "coach_client_id";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
@@ -30,7 +31,7 @@ public class UpdateExerciseCommand implements Command {
         if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
             setClientId(request);
         }
-        return new CommandResult(profilePage,true);
+        return new CommandResult(PROFILE_PAGE,true);
     }
 
     private void updateExerciseDto(HttpServletRequest request) throws ServiceException {
@@ -45,9 +46,12 @@ public class UpdateExerciseCommand implements Command {
     }
 
     private void setClientId(HttpServletRequest request) throws ServiceException {
-        long exerciseDtoId = Long.parseLong(request.getParameter(EXERCISE_DTO_ID));
+        Long exerciseDtoId = Long.parseLong(request.getParameter(EXERCISE_DTO_ID));
         ClientService clientService = new ClientService();
         Optional<Client> clientOptional = clientService.findByExerciseDtoId(exerciseDtoId);
-        clientOptional.ifPresent(client -> profilePage+=client.getId());
+        clientOptional.ifPresent(client -> {
+            HttpSession session = request.getSession();
+            session.setAttribute(COACH_CLIENT_ID,client.getId());
+        });
     }
 }

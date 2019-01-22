@@ -118,14 +118,6 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         return executeQuery(query, builder,Collections.emptyList());
     }
 
-    public Long getNextTableId() throws RepositoryException {
-        Builder builder = BuilderFactory.create(getTableName());
-        String query = GET_ALL_QUERY + getTableName() + MAX_TABLE_ID_CONDITION;
-        Optional<T> itemOptional = executeQueryForSingleResult(query, builder,Collections.emptyList());
-        Long nextId = itemOptional.map( item -> item.getId() + 1).orElse(0L);
-        return nextId;
-    }
-
     protected abstract Map<String, Object> getFields(T obj);
 
 }

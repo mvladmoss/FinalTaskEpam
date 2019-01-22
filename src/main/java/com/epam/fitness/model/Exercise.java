@@ -3,16 +3,15 @@ package com.epam.fitness.model;
 public class Exercise implements Identifiable {
 
     private Long id;
-    private Long equipmentId;
+
     private String name;
     private String description;
     private String image;
 
     public Exercise(){}
 
-    public Exercise(Long id, Long equipmentId, String name, String description, String image){
+    public Exercise(Long id, String name, String description, String image){
         this.id = id;
-        this.equipmentId = equipmentId;
         this.name = name;
         this.description = description;
         this.image = image;
@@ -24,14 +23,6 @@ public class Exercise implements Identifiable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getEquipmentId() {
-        return equipmentId;
-    }
-
-    public void setEquipmentId(Long equipmentId) {
-        this.equipmentId = equipmentId;
     }
 
     public String getName() {

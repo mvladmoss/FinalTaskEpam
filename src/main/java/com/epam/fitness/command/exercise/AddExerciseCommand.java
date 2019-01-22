@@ -19,12 +19,13 @@ import com.epam.fitness.model.UserRole;
 
 public class AddExerciseCommand implements Command {
 
-    private static  String profilePage = "/controller?command=show_client_exercises&client_id=";
+    private final static String PROFILE_PAGE = "/controller?command=show_client_exercises";
     private static final String REPEATS = "repeats";
-    private static final String SET_NUMBER = "setNumber";
+    private static final String SET_NUMBER = "set_number";
     private static final String TRAIN_DAY = "trainDay";
     private static final String PROGRAM_ID = "programId";
     private static final String EXERCISE_ID = "exerciseId";
+    private final static String COACH_CLIENT_ID = "coach_client_id";
 
 
     @Override
@@ -36,7 +37,7 @@ public class AddExerciseCommand implements Command {
         if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
             setCLientId(request);
         }
-        return new CommandResult(profilePage,true);
+        return new CommandResult(PROFILE_PAGE,true);
     }
 
     private ExerciseDto makeExercise(HttpServletRequest request) throws ServiceException {
@@ -60,6 +61,10 @@ public class AddExerciseCommand implements Command {
         long programId = Long.parseLong(request.getParameter(PROGRAM_ID));
         ClientService clientService = new ClientService();
         Optional<Client> clientOptional = clientService.findByProgramId(programId);
-        clientOptional.ifPresent(client -> profilePage+=client.getId());
+        clientOptional.ifPresent(client -> {
+            HttpSession session = request.getSession();
+            session.setAttribute(COACH_CLIENT_ID,client.getId());
+        });
+
     }
 }

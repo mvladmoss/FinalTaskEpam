@@ -6,10 +6,7 @@ import com.epam.fitness.model.dto.ExerciseDto;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.repository.creator.RepositoryCreator;
 import com.epam.fitness.repository.ClientRepository;
-import com.epam.fitness.repository.specifications.client.CLientByProgramId;
-import com.epam.fitness.repository.specifications.client.ClientByLoginAndPassword;
-import com.epam.fitness.repository.specifications.client.ClientByNutritionId;
-import com.epam.fitness.repository.specifications.client.ClientsByCoachId;
+import com.epam.fitness.repository.specifications.client.*;
 import com.sun.javafx.image.IntPixelGetter;
 
 import java.util.List;
@@ -61,7 +58,7 @@ public class ClientService {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ExerciseDtoService exerciseDtoService = new ExerciseDtoService();
             Optional<ExerciseDto> exerciseDto = exerciseDtoService.findById(exerciseDtoId);
-            long programId = exerciseDto.get().getProgramId();
+            Long programId = exerciseDto.get().getProgramId();
             CLientByProgramId specification = new CLientByProgramId(programId);
             ClientRepository clientRepository = repositoryCreator.getClientRepository();
             return clientRepository.queryForSingleResult(specification);
@@ -80,6 +77,18 @@ public class ClientService {
         }
     }
 
+    public Optional<Client> findByLogin(String login) throws ServiceException {
+        try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
+            ClientByLogin specification = new ClientByLogin(login);
+            ClientRepository clientRepository = repositoryCreator.getClientRepository();
+            return clientRepository.queryForSingleResult(specification);
+        } catch (RepositoryException exception) {
+            throw new ServiceException(exception.getMessage(), exception);
+        }
+    }
+
+
+
     public Long save(Client client) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ClientRepository clientRepository = repositoryCreator.getClientRepository();
@@ -89,14 +98,6 @@ public class ClientService {
         }
     }
 
-    public Long getNextIdInTable() throws ServiceException {
-        try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
-            ClientRepository clientRepository = repositoryCreator.getClientRepository();
-            return clientRepository.getNextTableId();
-        } catch (RepositoryException exception) {
-            throw new ServiceException(exception.getMessage(), exception);
-        }
-    }
 
 }
 

@@ -55,7 +55,8 @@
                                                             <label class="modal__closetwo" for="modal"></label>
                                                             <div class="modal__info">
                                                                 <label class="modal__close" for="modal">&times;</label>
-                                                                <form name="form" action="${pageContext.request.contextPath}/controller?command=add_comment&coach_id=${coach.id}" method="post">
+                                                                <form name="form" action="${pageContext.request.contextPath}/controller?command=add_comment" method="post">
+                                                                    <input name="coach_id" value="${coach.id}" style="display: none;"/>
                                                                     <h2 style="color: black;font: 25px 'Oswald', sans-serif; margin-top: -5px">Your comment</h2>
                                                                     <textarea id="commentContent" name="commentContent" class="textArea" ></textarea>
                                                                     <input class="button" type="submit" value="Save">

@@ -10,19 +10,14 @@ import java.sql.SQLException;
 public class CommentBuilder implements Builder<Comment> {
     @Override
     public Comment build(ResultSet resultSet) throws RepositoryException {
-        Comment comment = new Comment();
         try{
             Long commentId = resultSet.getLong(CommentTableConstants.ID.getFieldName());
-            comment.setId(commentId);
             Long clientId = resultSet.getLong(CommentTableConstants.CLIENT_ID.getFieldName());
-            comment.setClientId(clientId);
             Long coachId = resultSet.getLong(CommentTableConstants.COACH_ID.getFieldName());
-            comment.setCoachId(coachId);
             String commentContent = resultSet.getString(CommentTableConstants.COMMENT_CONTENT.getFieldName());
-            comment.setCommentContent(commentContent);
+            return new Comment(commentId,clientId,coachId,commentContent);
         }catch (SQLException exception){
             throw new RepositoryException(exception.getMessage(),exception);
         }
-        return comment;
     }
 }

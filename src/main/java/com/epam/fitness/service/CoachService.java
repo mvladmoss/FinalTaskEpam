@@ -5,6 +5,7 @@ import com.epam.fitness.repository.CoachRepository;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.repository.creator.RepositoryCreator;
 import com.epam.fitness.repository.specifications.coach.CoachByClientId;
+import com.epam.fitness.repository.specifications.coach.CoachByLogin;
 import com.epam.fitness.repository.specifications.coach.CoachByLoginAndPassword;
 
 import java.util.ArrayList;
@@ -39,6 +40,16 @@ public class CoachService  {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             CoachRepository coachRepository = repositoryCreator.getCoachRepository();
             CoachByClientId specification = new CoachByClientId(clientId);
+            return coachRepository.queryForSingleResult(specification);
+        } catch (RepositoryException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    public Optional<Coach> findByLogin(String login) throws ServiceException {
+        try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
+            CoachRepository coachRepository = repositoryCreator.getCoachRepository();
+            CoachByLogin specification = new CoachByLogin(login);
             return coachRepository.queryForSingleResult(specification);
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);

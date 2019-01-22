@@ -34,6 +34,7 @@ public class AjaxController extends HttpServlet {
     }
 
     private void proccessRequest(HttpServletRequest request,HttpServletResponse response){
+        System.out.println(request.getParameterMap().keySet());
         String currentSearchArgument = request.getParameter("searchArgument");
         List<Exercise> exercises = getAllExercises();
         List<Exercise> exercisesAppropriateToSearchArgument = searchSystem.findItemsAppropriateToSearchArgument(exercises,currentSearchArgument);

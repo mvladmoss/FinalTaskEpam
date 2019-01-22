@@ -15,7 +15,7 @@ public class CoachByClientId implements SqlSpecification {
 
     @Override
     public String getSql() {
-        return " left join client on client.coach_id = coach.id_coach where id_client = (?)";
+        return "  join client on client.coach_id = coach.id_coach where id_client = (?)";
     }
 
     @Override
