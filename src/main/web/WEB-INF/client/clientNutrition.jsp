@@ -77,6 +77,7 @@
                                     <input id="nutrition_time" name="nutrition_time" value="dinner" style="display: none">
                                     <textarea id="nutrition_description" name="nutrition_description" class="textArea">${nutrition.dinnerNutrition}</textarea>
                                     <input class="button" type="submit" value="Save">
+                                    <h3 style="position: absolute;margin-top: -30px;margin-left: 120px;">Maximum number of characters ${max_number_symbols_attribute}</h3>
                                 </form>
                             </div>
                         </div>
@@ -88,7 +89,9 @@
         </div>
     </section>
 </div>
-
+<c:if test="${incorrect_input_data_error eq true}">
+    <script>notifyAboutInvalidData('Incorrect exercise data was input')</script>
+</c:if>
 </body>
 </html>
 

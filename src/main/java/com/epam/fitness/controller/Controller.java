@@ -52,7 +52,6 @@ public class Controller extends HttpServlet {
         try {
             commandResult = action.execute(request, response);
         } catch (ServiceException |IncorrectInputDataException e) {
-            System.out.println(e.getMessage());
             LOGGER.error(e.getMessage(), e);
             request.setAttribute(ERROR_MESSAGE,e.getMessage());
             commandResult = new CommandResult(ERROR_PAGE, false);

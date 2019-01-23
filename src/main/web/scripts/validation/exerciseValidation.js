@@ -1,9 +1,14 @@
 function checkInputExerciseData(inputId){
     var input = document.getElementById(inputId);
-    if(!/^[\d]{1,2}$/.test(input.value) || input===''){
+    if(!/^[1-9]{1,2}$/.test(input.value) || input===''){
         var placeholderErrorText= input.getAttribute("title");
         input.setCustomValidity(placeholderErrorText);
     }else{
         input.setCustomValidity('');
     }
+}
+
+function checkUpdateExerciseData(){
+    checkInputExerciseData('setNumber');
+    checkInputExerciseData('repeatsUpdate');
 }

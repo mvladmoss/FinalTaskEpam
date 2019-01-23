@@ -1,3 +1,3 @@
-function notifyAboutInvalidCardData(message){
+function notifyAboutInvalidData(message){
     alert(message);
 }

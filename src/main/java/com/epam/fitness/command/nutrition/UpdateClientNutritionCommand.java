@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;import com.epam.fitness.exception.ServiceException;
+import com.epam.fitness.utils.RequestParameterValidator;
 
 
 public class UpdateClientNutritionCommand implements Command {
@@ -25,13 +26,21 @@ public class UpdateClientNutritionCommand implements Command {
     private final static String NUTRITION_TIME = "nutrition_time";
     private final static String NUTRITION_DESCRIPTION = "nutrition_description";
     private final static String COACH_CLIENT_ID = "coach_client_id";
-
+    private final static String INCORRECT_INPUT_DATA_ERROR = "incorrect_input_data_error";
+    private final static String COACH_CLIENT_PAGE = "/controller?command=all_coach_clients";
+    private final static String CLIENT_EXERCISE_PAGE = "/controller?command=show_client_nutrition";
+    private final RequestParameterValidator parameterValidator = new RequestParameterValidator();
 
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        String newNutritionDescription = request.getParameter(NUTRITION_DESCRIPTION);
+        if(newNutritionDescription==null || !parameterValidator.isNutritionDescriptionValid(newNutritionDescription)){
+            return forwardToLoginWithError(request);
+        }
         Long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
-        setNewNutrition(nutritionId,request);
+        String nutritionTime = request.getParameter(NUTRITION_TIME);
+        setNewNutrition(nutritionId,nutritionTime,newNutritionDescription);
         HttpSession session = request.getSession();
         if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
             setClientIdForCoach(nutritionId,request);
@@ -49,11 +58,9 @@ public class UpdateClientNutritionCommand implements Command {
         });
     }
 
-    private void setNewNutrition(Long nutritionId,HttpServletRequest request) throws ServiceException {
-        String nutritionTime = request.getParameter(NUTRITION_TIME);
+    private void setNewNutrition(Long nutritionId,String nutritionTime, String newNutritionDescription) throws ServiceException {
         NutritionService nutritionService = new NutritionService();
         Optional<Nutrition> nutritionOptional = nutritionService.findById(nutritionId);
-        String newNutritionDescription = request.getParameter(NUTRITION_DESCRIPTION);
         switch (nutritionTime){
             case MORNING : {
                 nutritionOptional.ifPresent(nutrition -> nutrition.setMorningNutrition(newNutritionDescription));
@@ -71,6 +78,15 @@ public class UpdateClientNutritionCommand implements Command {
         if(nutritionOptional.isPresent()){
             nutritionService.save(nutritionOptional.get());
         }
+    }
 
+    private CommandResult forwardToLoginWithError(HttpServletRequest request) {
+        request.setAttribute(INCORRECT_INPUT_DATA_ERROR, true);
+        HttpSession session = request.getSession();
+        if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
+            return new CommandResult(COACH_CLIENT_PAGE,false);
+        }else{
+            return new CommandResult(CLIENT_EXERCISE_PAGE,false);
+        }
     }
 }

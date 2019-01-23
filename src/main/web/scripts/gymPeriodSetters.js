@@ -21,6 +21,7 @@ function createCheckAndSetNumberInput(exercise) {
 
 function createRepeatsInput(exercise) {
     var repeats = document.getElementById("repeats"+exercise).value;
+    checkInputExerciseData("repeats"+exercise);
     var newRepeatsInput = document.createElement('input');
     newRepeatsInput.style.display="none";
     newRepeatsInput.name = "repeats";

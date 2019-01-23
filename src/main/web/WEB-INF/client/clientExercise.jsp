@@ -2,6 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="text" var="text"/>
+
+<fmt:message bundle="${text}" key="exercises.add.repeats_setnumber.title" var="title"/>
+
 <!doctype html>
 <html lang="${sessionScope.language}">
 <head>
@@ -20,6 +25,8 @@
     <script src="../../scripts/ajax/ajaxConnections.js"></script>
     <script src="../../scripts/ajax/ajaxRequest.js"></script>
     <script src="../../scripts/validation/exerciseValidation.js"></script>
+    <script src="../../scripts/notification.js"></script>
+
 </head>
 <body>
 <div id="wrapper">
@@ -28,6 +35,7 @@
         <jsp:param name="currentPage" value="show_client_exercises"/>
     </jsp:include>
     <section>
+
         <div class="container">
             <div class="rightcolumn">
                 <c:choose>
@@ -72,16 +80,16 @@
                                                                         <label for="setNumber">Number of set</label>
                                                                     </div>
                                                                     <div class="col-75">
-                                                                        <input type="text" id="setNumber" style="width: 101%;" name="setNumber">
+                                                                        <input type="text" id="setNumber" style="width: 101%;" title="${title}" name="setNumber">
                                                                     </div>
                                                                     <div class="col-25" style="margin-left: -31px;">
-                                                                        <label for="repeats" style="margin-left: 10px;margin-top: 5px;">Repeats</label>
+                                                                        <label for="repeatsUpdate" style="margin-left: 10px;margin-top: 5px;">Repeats</label>
                                                                     </div>
                                                                     <div class="col-75">
-                                                                        <input type="text" style="width: 101%; margin-left: 20px;;" id="repeats" name="repeats">
+                                                                        <input type="text"  style="width: 101%; margin-left: 20px;;" id="repeatsUpdate" title="${title}"  name="repeats">
                                                                     </div>
                                                                     <input id="exerciseDtoId" name="exerciseDtoId" value="${exerciseDto.id}" style="display: none">
-                                                                    <input type="submit" class="buttonSub" value="Update" id="update" style="margin-top: 10px;">
+                                                                    <input type="submit" onclick="checkUpdateExerciseData()" class="buttonSub" value="Update" id="update" style="margin-top: 10px;">
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -147,14 +155,14 @@
                                                                         <label for="setNumber" style="margin-top: 5px;margin-left: -140px;">Sets</label>
                                                                     </div>
                                                                     <div class="col-75">
-                                                                        <input  id="setNumber{exercise.id}" style="margin-left: -120px;width: 618px;" title="1-2 number"   type="text">
+                                                                        <input  id="setNumber{exercise.id}" style="margin-left: -120px;width: 618px;" title="${title}"   type="text">
                                                                     </div>
 
                                                                     <div class="col-25">
                                                                         <label for="setNumber" style="margin-top: 5px;margin-left: -110px;">Repeats</label>
                                                                     </div>
                                                                     <div class="col-75">
-                                                                        <input  id="repeats{exercise.id}"  style="margin-left: -120px;width: 618px;" title="1-2 number"    type="text">
+                                                                        <input  id="repeats{exercise.id}"  style="margin-left: -120px;width: 618px;" title="${title}" type="text">
                                                                     </div>
                                                                 </div>
                                                                 <input type="submit" class="buttonSub" onclick="setExerciseProgram('{exercise.id}',${program.id})" title="1-2 number" style="margin-top: 10px;" value="Add">
@@ -180,7 +188,9 @@
         </div>
     </section>
 </div>
-
+<c:if test="${incorrect_input_data_error eq true}">
+    <script>notifyAboutInvalidData('Incorrect exercise data was input')</script>
+</c:if>
 </body>
 </html>
 

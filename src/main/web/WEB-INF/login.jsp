@@ -25,7 +25,7 @@
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" href="../styless/loginStyles.css">
-  <script src="../scripts/loginValidation.js"></script>
+  <script src="../scripts/validation/loginValidation.js"></script>
   </head>
 
 <body>

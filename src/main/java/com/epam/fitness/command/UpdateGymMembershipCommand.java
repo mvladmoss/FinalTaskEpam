@@ -2,6 +2,7 @@ package com.epam.fitness.command;
 
 import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.model.Client;
+import com.epam.fitness.utils.RequestParameterValidator;
 import com.epam.fitness.utils.sale.SaleSystem;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.utils.DateProducer;
@@ -30,14 +31,13 @@ public class UpdateGymMembershipCommand implements Command {
     private static final String CARD_NUMBER = "cardNumber";
     private static final String PAYMENT_ERROR = "payment_error";
     private static final String ORDER_PAGE = "/controller?command=get_order_page";
-    private final static Pattern PATTERN = Pattern.compile("\\d{16}");
+    private final RequestParameterValidator parameterValidator = new RequestParameterValidator();
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String cardNumber = request.getParameter(CARD_NUMBER);
-        if(isCardNumberValid(cardNumber)){
-            request.setAttribute(PAYMENT_ERROR,true);
-            return new CommandResult(ORDER_PAGE,false);
+        if(cardNumber==null || !parameterValidator.isCardNumberValid(cardNumber)){
+            return forwardToLoginWithError(request,PAYMENT_ERROR);
         }
         HttpSession session = request.getSession();
         Long clientID = (Long) session.getAttribute(SessionAttributes.ID);
@@ -78,9 +78,9 @@ public class UpdateGymMembershipCommand implements Command {
 
     }
 
-    private boolean isCardNumberValid(String cardNumber){
-        Matcher matcher = PATTERN.matcher(cardNumber);
-        return matcher.matches();
+    private CommandResult forwardToLoginWithError(HttpServletRequest request,String error) {
+        request.setAttribute(error, true);
+        return new CommandResult(ORDER_PAGE,false);
     }
 
 }

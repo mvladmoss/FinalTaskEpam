@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="col-25">
-                        <label for="cost" voc>Cost</label>
+                        <label for="cost">Cost</label>
                     </div>
                     <div class="col-75">
                         <input type="text" id="cost" name="cost" value="0.0$" style="width: 95%;" readonly>

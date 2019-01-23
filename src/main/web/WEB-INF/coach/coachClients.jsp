@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="../../styless/coach/coachesStyles.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <script src="../../scripts/notification.js"></script>
+
 </head>
 <body>
 <div id="wrapper">
@@ -26,6 +28,7 @@
 
     </jsp:include>
     <section>
+
         <div class="container">
             <div class="rightcolumn">
                 <c:choose>
@@ -61,6 +64,9 @@
         </div>
     </section>
 </div>
+<c:if test="${incorrect_input_data_error eq true}">
+    <script>notifyAboutInvalidData('Incorrect exercise data was input')</script>
+</c:if>
 
 </body>
 </html>

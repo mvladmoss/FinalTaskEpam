@@ -20,13 +20,15 @@ public class ShowClientNutritionCommand implements Command {
     private final static String NUTRITION_PAGE = "/WEB-INF/client/clientNutrition.jsp";
     private final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
     private final static String COACH_CLIENT_ID = "coach_client_id";
-
+    private final static Integer MAX_NUMBER_SYMBOLS_VALUE = 300;
+    private final static String MAX_NUMBER_SYMBOLS_ATTRIBUTE = "max_number_symbols_attribute";
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
         String role = String.valueOf(session.getAttribute(SessionAttributes.ROLE));
+        request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE,MAX_NUMBER_SYMBOLS_VALUE);
         Long clientId;
         if(role.equals(UserRole.COACH)){
             clientId = getClientIdForAppropriateCoach(session,request);
