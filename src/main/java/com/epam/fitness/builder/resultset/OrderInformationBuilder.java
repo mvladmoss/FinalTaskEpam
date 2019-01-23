@@ -1,4 +1,4 @@
-package com.epam.fitness.builder;
+package com.epam.fitness.builder.resultset;
 
 import com.epam.fitness.model.OrderInformation;
 import com.epam.fitness.exception.RepositoryException;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class OrderInformationBuilder implements Builder<OrderInformation> {
+public class OrderInformationBuilder implements ResultSetBuilder<OrderInformation> {
     @Override
     public OrderInformation build(ResultSet resultSet) throws RepositoryException {
         try {

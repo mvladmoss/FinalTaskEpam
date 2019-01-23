@@ -1,5 +1,6 @@
 package com.epam.fitness.builder;
 
+import com.epam.fitness.builder.resultset.ClientBuilder;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Client;
 import org.junit.Assert;

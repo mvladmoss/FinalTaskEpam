@@ -17,7 +17,6 @@ public class LanguageCommand implements Command {
     private static final String LOGIN_PAGE = "/WEB-INF/login.jsp";
     private static final String COMMAND = "controller?command=";
 
-
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
 

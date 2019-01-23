@@ -12,7 +12,7 @@
 <table width = "100%" border = "1">
     <tr valign = "top">
         <td width = "40%"><b>Error:</b></td>
-        <td>${pageContext.exception.message}</td>
+        <td>${error}</td>
     </tr>
 
     <tr valign = "top">
@@ -22,16 +22,9 @@
 
     <tr valign = "top">
         <td><b>Status code:</b></td>
-        <td>${pageContext.errorData.statusCode}</td>
+        <td>${error_message}</td>
     </tr>
 
-
-    <tr valign = "top">
-        <td><b>Stack trace:</b></td>
-        <td>
-                <p>${pageContext.exception.printStackTrace()}</p>
-        </td>
-    </tr>
 </table>
 
 </body>

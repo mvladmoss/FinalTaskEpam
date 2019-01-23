@@ -30,7 +30,7 @@ public class AddComment implements Command {
         HttpSession session = request.getSession();
         Long clientId = (Long) session.getAttribute(SessionAttributes.ID);
         Long coachId = Long.valueOf(request.getParameter(COACH_ID));
-        String commentContetnt  = request.getParameter(COMMENT_CONTENT);
-        return new Comment(clientId,coachId,commentContetnt);
+        String commentContent  = request.getParameter(COMMENT_CONTENT);
+        return new Comment(clientId,coachId,commentContent);
     }
 }

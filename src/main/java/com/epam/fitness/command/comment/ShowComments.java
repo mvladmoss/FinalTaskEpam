@@ -29,13 +29,13 @@ public class ShowComments implements Command {
         CommentService commentService = new CommentService();
         List<Comment> comments = commentService.findByCoachId(coachId);
         if(comments.size()!=0){
-             Map<Comment,Client> commentClientMap = makeCommentMapForAppropriateClient(comments);
+             Map<Comment,Client> commentClientMap = makeCommentMapForCoach(comments);
              request.setAttribute(COMMENTS,commentClientMap);
         }
         return new CommandResult(COACH_COMMENTS_PAGE,false);
     }
 
-    private Map<Comment,Client> makeCommentMapForAppropriateClient(List<Comment> comments) throws ServiceException {
+    private Map<Comment,Client> makeCommentMapForCoach(List<Comment> comments) throws ServiceException {
         Map<Comment,Client> commentClientMap = new HashMap<>();
         ClientService clientService = new ClientService();
         for(Comment comment : comments){

@@ -22,7 +22,7 @@
 
     <tr valign = "top">
         <td><b>Status code:</b></td>
-        <td>${pageContext.errorData.statusCode}</td>
+        <td>404</td>
     </tr>
 
 </table>

@@ -40,9 +40,11 @@ public class UpdateExerciseCommand implements Command {
         int setNumber = Integer.parseInt(request.getParameter(SET_NUMBER));
         ExerciseDtoService exerciseDtoService = new ExerciseDtoService();
         Optional<ExerciseDto> exerciseDto = exerciseDtoService.findById(exerciseDtoId);
-        exerciseDto.get().setSetNumber(setNumber);
-        exerciseDto.get().setRepeatNumber(repeats);
-        exerciseDtoService.save(exerciseDto.get());
+        if(exerciseDto.isPresent()){
+            exerciseDto.get().setSetNumber(setNumber);
+            exerciseDto.get().setRepeatNumber(repeats);
+            exerciseDtoService.save(exerciseDto.get());
+        }
     }
 
     private void setClientId(HttpServletRequest request) throws ServiceException {

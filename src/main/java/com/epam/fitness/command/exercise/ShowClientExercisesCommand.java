@@ -6,7 +6,9 @@ import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Program;
 import com.epam.fitness.model.UserRole;
+import com.epam.fitness.model.dto.ExerciseDto;
 import com.epam.fitness.service.ClientService;
+import com.epam.fitness.service.ExerciseDtoService;
 import com.epam.fitness.service.ProgramService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +26,7 @@ public class ShowClientExercisesCommand implements Command {
     private final static String EXERCISE_PAGE = "/WEB-INF/client/clientExercise.jsp";
     private final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
     private final static String COACH_CLIENT_ID = "coach_client_id";
+    private final static String EXERCISES = "exercises";
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 
     @Override
@@ -47,12 +50,13 @@ public class ShowClientExercisesCommand implements Command {
         ClientService clientService = new ClientService();
         Optional<Client> client = clientService.findById(clientId);
         if(client.isPresent()) {
-            Optional<Long> programId = Optional.of(client.get().getProgramId());
-            if (programId.isPresent()) {
-                ProgramService programService = new ProgramService();
-                Optional<Program> program = programService.findProgramById(programId.get());
-                request.setAttribute(PROGRAM, program.get());
-            }
+            Long programId = client.get().getProgramId();
+            ProgramService programService = new ProgramService();
+            Optional<Program> program = programService.findProgramById(programId);
+            request.setAttribute(PROGRAM, program.get());
+            ExerciseDtoService exerciseDtoService = new ExerciseDtoService();
+            List<ExerciseDto> exercises = exerciseDtoService.findExercisesByProgramId(programId);
+            request.setAttribute(EXERCISES,exercises);
         }
         return new CommandResult(EXERCISE_PAGE,false);
     }

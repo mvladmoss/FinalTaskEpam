@@ -42,6 +42,19 @@ public class Client implements Serializable,Identifiable {
         this.programId = programId;
     }
 
+    public Client(Long id, Long coachId, String name, String surname, String login, String password, Integer membership_purchased_number, Float personalSale, Float corporateSale){
+        this.id = id;
+        this.coachId = coachId;
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.membership_purchased_number = membership_purchased_number;
+        this.personalDiscount = personalSale;
+        this.corporateDiscount = corporateSale;
+
+    }
+
     public Client(){}
 
     public void setID(long clientID) {

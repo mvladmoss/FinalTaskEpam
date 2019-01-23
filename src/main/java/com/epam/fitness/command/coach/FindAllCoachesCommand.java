@@ -22,8 +22,6 @@ public class FindAllCoachesCommand implements Command {
     private final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 
-
-
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();

@@ -3,14 +3,15 @@ function setCurrentTrainDayInForm(day) {
 }
 
 function setExerciseProgram(exerciseId, programId) {
-    createSetNumberInput(exerciseId);
+    createCheckAndSetNumberInput(exerciseId);
     createRepeatsInput(exerciseId);
     createExerciseIdInput(exerciseId);
     createProgramIdInput(programId);
 }
 
-function createSetNumberInput(exercise) {
+function createCheckAndSetNumberInput(exercise) {
     var setNumber = document.getElementById("setNumber"+exercise).value;
+    checkInputExerciseData("setNumber"+exercise);
     var newSetNumberInput = document.createElement('input');
     newSetNumberInput.style.display="none";
     newSetNumberInput.name = "set_number";

@@ -1,5 +1,9 @@
 package com.epam.fitness.builder;
 
+import com.epam.fitness.builder.resultset.BuilderFactory;
+import com.epam.fitness.builder.resultset.ClientBuilder;
+import com.epam.fitness.builder.resultset.CoachBuilder;
+import com.epam.fitness.builder.resultset.ResultSetBuilder;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -10,17 +14,17 @@ public class BuilderFactoryTest {
 
     @Test
     public void shouldCreateAndReturnClientBuilder() {
-        Builder builder = BuilderFactory.create(CLIENT);
+        ResultSetBuilder builder = BuilderFactory.create(CLIENT);
 
-        Class<? extends Builder> builderClass = builder.getClass();
+        Class<? extends ResultSetBuilder> builderClass = builder.getClass();
         assertEquals(ClientBuilder.class, builderClass);
     }
 
     @Test
     public void shouldCreateAndReturnCoachBuilder() {
-        Builder builder = BuilderFactory.create(COACH);
+        ResultSetBuilder builder = BuilderFactory.create(COACH);
 
-        Class<? extends Builder> builderClass = builder.getClass();
+        Class<? extends ResultSetBuilder> builderClass = builder.getClass();
         assertEquals(CoachBuilder.class, builderClass);
     }
 }

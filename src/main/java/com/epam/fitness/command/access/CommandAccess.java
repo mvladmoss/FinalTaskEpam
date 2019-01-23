@@ -23,7 +23,7 @@ public class CommandAccess {
                     break;
                 }
                 default: {
-                    throw new IllegalArgumentException("unsupported role");
+                    throw new IllegalArgumentException("Unsupported role");
                 }
             }
         }else{

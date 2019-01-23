@@ -1,4 +1,4 @@
-package com.epam.fitness.builder;
+package com.epam.fitness.builder.resultset;
 
 import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.exception.RepositoryException;
@@ -7,7 +7,7 @@ import com.epam.fitness.repository.database.constants.NutritionTableConstants;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class NutritionBuilder implements Builder<Nutrition> {
+public class NutritionBuilder implements ResultSetBuilder<Nutrition> {
     @Override
     public Nutrition build(ResultSet resultSet) throws RepositoryException {
         try {

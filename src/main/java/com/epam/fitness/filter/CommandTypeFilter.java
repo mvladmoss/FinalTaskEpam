@@ -17,6 +17,7 @@ public class CommandTypeFilter implements Filter  {
 
     private static final String COMMAND = "command";
     private final static String NO_ACCESS_PAGE = "controller?command=no_access";
+    private final static String ERROR_PAGE = "/WEB-INF/error/errorPage404.jsp";
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -27,8 +28,14 @@ public class CommandTypeFilter implements Filter  {
 
         String command = servletRequest.getParameter(COMMAND);
         String commandUpper = command.toUpperCase();
-
-        CommandType commandType = CommandType.valueOf(commandUpper);
+        CommandType commandType;
+        try {
+             commandType = CommandType.valueOf(commandUpper);
+        }catch (IllegalArgumentException exception){
+            RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher(ERROR_PAGE);
+            requestDispatcher.forward(servletRequest, servletResponse);
+            return;
+        }
 
         if (commandTypes.contains(commandType)) {
             filterChain.doFilter(servletRequest, servletResponse);

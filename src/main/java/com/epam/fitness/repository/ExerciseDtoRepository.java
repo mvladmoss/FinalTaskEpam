@@ -1,10 +1,8 @@
 package com.epam.fitness.repository;
 
-import com.epam.fitness.builder.ExerciseDtoBuilder;
+import com.epam.fitness.builder.resultset.ExerciseDtoBuilder;
 import com.epam.fitness.exception.RepositoryException;
-import com.epam.fitness.model.Comment;
 import com.epam.fitness.model.dto.ExerciseDto;
-import com.epam.fitness.repository.database.constants.CommentTableConstants;
 import com.epam.fitness.repository.database.constants.ExerciseDtoTableConstants;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 

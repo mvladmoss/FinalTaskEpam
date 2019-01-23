@@ -44,20 +44,10 @@ public class UpdateGymMembershipCommand implements Command {
         increaseClientVisitNumber(clientID);
         BigDecimal cost = new BigDecimal(request.getParameter(COST));
         java.sql.Date newEndMembershipDate = defineNewEndMembershipEndDate(request,clientID);
-        OrderInformation newOrderInformation = makeOrder(cost,new Timestamp(new Date().getTime()), newEndMembershipDate, clientID,cardNumber);
+        OrderInformation newOrderInformation = new OrderInformation(null,cost,new Timestamp(new Date().getTime()), newEndMembershipDate, clientID,cardNumber);
         OrderInformationService orderInformationService = new OrderInformationService();
         orderInformationService.save(newOrderInformation);
         return new CommandResult(PROFILE_PAGE,true);
-    }
-
-    private OrderInformation makeOrder(BigDecimal cost, Timestamp paymentData, java.sql.Date endDate, long clientId,String cardNumber){
-        OrderInformation orderInformation = new OrderInformation();
-        orderInformation.setClientId(clientId);
-        orderInformation.setPaymentData(paymentData);
-        orderInformation.setCost(cost);
-        orderInformation.setMembershipEndDate(endDate);
-        orderInformation.setCardNumber(cardNumber);
-        return  orderInformation;
     }
 
     private java.sql.Date defineNewEndMembershipEndDate(HttpServletRequest request, Long clientID) throws ServiceException {

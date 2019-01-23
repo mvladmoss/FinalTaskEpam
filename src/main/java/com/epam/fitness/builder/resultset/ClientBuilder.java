@@ -1,4 +1,4 @@
-package com.epam.fitness.builder;
+package com.epam.fitness.builder.resultset;
 
 import com.epam.fitness.model.Client;
 import com.epam.fitness.exception.RepositoryException;
@@ -7,7 +7,7 @@ import com.epam.fitness.repository.database.constants.ClientTableConstants;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ClientBuilder implements Builder<Client> {
+public class ClientBuilder implements ResultSetBuilder<Client> {
 
     @Override
     public Client build(ResultSet resultSet) throws RepositoryException {

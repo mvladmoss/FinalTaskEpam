@@ -4,6 +4,7 @@ import com.epam.fitness.command.Command;
 import com.epam.fitness.command.factory.CommandFactory;
 import com.epam.fitness.command.CommandResult;
 import com.epam.fitness.connection.ConnectionPool;
+import com.epam.fitness.exception.IncorrectInputDataException;
 import com.epam.fitness.exception.ServiceException;
 import org.apache.log4j.Logger;
 
@@ -13,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 import java.io.IOException;
 
@@ -20,8 +22,10 @@ public class Controller extends HttpServlet {
 
 
     private static final String COMMAND = "command";
-    private static final String ERROR_PAGE = "/WEB-INF/standardErrorPage.jsp";
+    private static final String ERROR_PAGE = "/WEB-INF/error/standardErrorPage.jsp";
+    private static final String ERROR_MESSAGE = "error_message";
     private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
+
 
     @Override
     public void destroy() {
@@ -46,9 +50,11 @@ public class Controller extends HttpServlet {
 
         CommandResult commandResult;
         try {
-            commandResult  = action.execute(request, response);
-        } catch (ServiceException e) {
+            commandResult = action.execute(request, response);
+        } catch (ServiceException |IncorrectInputDataException e) {
+            System.out.println(e.getMessage());
             LOGGER.error(e.getMessage(), e);
+            request.setAttribute(ERROR_MESSAGE,e.getMessage());
             commandResult = new CommandResult(ERROR_PAGE, false);
         }
 

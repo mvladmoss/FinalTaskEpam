@@ -1,24 +1,18 @@
 package com.epam.fitness.model;
 
-import com.epam.fitness.model.dto.ExerciseDto;
-
-import java.util.List;
-
 public class Program implements Identifiable{
 
     private Long id;
     private Long nutritionId;
-    private String name;
     private int trainsPerWeek;
-    private List<ExerciseDto> exercises;
 
-    public Program(Long id, Long nutritionId, String name, int trainsPerWeek, List<ExerciseDto> exercises) {
+    public Program(Long id, Long nutritionId, int trainsPerWeek) {
         this.id = id;
         this.nutritionId = nutritionId;
-        this.name = name;
         this.trainsPerWeek = trainsPerWeek;
-        this.exercises = exercises;
     }
+
+    public Program(){}
 
     public Long getId() {
         return id;
@@ -36,27 +30,10 @@ public class Program implements Identifiable{
         this.nutritionId = nutritionId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getTrainsPerWeek() {
-        return trainsPerWeek;
-    }
+    public int getTrainsPerWeek() { return trainsPerWeek; }
 
     public void setTrainsPerWeek(int trainsPerWeek) {
         this.trainsPerWeek = trainsPerWeek;
     }
 
-    public List<ExerciseDto> getExercises() {
-        return exercises;
-    }
-
-    public void setExercises(List<ExerciseDto> exercises) {
-        this.exercises = exercises;
-    }
 }

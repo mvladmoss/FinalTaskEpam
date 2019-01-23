@@ -1,4 +1,4 @@
-package com.epam.fitness.builder;
+package com.epam.fitness.builder.resultset;
 
 public class BuilderFactory {
 
@@ -9,7 +9,7 @@ public class BuilderFactory {
     private static final String NUTRITION = "nutrition";
 
 
-    public static Builder create(String builderName) {
+    public static ResultSetBuilder create(String builderName) {
 
         switch (builderName) {
             case CLIENT: {
@@ -29,7 +29,7 @@ public class BuilderFactory {
             }
 
             default:
-                throw new IllegalArgumentException("Unknown Builder name!");
+                throw new IllegalArgumentException("Unknown ResultSetBuilder name!");
         }
     }
 

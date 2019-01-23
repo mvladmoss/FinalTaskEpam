@@ -6,6 +6,7 @@ import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.*;
 import com.epam.fitness.service.CoachService;
+import com.epam.fitness.utils.RequestParameterValidator;
 import com.epam.fitness.utils.page.Page;
 import com.epam.fitness.utils.sale.SaleSystem;
 import com.epam.fitness.service.ClientService;
@@ -22,16 +23,33 @@ public class RegistrationCommand implements Command {
     private static final String COMMAND_MAIN = "controller?command=main";
     private final static Integer START_VISIT_NUMBER = 0;
     private final static Float CORPORATE_SALE = 0.0f;
+    private static final String LOGIN_PAGE = "/WEB-INF/login.jsp";
     private final static Integer STANDARD_TRAINS_PER_WEEK = 3;
+    private static final String INCORRECT_LOGIN_DATA = "incorrect_login_data";
+    private static final String INCORRECT_PASSWORD_DATA = "incorrect_password_data";
+    private static final String INCORRECT_NAME_SURNAME_DATA = "incorrect_name_surname_data";
     private final static String LOGIN_EXIST_ERROR = "login_exist_error";
     private final static String LOGIN_FOR_REGISTER = "login_register";
     private final static String PASSWORD_FOR_REGISTER = "password_register";
     private final static String NAME_FOR_REGISTER = "name_register";
     private final static String SURNAME_FOR_REGISTER = "surname_register";
+    private final RequestParameterValidator parameterValidator = new RequestParameterValidator();
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String login = request.getParameter(LOGIN_FOR_REGISTER);
+        if(login==null || !parameterValidator.isLoginValid(login)){
+            return forwardToLoginWithError(request,INCORRECT_LOGIN_DATA);
+        }
+        String password = request.getParameter(PASSWORD_FOR_REGISTER);
+        if(password==null || !parameterValidator.isPasswordValid(password)){
+            return forwardToLoginWithError(request,INCORRECT_PASSWORD_DATA);
+        }
+        String name = request.getParameter(NAME_FOR_REGISTER);
+        String surname = request.getParameter(SURNAME_FOR_REGISTER);
+        if(name==null || surname==null || !(parameterValidator.isNameValid(name) && parameterValidator.isSurnameValid(surname))){
+            return forwardToLoginWithError(request,INCORRECT_NAME_SURNAME_DATA);
+        }
         if(isLoginExistInDatabase(login)){
             request.setAttribute(LOGIN_EXIST_ERROR,true);
             return new CommandResult(Page.LOGIN.getPage(),false);
@@ -89,4 +107,10 @@ public class RegistrationCommand implements Command {
         session.setAttribute(SessionAttributes.ID,clientId);
         session.setAttribute(SessionAttributes.ROLE, UserRole.CLIENT);
     }
+
+    private CommandResult forwardToLoginWithError(HttpServletRequest request,String ERROR){
+        request.setAttribute(ERROR, true);
+        return new CommandResult(LOGIN_PAGE, false);
+    }
+
 }

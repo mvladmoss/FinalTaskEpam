@@ -34,12 +34,12 @@ public class UpdateClientNutritionCommand implements Command {
         setNewNutrition(nutritionId,request);
         HttpSession session = request.getSession();
         if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
-            setClientId(nutritionId,request);
+            setClientIdForCoach(nutritionId,request);
         }
         return new CommandResult(PROFILE_PAGE,true);
     }
 
-    private void setClientId(Long nutritionId,HttpServletRequest request) throws ServiceException {
+    private void setClientIdForCoach(Long nutritionId,HttpServletRequest request) throws ServiceException {
 
         ClientService clientService = new ClientService();
         Optional<Client> clientOptional = clientService.findByNutritionId(nutritionId);

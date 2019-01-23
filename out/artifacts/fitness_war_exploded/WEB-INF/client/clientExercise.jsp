@@ -19,6 +19,7 @@
     <script src="../../scripts/gymPeriodSetters.js"></script>
     <script src="../../scripts/ajax/ajaxConnections.js"></script>
     <script src="../../scripts/ajax/ajaxRequest.js"></script>
+    <script src="../../scripts/validation/exerciseValidation.js"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -53,7 +54,7 @@
                                 <label class="tabs__title" for="tabs__tab${i}">Day <c:out value="${i}"/></label>
                                 <div class="tabs__text" style="overflow-y: scroll;max-height: 340px;">
                                     <ul>
-                                        <c:forEach items="${program.exercises}" var="exerciseDto">
+                                        <c:forEach items="${exercises}" var="exerciseDto">
                                             <c:if test="${exerciseDto.numberTrainDay==i}">
                                                 <div class="flex-container">
                                                     <div class="flex-item flex-text">
@@ -146,17 +147,17 @@
                                                                         <label for="setNumber" style="margin-top: 5px;margin-left: -140px;">Sets</label>
                                                                     </div>
                                                                     <div class="col-75">
-                                                                        <input id="setNumber{exercise.id}" style="margin-left: -120px;width: 618px;"  type="text">
+                                                                        <input  id="setNumber{exercise.id}" style="margin-left: -120px;width: 618px;" title="1-2 number"   type="text">
                                                                     </div>
 
                                                                     <div class="col-25">
                                                                         <label for="setNumber" style="margin-top: 5px;margin-left: -110px;">Repeats</label>
                                                                     </div>
                                                                     <div class="col-75">
-                                                                        <input id="repeats{exercise.id}" style="margin-left: -120px;width: 618px;"  type="text">
+                                                                        <input  id="repeats{exercise.id}"  style="margin-left: -120px;width: 618px;"   type="text">
                                                                     </div>
                                                                 </div>
-                                                                <input type="submit" class="buttonSub" onclick="setExerciseProgram('{exercise.id}',${program.id})" style="margin-top: 10px;" value="Add">
+                                                                <input type="submit" class="buttonSub" onclick="setExerciseProgram('{exercise.id}',${program.id})" title="1-2 number" style="margin-top: 10px;" value="Add">
                                                             </div>
                                                         </div>
                                                         <label for="modalChoose{exercise.id}"  style="width: 60px;

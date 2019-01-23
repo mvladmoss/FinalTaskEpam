@@ -15,16 +15,8 @@
     <link rel="stylesheet" href="../../styless/client/clientExerciseStyle.css" type="text/css">
     <link rel="stylesheet" href="../../styless/modalWindows.css" type="text/css">
     <link rel="stylesheet" href="../../styless/coach/coachesStyles.css" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <script src="../../scripts/buttonStyleChanger.js"></script>
-    <script src="../../scripts/gymPeriodSetters.js"></script>
-    <script src="../../scripts/floatWindow.js"></script>
-    <script src="../../scripts/ajax/ajaxConnections.js"></script>
-    <script src="../../scripts/ajax/ajaxRequest.js"></script>
 </head>
 <body>
 <div id="wrapper">

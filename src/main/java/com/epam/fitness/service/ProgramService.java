@@ -19,9 +19,6 @@ public class ProgramService {
             ProgramRepository programRepository = repositoryCreator.getProgramRepository();
             ProgramById specification = new ProgramById(programID);
             Optional<Program> program = programRepository.queryForSingleResult(specification);
-            ExerciseDtoService exerciseDtoService = new ExerciseDtoService();
-            List<ExerciseDto> exercises = exerciseDtoService.findExercisesByProgramId(programID);
-            program.get().setExercises(exercises);
             return program;
         } catch (RepositoryException e) {
             throw new ServiceException(e.getMessage(), e);

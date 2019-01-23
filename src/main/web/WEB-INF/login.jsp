@@ -59,9 +59,13 @@
 								Login pattern:2-20 characters, which can be letters and numbers, the first character is necessarily a letter
 							</h3>
 						</c:if>
-						<c:if test="${empty_password_data eq true}">
+						<c:if test="${incorrect_password_data eq true}">
 							<br>
-							<h3 style="color: red;margin-top: -20px;margin-left: 3px;">Please enter password</h3>
+							<h3 style="color: red;margin-top: -20px;margin-left: 3px;">Please enter correct password. Minimum 3 symbols</h3>
+						</c:if>
+						<c:if test="${incorrect_name_surname_data eq true}">
+							<br>
+							<h3 style="color: red;margin-top: -20px;margin-left: 3px;">Incorrect Name or Surname.Pattern: 3-20 alphabetic characters of the Latin alphabet </h3>
 						</c:if>
 						<c:if test="${authentication_error eq true}">
 							<br>
@@ -77,23 +81,23 @@
 					<form action="${pageContext.servletContext.contextPath}/controller?command=client_registration" method="post">
 						<div class="group">
 							<label for="login_register" class="label">${username}</label>
-							<input id="login_register"  name="login_register" type="text" class="input" required placeholder="${username_placeholder}" title="${username_pattern_error}">
+							<input id="login_register"  name="login_register" type="text" class="input" required  placeholder="${username_placeholder}" title="${username_pattern_error}">
 						</div>
 						<div class="group">
 							<label for="password_register" class="label">${password}</label>
-							<input id="password_register" name="password_register" type="password" title="minimum 3 symbols" required class="input" data-type="password">
+							<input id="password_register" name="password_register" type="password" title="minimum 3 symbols" required  class="input" data-type="password">
 						</div>
 						<div class="group">
 							<label for="name_register" class="label">${name}</label>
-							<input id="name_register" name="name_register" type="text" class="input" title="3-20 letters" required data-type="text">
+							<input id="name_register" name="name_register" type="text" class="input" title="3-20 letters" required  data-type="text">
 						</div>
 						<div class="group">
 							<label for="surname_register" class="label">${surname}</label>
-							<input id="surname_register" name="surname_register" type="text" title="3-20 letters" required class="input">
+							<input id="surname_register" name="surname_register" type="text" title="3-20 letters" required  class="input">
 						</div>
 
 						<div class="group">
-							<input type="submit" onclick="checkForRegistrationAnyData()" class="button" value="${registration}">
+							<input type="submit" onclick="checkForRegistrationAnyData()"  class="button" value="${registration}">
 						</div>
 					</form>
 				</div>
