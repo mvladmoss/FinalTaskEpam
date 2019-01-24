@@ -9,8 +9,10 @@ public class RequestParameterValidator {
     private static final Pattern NAME_SURNAME_PATTERN = Pattern.compile("^[a-zA-Z]{2,20}");
     private static final Pattern SET_NUMBER_REPEATS = Pattern.compile("^[1-9]{1,2}$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("[\\w-_.]{3,20}$");
-    private final static Pattern CARD_NUMBER_PATTERN = Pattern.compile("^[1-9]{16}");
-    private final static Pattern INPUT_TEXT_PATTERN = Pattern.compile("[\\w().,]{1,300}");
+    private static final Pattern CARD_NUMBER_PATTERN = Pattern.compile("^[1-9]{16}");
+    private static final Pattern INPUT_TEXT_PATTERN = Pattern.compile("[\\w().,]{1,300}");
+    private static final Pattern INPUT_IDENTIFIABLE_ID_PATTERN = Pattern.compile("[\\d]{1,20}");
+    private static final Pattern COST_PATTERN = Pattern.compile("[\\d.]{1,20}");
 
     public boolean isLoginValid(String login){
         Matcher matcher = LOGIN_PATTERN.matcher(login);
@@ -57,5 +59,14 @@ public class RequestParameterValidator {
         return matcher.matches();
     }
 
+    public boolean isIdentifiableIdValid(String userId){
+        Matcher matcher = INPUT_IDENTIFIABLE_ID_PATTERN.matcher(userId);
+        return matcher.matches();
+    }
+
+    public boolean isCostValid(String cost){
+        Matcher matcher = COST_PATTERN.matcher(cost);
+        return matcher.matches();
+    }
 
 }

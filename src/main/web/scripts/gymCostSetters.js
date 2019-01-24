@@ -16,18 +16,16 @@ function setCost(){
 
 function calculateFinalCost(cost) {
     var personal_sale = Number(document.getElementById("personal_discount").value);
-    var corporate_sale = Number(document.getElementById("corporate_discount").value);
-    var generalSale = personal_sale + corporate_sale;
-    return (cost*(1-generalSale/100)).toFixed(3);
+    return (cost*(1-personal_sale/100)).toFixed(3);
 }
 
-function checkSelectOption() {
+function checkSelectOption(message) {
     var foo = document.getElementById('period_cost');
     if (foo)
     {
         if (foo.selectedIndex === 0)
         {
-            alert('Please choose tariff')
+            alert(message)
         }else{
             document.getElementById("modal").click();
         }

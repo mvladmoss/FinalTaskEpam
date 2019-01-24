@@ -7,6 +7,7 @@ import com.epam.fitness.utils.json.JsonCreator;
 import com.epam.fitness.utils.json.JsonExerciseCreator;
 import com.epam.fitness.utils.search.SearchExerciseSystem;
 import com.epam.fitness.utils.search.SearchSystem;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +23,9 @@ public class AjaxController extends HttpServlet {
 
     private SearchSystem searchSystem = new SearchExerciseSystem();
     private JsonCreator jsonCreator = new JsonExerciseCreator();
+    private final static String SEARCH_ARGUMENT = "searchArgument";
+    private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp){
@@ -34,8 +38,7 @@ public class AjaxController extends HttpServlet {
     }
 
     private void proccessRequest(HttpServletRequest request,HttpServletResponse response){
-        System.out.println(request.getParameterMap().keySet());
-        String currentSearchArgument = request.getParameter("searchArgument");
+        String currentSearchArgument = request.getParameter(SEARCH_ARGUMENT);
         List<Exercise> exercises = getAllExercises();
         List<Exercise> exercisesAppropriateToSearchArgument = searchSystem.findItemsAppropriateToSearchArgument(exercises,currentSearchArgument);
         String exercisesInJson = jsonCreator.makeJSON(exercisesAppropriateToSearchArgument);
@@ -48,7 +51,7 @@ public class AjaxController extends HttpServlet {
         try {
             exercises = exerciseService.findAll();
         }catch (ServiceException e) {
-            //commandResult = new CommandResult(ERROR_PAGE, false);
+            LOGGER.error(e.getMessage(), e);
         }
         return exercises;
     }
@@ -62,7 +65,9 @@ public class AjaxController extends HttpServlet {
             e.printStackTrace();
         }
         response.setCharacterEncoding("UTF-8");
-        out.print(exerciseInJson);
+        if (out != null) {
+            out.print(exerciseInJson);
+        }
     }
 
 }

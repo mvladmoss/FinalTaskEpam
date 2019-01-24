@@ -2,6 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="text" var="text"/>
+
+<fmt:message bundle="${text}" key="nutrition.cant_choose_membership" var="cant_choose_membership"/>
+<fmt:message bundle="${text}" key="exercises.buy" var="buy"/>
+<fmt:message bundle="${text}" key="nutrition.morning" var="morning"/>
+<fmt:message bundle="${text}" key="nutrition.lunch" var="lunch"/>
+<fmt:message bundle="${text}" key="nutrition.dinner" var="dinner"/>
+<fmt:message bundle="${text}" key="exercises.update" var="update"/>
+<fmt:message bundle="${text}" key="nutrition.incorrect_data" var="incorrect_data"/>
+<fmt:message bundle="${text}" key="nutrition.save" var="save"/>
+<fmt:message bundle="${text}" key="nutrition.max_symbols" var="max_symbols"/>
+
 <!doctype html>
 <html lang="${sessionScope.language}">
 <head>
@@ -35,12 +48,12 @@
                     <c:when test="${is_membership_valid == false}" >
                         <div class="flex-container">
                             <div class="flex-item" style="color:#516b9e;width:500px;">
-                                <h3>You can not make a nutrition until you don't buy membership</h3>
+                                <h3>${cant_choose_membership}</h3>
                             </div>
                             <div class="flex-item" style="margin-top: -10px; margin-left: -15px;">
                                 <form action="${pageContext.servletContext.contextPath}/controller?command=get_order_page" method="post">
                                     <input type="submit" class="button" style="color: white; text-align: center; margin: 10px 15px 5px -10px;width: 80px; height: 50px; font: 14px Tahoma, sans-serif; background: #29c5e6;
-" value="Buy">
+" value="${buy}">
                                 </form>
                             </div>
                         </div>
@@ -49,20 +62,20 @@
                         <jsp:useBean id="nutrition" class="com.epam.fitness.model.Nutrition" scope="request"/>
                         <div class="tabs">
                             <input class="tabs__tab" type="radio" id="tabs__tab1" onclick="setArguments('morning')" name="tabstab" style="display: none;" checked="checked"/>
-                            <label class="tabs__title" for="tabs__tab1">Morning nutrition</label>
+                            <label class="tabs__title" for="tabs__tab1">${morning}</label>
                             <div class="tabs__text" style="font-family: 'Poppins', sans-serif;color: #000;font-size: 15px;">
                                 <pre id="morning" style="font-family: 'Poppins', sans-serif;color: #000;font-size: 15px;">${nutrition.morningNutrition}</pre>
                             </div>
 
                             <input class="tabs__tab" type="radio" id="tabs__tab2" onclick="setArguments('lunch')" name="tabstab" style="display: none;" checked="checked"/>
-                            <label class="tabs__title" for="tabs__tab2">Lunch nutrition</label>
+                            <label class="tabs__title" for="tabs__tab2">${lunch}</label>
                             <div class="tabs__text" style="font-family: 'Poppins', sans-serif;color: #000;font-size: 15px;">
                                 <pre  id="lunch" style="font-family: 'Poppins', sans-serif;color: #000;font-size: 15px;">${nutrition.lunchNutrition}</pre>
 
                             </div>
 
                             <input class="tabs__tab" type="radio" id="tabs__tab3" onclick="setArguments('dinner')" name="tabstab" style="display: none;" checked="checked"/>
-                            <label class="tabs__title" for="tabs__tab3">Dinner nutrition</label>
+                            <label class="tabs__title" for="tabs__tab3">D${dinner}</label>
                             <div class="tabs__text" style="font-family: 'Poppins', sans-serif;color: #000;font-size: 15px;">
                                 <pre id="dinner" style="font-family: 'Poppins', sans-serif;color: #000;font-size: 15px;">${nutrition.dinnerNutrition}</pre>
                             </div>
@@ -77,12 +90,12 @@
                                     <input id="nutrition_id" name="nutrition_id" value="${nutrition.id}" style="display: none">
                                     <input id="nutrition_time" name="nutrition_time" value="dinner" style="display: none">
                                     <textarea id="nutrition_description" name="nutrition_description" class="textArea">${nutrition.dinnerNutrition}</textarea>
-                                    <input class="button" type="submit" value="Save">
-                                    <h3 style="position: absolute;margin-top: -30px;margin-left: 120px;">Maximum number of characters ${max_number_symbols_attribute}</h3>
+                                    <input class="button" type="submit" value="${save}">
+                                    <h3 style="position: absolute;margin-top: -30px;margin-left: 120px;">${max_symbols} ${max_number_symbols_attribute}</h3>
                                 </form>
                             </div>
                         </div>
-                        <label for="modal" class="buttonSub " style="color: white;text-align: center;margin-top: 10px;padding-top: 15px;width: 80px;height: 30px;font: 14px Tahoma, sans-serif;background: #29c5e6">Change</label>
+                        <label for="modal" class="buttonSub " style="color: white;text-align: center;margin-top: 10px;padding-top: 15px;width: 80px;height: 30px;font: 14px Tahoma, sans-serif;background: #29c5e6">${update}</label>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -92,7 +105,7 @@
 </div>
 </body>
 <c:if test="${incorrect_input_nutrition_data_error eq true}">
-    <script>notifyAboutInvalidData('Incorrect nutrition data was input')</script>
+    <script>notifyAboutInvalidData(${incorrect_data})</script>
 </c:if>
 </html>
 

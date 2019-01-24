@@ -8,7 +8,6 @@ import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Comment;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.CommentService;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,14 +15,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import static com.epam.fitness.command.comment.constant.TextConstants.*;
 
-import static com.epam.fitness.command.constants.TextConstants.MAX_NUMBER_SYMBOLS_ATTRIBUTE;
-import static com.epam.fitness.command.constants.TextConstants.MAX_NUMBER_SYMBOLS_VALUE;
 
 public class ShowComments implements Command {
-
-    private static final String COACH_COMMENTS_PAGE = "/WEB-INF/coach/coachCommentsPage.jsp";
-    private static final String COMMENTS = "comments";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

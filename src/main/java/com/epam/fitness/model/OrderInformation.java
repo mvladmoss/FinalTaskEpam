@@ -3,6 +3,7 @@ package com.epam.fitness.model;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Objects;
 
 public class OrderInformation implements Identifiable{
 
@@ -70,5 +71,27 @@ public class OrderInformation implements Identifiable{
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        OrderInformation orderInformation = (OrderInformation) o;
+        return  Objects.equals(getId(), orderInformation.getId()) &&
+                Objects.equals(getCost(), orderInformation.getCost()) &&
+                Objects.equals(getMembershipEndDate(), orderInformation.getMembershipEndDate()) &&
+                Objects.equals(getPaymentData(), orderInformation.getPaymentData()) &&
+                Objects.equals(getClientId(), orderInformation.getClientId()) &&
+                Objects.equals(getCardNumber(), orderInformation.getCardNumber());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(),getCost(),getMembershipEndDate(),getPaymentData(),getClientId(),getCardNumber());
     }
 }

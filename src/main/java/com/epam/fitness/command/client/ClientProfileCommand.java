@@ -10,21 +10,16 @@ import com.epam.fitness.model.UserRole;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.CoachService;
 import com.epam.fitness.service.OrderInformationService;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;import com.epam.fitness.exception.ServiceException;
+import java.util.Optional;
+import com.epam.fitness.exception.ServiceException;
+import static com.epam.fitness.command.client.constant.ParameterConstants.*;
 
 
 
 public class ClientProfileCommand implements Command {
-
-    private static final String COACH_NAME = "coach_name";
-    private static final String COACH_SURNAME = "coach_surname";
-    private static final String CLIENT_PROFILE_PAGE = "/WEB-INF/client/clientProfile.jsp";
-    private static final String END_DATE_OF_TRAINS = "end_date_of_trains";
-
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

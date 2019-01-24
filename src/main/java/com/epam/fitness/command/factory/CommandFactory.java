@@ -4,6 +4,7 @@ import com.epam.fitness.command.*;
 import com.epam.fitness.command.authorization.LoginCommand;
 import com.epam.fitness.command.authorization.RegistrationCommand;
 import com.epam.fitness.command.authorization.SingOutCommand;
+import com.epam.fitness.command.client.ClientOrdersCommand;
 import com.epam.fitness.command.client.RejectCoachCommand;
 import com.epam.fitness.command.comment.AddComment;
 import com.epam.fitness.command.comment.ShowComments;
@@ -55,6 +56,10 @@ public class CommandFactory {
             }
             case LOGIN_PAGE:{
                 resultCommand = new LoginPageCommand();
+                break;
+            }
+            case ORDERS:{
+                resultCommand = new ClientOrdersCommand();
                 break;
             }
             case PROFILE: {

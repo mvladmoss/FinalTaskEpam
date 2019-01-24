@@ -8,6 +8,16 @@ function checkLogin() {
     }
 }
 
+function checkPassword() {
+    var inputPassword = document.getElementById("password");
+    if(inputPassword.value===""){
+        var passwordErrorText = inputPassword.getAttribute("title");
+        inputPassword.setCustomValidity(passwordErrorText);
+    }else{
+        inputPassword.setCustomValidity('');
+    }
+}
+
 function checkForEnterAnyData() {
     var inputLogin = document.getElementById("login");
     if(inputLogin.value===""){

@@ -25,7 +25,6 @@ public class LanguageFilter implements Filter {
             session.setAttribute(LANGUAGE, language);
             session.setAttribute(NEXT_LANGUAGE, RU);
         }
-
         filterChain.doFilter(request, response);
     }
 

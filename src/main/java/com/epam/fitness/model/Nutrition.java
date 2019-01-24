@@ -1,5 +1,7 @@
 package com.epam.fitness.model;
 
+import java.util.Objects;
+
 public class Nutrition implements Identifiable {
 
     private Long id;
@@ -56,5 +58,26 @@ public class Nutrition implements Identifiable {
 
     public void setDinnerNutrition(String dinnerNutrition) {
         this.dinnerNutrition = dinnerNutrition;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Nutrition nutrition = (Nutrition) o;
+        return  Objects.equals(getId(), nutrition.getId()) &&
+                Objects.equals(getName(), nutrition.getName()) &&
+                Objects.equals(getMorningNutrition(), nutrition.getMorningNutrition()) &&
+                Objects.equals(getLunchNutrition(), nutrition.getLunchNutrition()) &&
+                Objects.equals(getDinnerNutrition(), nutrition.getDinnerNutrition());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(),getName(),getMorningNutrition(),getLunchNutrition(),getDinnerNutrition());
     }
 }

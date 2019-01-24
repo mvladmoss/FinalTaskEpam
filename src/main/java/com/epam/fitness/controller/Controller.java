@@ -45,7 +45,7 @@ public class Controller extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String command = request.getParameter(COMMAND);
-        LOGGER.info("Command = " + command);
+        LOGGER.info(COMMAND + "= " + command);
         Command action = CommandFactory.create(command);
 
         CommandResult commandResult;

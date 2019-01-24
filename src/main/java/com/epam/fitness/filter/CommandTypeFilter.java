@@ -3,7 +3,9 @@ package com.epam.fitness.filter;
 import com.epam.fitness.command.access.CommandAccess;
 import com.epam.fitness.command.factory.CommandType;
 import com.epam.fitness.command.session.SessionAttributes;
+import com.epam.fitness.connection.ConnectionPool;
 import com.epam.fitness.utils.page.Page;
+import org.apache.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,8 @@ import java.util.Optional;
 
 public class CommandTypeFilter implements Filter  {
 
+    /** The Constant LOGGER. */
+    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class);
     private static final String COMMAND = "command";
     private final static String NO_ACCESS_PAGE = "controller?command=no_access";
     private final static String ERROR_PAGE = "/WEB-INF/error/errorPage404.jsp";
@@ -32,6 +36,7 @@ public class CommandTypeFilter implements Filter  {
         try {
              commandType = CommandType.valueOf(commandUpper);
         }catch (IllegalArgumentException exception){
+            LOGGER.warn("Incorrect command was input.Command:" + commandUpper);
             RequestDispatcher requestDispatcher = servletRequest.getRequestDispatcher(ERROR_PAGE);
             requestDispatcher.forward(servletRequest, servletResponse);
             return;

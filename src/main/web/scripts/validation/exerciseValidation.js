@@ -9,6 +9,6 @@ function checkInputExerciseData(inputId){
 }
 
 function checkUpdateExerciseData(){
-    checkInputExerciseData('setNumber');
+    checkInputExerciseData('set_number');
     checkInputExerciseData('repeatsUpdate');
 }

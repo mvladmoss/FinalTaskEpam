@@ -20,9 +20,8 @@ public class ClientBuilder implements ResultSetBuilder<Client> {
             String password = resultSet.getString(ClientTableConstants.PASSWORD.getFieldName());
             int membershipPurchasedNumber = resultSet.getInt(ClientTableConstants.MEMBERSHIP_PURCHASED_NUMBER.getFieldName());
             float personalDiscount = resultSet.getFloat(ClientTableConstants.PERSONAL_DISCOUNT.getFieldName());
-            float corporateDiscount = resultSet.getFloat(ClientTableConstants.CORPORATE_DISCOUNT.getFieldName());
             Long programId = resultSet.getLong(ClientTableConstants.PROGRAM_ID.getFieldName());
-            return new Client(id,coach_id,name,surname,login,password,membershipPurchasedNumber,personalDiscount,corporateDiscount,programId);
+            return new Client(id,coach_id,name,surname,login,password,membershipPurchasedNumber,personalDiscount,programId);
         }catch (SQLException exception){
             throw new RepositoryException(exception.getMessage(),exception);
         }

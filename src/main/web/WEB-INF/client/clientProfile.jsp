@@ -91,13 +91,6 @@
                         </div>
 
                         <div class="col-25">
-                            <label for="corporate_discount">${corporate_discount}</label>
-                        </div>
-                        <div class="col-75">
-                            <input type="text" id="corporate_discount" name="corporate_discount"  value="${client.corporateDiscount}" readonly>
-                        </div>
-
-                        <div class="col-25">
                             <label for="end_date_of_trains">${membership_valid_until}</label>
                         </div>
                         <c:choose>

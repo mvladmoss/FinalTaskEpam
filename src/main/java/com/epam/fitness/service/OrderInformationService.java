@@ -4,8 +4,10 @@ import com.epam.fitness.model.OrderInformation;
 import com.epam.fitness.repository.OrderInformationRepository;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.repository.creator.RepositoryCreator;
+import com.epam.fitness.repository.specifications.order.OrdersByClientId;
 import com.epam.fitness.repository.specifications.order.LastOrderByClientId;
 
+import java.util.List;
 import java.util.Optional;import com.epam.fitness.exception.ServiceException;
 
 
@@ -30,6 +32,16 @@ public class OrderInformationService {
             } catch (RepositoryException e) {
                 throw new ServiceException(e.getMessage(),e);
             }
+        }
+    }
+
+    public List<OrderInformation> findByOrdersClientId(Long clientId) throws ServiceException {
+        try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
+            OrderInformationRepository orderInformationRepository = repositoryCreator.getOrderInformationRepository();
+            OrdersByClientId specification = new OrdersByClientId(clientId);
+            return orderInformationRepository.query(specification);
+        } catch (RepositoryException exception) {
+            throw new ServiceException(exception.getMessage(), exception);
         }
     }
 }

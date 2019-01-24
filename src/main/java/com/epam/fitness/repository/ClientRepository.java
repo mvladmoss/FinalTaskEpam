@@ -48,7 +48,6 @@ public class ClientRepository extends AbstractRepository<Client> {
         fields.put(ClientTableConstants.PASSWORD.getFieldName(), client.getPassword());
         fields.put(ClientTableConstants.MEMBERSHIP_PURCHASED_NUMBER.getFieldName(), client.getMembershipPurchasedNumber());
         fields.put(ClientTableConstants.PERSONAL_DISCOUNT.getFieldName(), client.getPersonalDiscount());
-        fields.put(ClientTableConstants.CORPORATE_DISCOUNT.getFieldName(), client.getCorporateDiscount());
         fields.put(ClientTableConstants.PROGRAM_ID.getFieldName(), client.getProgramId());
 
         return fields;

@@ -35,7 +35,7 @@
         <jsp:param name="currentPage" value="main"/>
     </jsp:include>
     <section>
-        <blockquote>
+        <blockquote style="margin-top: 0px;">
             <p>${about_gym}</p>
             <cite>${quote_author}</cite>
         </blockquote>

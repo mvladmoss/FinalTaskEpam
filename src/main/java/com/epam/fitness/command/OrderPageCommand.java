@@ -17,7 +17,6 @@ public class OrderPageCommand implements Command {
 
     private static final String ORDER_PAGE = "/WEB-INF/orderPage.jsp";
     private static final String CLIENT_PERSONAL_SALE = "client_personal_discount";
-    private static final String CLIENT_CORPORATE_SALE = "client_corporate_discount";
     private final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 
@@ -30,7 +29,6 @@ public class OrderPageCommand implements Command {
         Optional<Client> client = clientService.findById(clientId);
         if(client.isPresent()){
             request.setAttribute(CLIENT_PERSONAL_SALE,client.get().getPersonalDiscount());
-            request.setAttribute(CLIENT_CORPORATE_SALE,client.get().getCorporateDiscount());
             OrderInformationService orderInformationService = new OrderInformationService();
             Optional<OrderInformation> orderInformation = orderInformationService.findByClientId(clientId);
             if(orderInformation.isPresent()){

@@ -11,7 +11,7 @@ public class CoachBuilder implements ResultSetBuilder<Coach> {
     @Override
     public Coach build(ResultSet resultSet) throws RepositoryException {
         try {
-            long id = resultSet.getInt(CoachTableConstants.ID.getFieldName());
+            Long id = resultSet.getLong(CoachTableConstants.ID.getFieldName());
             String name = resultSet.getString(CoachTableConstants.NAME.getFieldName());
             String surname = resultSet.getString(CoachTableConstants.SURNAME.getFieldName());
             String login = resultSet.getString(CoachTableConstants.LOGIN.getFieldName());

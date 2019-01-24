@@ -5,7 +5,21 @@
 <fmt:setLocale value="${sessionScope.language}"/>
 <fmt:setBundle basename="text" var="text"/>
 
+<fmt:message bundle="${text}" key="exercises.cant_choose_membership" var="cant_choose_membership"/>
+<fmt:message bundle="${text}" key="exercises.buy" var="buy"/>
 <fmt:message bundle="${text}" key="exercises.add.repeats_setnumber.title" var="title"/>
+<fmt:message bundle="${text}" key="exercises.train_day" var="exercise_day"/>
+<fmt:message bundle="${text}" key="exercises.edit" var="edit"/>
+<fmt:message bundle="${text}" key="exercises.set_number" var="setNumber"/>
+<fmt:message bundle="${text}" key="exercises.repeats" var="repeatsNumber"/>
+<fmt:message bundle="${text}" key="exercises.update" var="update"/>
+<fmt:message bundle="${text}" key="exercises.add_exercise" var="add_exercise"/>
+<fmt:message bundle="${text}" key="exercises.enter_name" var="enter_name"/>
+<fmt:message bundle="${text}" key="exercises.description" var="description"/>
+<fmt:message bundle="${text}" key="exercises.add" var="add"/>
+<fmt:message bundle="${text}" key="exercise.incorrect_exercise_data" var="exercise.incorrect_exercise_data"/>
+<fmt:message bundle="${text}" key="exercise.incorrect_exercise_id" var="exercise.exercise.incorrect_exercise_id"/>
+<fmt:message bundle="${text}" key="exercise.not_exist" var="exercise_not_exist"/>
 
 <!doctype html>
 <html lang="${sessionScope.language}">
@@ -42,12 +56,12 @@
                     <c:when test="${is_membership_valid == false}">
                         <div class="flex-container">
                             <div class="flex-item" style="color:#516b9e;width:500px;">
-                                <h3>You can not choose exercises until you don't buy membership</h3>
+                                <h3>${cant_choose_membership}</h3>
                             </div>
                             <div class="flex-item" style="margin-top: -10px; margin-left: -15px;">
                                 <form action="${pageContext.servletContext.contextPath}/controller?command=get_order_page" method="post">
                                     <input type="submit" class="button" style="color: white; text-align: center; margin: 10px 15px 5px -10px;width: 80px; height: 50px; font: 14px Tahoma, sans-serif; background: #29c5e6;
-" value="Buy">
+" value="${buy}">
                                 </form>
                             </div>
                         </div>
@@ -59,7 +73,7 @@
                         <div class="tabs">
                             <c:forEach var = "i" begin = "1" end = "${program.trainsPerWeek}">
                                 <input class="tabs__tab" type="radio" id="tabs__tab${i}" onclick="setCurrentTrainDayInForm('${i}')" name="tabstab" style="display: none;" checked="checked"/>
-                                <label class="tabs__title" for="tabs__tab${i}">Day <c:out value="${i}"/></label>
+                                <label class="tabs__title" for="tabs__tab${i}">${exercise_day} <c:out value="${i}"/></label>
                                 <div class="tabs__text" style="overflow-y: scroll;max-height: 340px;">
                                     <ul>
                                         <c:forEach items="${exercises}" var="exerciseDto">
@@ -74,22 +88,22 @@
                                                             <label class="modal__closetwo" for="modal${exerciseDto.id}"></label>
                                                             <div class="modal__info">
                                                                 <label class="modal__close" for="modal${exerciseDto.id}">&times;</label>
-                                                                <h2 class="edit" >Edit</h2>
+                                                                <h2 class="edit" style="color: white;">${edit}</h2>
                                                                 <form action="${pageContext.request.contextPath}/controller?command=update_exercise" method="post">
                                                                     <div class="col-25" style="margin-left: -11px;">
-                                                                        <label for="setNumber">Number of set</label>
+                                                                        <label for="set_number">${setNumber}</label>
                                                                     </div>
                                                                     <div class="col-75">
-                                                                        <input type="text" id="setNumber" style="width: 101%;" title="${title}" name="setNumber">
+                                                                        <input type="text" id="set_number" style="width: 101%;" title="${title}" name="set_number">
                                                                     </div>
                                                                     <div class="col-25" style="margin-left: -31px;">
-                                                                        <label for="repeatsUpdate" style="margin-left: 10px;margin-top: 5px;">Repeats</label>
+                                                                        <label for="repeatsUpdate" style="margin-left: 10px;margin-top: 5px;">${repeatsNumber}</label>
                                                                     </div>
                                                                     <div class="col-75">
                                                                         <input type="text"  style="width: 101%; margin-left: 20px;;" id="repeatsUpdate" title="${title}"  name="repeats">
                                                                     </div>
                                                                     <input id="exerciseDtoId" name="exerciseDtoId" value="${exerciseDto.id}" style="display: none">
-                                                                    <input type="submit" onclick="checkUpdateExerciseData()" class="buttonSub" value="Update" id="update" style="margin-top: 10px;">
+                                                                    <input type="submit" onclick="checkUpdateExerciseData()" class="buttonSub" value="${update}" id="update" style="margin-top: 10px;width: 80px;">
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -117,7 +131,7 @@
                             <label class="modal__closetwo" for="modal"></label>
                             <div class="modal__info" style="width: 80%;max-width: 900px;max-height: 1500px;min-height: 500px">
                                 <label class="modal__close" for="modal">&times;</label>
-                                <input type="search"  oninput="makeRequest()" placeholder="Enter the name of exercise" name="searchType" id="searchType" style="width: 40%;border-radius: 4px 4px 4px 4px;height: 30px;font: 20px 'Oswald', sans-serif;">
+                                <input type="search"  oninput="makeRequest()" placeholder="${enter_name}" name="searchType" id="searchType" style="width: 40%;border-radius: 4px 4px 4px 4px;height: 30px;font: 20px 'Oswald', sans-serif;">
                                 <hr style="margin-left: -20px;width: 110%;">
                                 <form name="form" class="beatForm" action="${pageContext.request.contextPath}/controller?command=add_exercise" method="post">
                                     <input id="trainDay" name="trainDay" value="${program.trainsPerWeek}" style="display: none;">
@@ -135,7 +149,7 @@
                                                             <label class="modal__closetwo" for="modal{exercise.id}"></label>
                                                             <div class="modal__info">
                                                                 <label class="modal__close" for="modal{exercise.id}">&times;</label>
-                                                                <h2 class="edit">Description</h2>
+                                                                <h2 class="edit">${description}</h2>
                                                                 <h3 id="description" style="color: black;text-align: left;font-weight: normal;"></h3>
                                                             </div>
                                                         </div>
@@ -150,22 +164,22 @@
                                                             <div class="modal__info" style="width: 1000px;height: 140px;padding-top: 40px;">
                                                                 <label class="modal__close" for="modalChoose{exercise.id}">&times;</label>
                                                                 <div class="exercise">
-                                                                    <h2 style="text-align: center; margin-top: -35px;color: black;"> Add Exercise</h2>
+                                                                    <h2 style="text-align: center; margin-top: -35px;color: black;">${add_exercise}</h2>
                                                                     <div class="col-25">
-                                                                        <label for="setNumber" style="margin-top: 5px;margin-left: -140px;">Sets</label>
+                                                                        <label for="set_number" style="margin-top: 5px;margin-left: -140px;">${setNumber}</label>
                                                                     </div>
                                                                     <div class="col-75">
                                                                         <input  id="setNumber{exercise.id}" style="margin-left: -120px;width: 618px;" title="${title}"   type="text">
                                                                     </div>
 
                                                                     <div class="col-25">
-                                                                        <label for="setNumber" style="margin-top: 5px;margin-left: -110px;">Repeats</label>
+                                                                        <label for="set_number" style="margin-top: 5px;margin-left: -125px;">${repeatsNumber}</label>
                                                                     </div>
                                                                     <div class="col-75">
                                                                         <input  id="repeats{exercise.id}"  style="margin-left: -120px;width: 618px;" title="${title}" type="text">
                                                                     </div>
                                                                 </div>
-                                                                <input type="submit" class="buttonSub" onclick="setExerciseProgram('{exercise.id}',${program.id})" title="1-2 number" style="margin-top: 10px;" value="Add">
+                                                                <input type="submit" class="buttonSub" onclick="setExerciseProgram('{exercise.id}',${program.id})" title="1-2 number" style="margin-top: 10px;" value="${add}">
                                                             </div>
                                                         </div>
                                                         <label for="modalChoose{exercise.id}"  style="width: 60px;
@@ -179,7 +193,7 @@
                                 </form>
                             </div>
                         </div>
-                        <label for="modal" class="buttonSub" onclick="makeRequest()" style="color: white;text-align: center;margin-top: 10px;padding-top: 15px;width: 80px;height: 30px;font: 14px Tahoma, sans-serif;background: #29c5e6">Add exercise</label>
+                        <label for="modal" class="buttonSub" onclick="makeRequest()" style="color: white;text-align: center;margin-top: 10px;padding-top: 10px;padding-bottom: 7px;width: 80px;height: 30px;font: 14px Tahoma, sans-serif;background: #29c5e6">${add_exercise}</label>
 
                     </c:otherwise>
                 </c:choose>
@@ -189,8 +203,15 @@
     </section>
 </div>
 <c:if test="${incorrect_input_data_error eq true}">
-    <script>notifyAboutInvalidData('Incorrect exercise data was input')</script>
+    <script>notifyAboutInvalidData('${exercise.incorrect_exercise_data}')</script>
 </c:if>
+<c:if test="${invalid_exercise_id_format eq true}">
+    <script>notifyAboutInvalidData(${exercise.incorrect_exercise_id})</script>
+</c:if>
+<c:if test="${not_exist_exercise_id eq true}">
+    <script>notifyAboutInvalidData(${exercise_not_exist})</script>
+</c:if>
+
 </body>
 </html>
 

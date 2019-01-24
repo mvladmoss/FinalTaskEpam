@@ -10,8 +10,7 @@ public enum ClientTableConstants {
     PASSWORD("password"),
     MEMBERSHIP_PURCHASED_NUMBER("membership_purchased_number"),
     PERSONAL_DISCOUNT("personal_discount"),
-    CORPORATE_DISCOUNT("corporate_discount"),
-    PROGRAM_ID("PROGRAM_ID");
+    PROGRAM_ID("program_id");
 
     private String fieldName;
     private ClientTableConstants(String fieldName) {

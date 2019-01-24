@@ -2,6 +2,7 @@ package com.epam.fitness.builder;
 
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Client;
+import com.epam.fitness.repository.database.constants.ClientTableConstants;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,9 +21,8 @@ public class ClientBuilderTest {
     private static final String LOGIN = "vladmoss";
     private static final String PASSWORD = "123";
     private static final Integer MEMBERSHIP_PURCHASED_NUMBER = 1;
-    private static final Float PERSONAL_SALE = 5.5f;
-    private static final Float CORPORATE_SALE = 0.0f;
-    private static final Long ID_PROGRAM = 5l;
+    private static final Float PERSONAL_DISCOUNT = 5.5f;
+    private static final Long PROGRAM_ID = 5L;
 
 
 
@@ -34,24 +34,22 @@ public class ClientBuilderTest {
             LOGIN,
             PASSWORD,
             MEMBERSHIP_PURCHASED_NUMBER,
-            PERSONAL_SALE,
-            CORPORATE_SALE,
-            ID_PROGRAM);
+            PERSONAL_DISCOUNT,
+            PROGRAM_ID);
 
     @Test
     public void shouldBuildAndReturnClientWithParameters() throws SQLException, RepositoryException {
         ResultSet resultSet = mock(ResultSet.class);
 
-        when(resultSet.getLong(Client.ID)).thenReturn(ID_CLIENT);
-        when(resultSet.getLong(Client.ID_COACH)).thenReturn(ID_COACH);
-        when(resultSet.getString(Client.NAME)).thenReturn(NAME);
-        when(resultSet.getString(Client.SURNAME)).thenReturn(SURNAME);
-        when(resultSet.getString(Client.LOGIN)).thenReturn(LOGIN);
-        when(resultSet.getString(Client.PASSWORD)).thenReturn(PASSWORD);
-        when(resultSet.getInt(Client.MEMBERSHIP_PURCHASED_NUMBER)).thenReturn(MEMBERSHIP_PURCHASED_NUMBER);
-        when(resultSet.getFloat(Client.PERSONAL_DISCOUNT)).thenReturn(PERSONAL_SALE);
-        when(resultSet.getFloat(Client.CORPORATE_DISCOUNT)).thenReturn(CORPORATE_SALE);
-        when(resultSet.getLong(Client.ID_PROGRAM)).thenReturn(ID_PROGRAM);
+        when(resultSet.getLong(ClientTableConstants.ID.getFieldName())).thenReturn(ID_CLIENT);
+        when(resultSet.getLong(ClientTableConstants.COACH_ID.getFieldName())).thenReturn(ID_COACH);
+        when(resultSet.getString(ClientTableConstants.NAME.getFieldName())).thenReturn(NAME);
+        when(resultSet.getString(ClientTableConstants.SURNAME.getFieldName())).thenReturn(SURNAME);
+        when(resultSet.getString(ClientTableConstants.LOGIN.getFieldName())).thenReturn(LOGIN);
+        when(resultSet.getString(ClientTableConstants.PASSWORD.getFieldName())).thenReturn(PASSWORD);
+        when(resultSet.getInt(ClientTableConstants.MEMBERSHIP_PURCHASED_NUMBER.getFieldName())).thenReturn(MEMBERSHIP_PURCHASED_NUMBER);
+        when(resultSet.getFloat(ClientTableConstants.PERSONAL_DISCOUNT.getFieldName())).thenReturn(PERSONAL_DISCOUNT);
+        when(resultSet.getLong(ClientTableConstants.PROGRAM_ID.getFieldName())).thenReturn(PROGRAM_ID);
 
         ClientBuilder clientBuilder = new ClientBuilder();
         Client actualClient = clientBuilder.build(resultSet);

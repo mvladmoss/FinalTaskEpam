@@ -13,11 +13,11 @@ public class ExerciseDtoBuilder implements ResultSetBuilder<ExerciseDto> {
     public ExerciseDto build(ResultSet resultSet) throws RepositoryException {
         Exercise exercise = new ExerciseBuilder().build(resultSet);
         try {
-            long id = resultSet.getLong(ExerciseDtoTableConstants.ID.getFieldName());
-            int repeatNumber = resultSet.getInt(ExerciseDtoTableConstants.REPEAT_NUMBER.getFieldName());
-            int setNumber = resultSet.getInt(ExerciseDtoTableConstants.SET_NUMBER.getFieldName());
-            int numberOfTrainDay = resultSet.getInt(ExerciseDtoTableConstants.NUMBER_TRAIN_DAY.getFieldName());
-            long programId = resultSet.getLong(ExerciseDtoTableConstants.PROGRAM_ID.getFieldName());
+            Long id = resultSet.getLong(ExerciseDtoTableConstants.ID.getFieldName());
+            Integer repeatNumber = resultSet.getInt(ExerciseDtoTableConstants.REPEAT_NUMBER.getFieldName());
+            Integer setNumber = resultSet.getInt(ExerciseDtoTableConstants.SET_NUMBER.getFieldName());
+            Integer numberOfTrainDay = resultSet.getInt(ExerciseDtoTableConstants.NUMBER_TRAIN_DAY.getFieldName());
+            Long programId = resultSet.getLong(ExerciseDtoTableConstants.PROGRAM_ID.getFieldName());
             return new ExerciseDto(id,exercise,programId,repeatNumber,setNumber,numberOfTrainDay);
         }catch (SQLException exception){
             throw new RepositoryException(exception.getMessage(),exception);

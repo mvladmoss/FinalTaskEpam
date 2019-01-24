@@ -15,7 +15,8 @@
 <fmt:message bundle="${text}" key="login.password" var="password"/>
 <fmt:message bundle="${text}" key="name" var="name"/>
 <fmt:message bundle="${text}" key="surname" var="surname"/>
-
+<fmt:message bundle="${text}" key="login.name.placeholder" var="name_placeholder"/>
+<fmt:message bundle="${text}" key="login.surname.placeholder" var="surname_placeholder"/>
 
 <!DOCTYPE html>
 <html lang="${sessionScope.language}" >
@@ -38,7 +39,7 @@
 			 <input type="submit" value="${sessionScope.language}" style="border: none;background: none;list-style-position: inside;font-family: 'Poppins', sans-serif;font-size: 16px;height: 40px;margin-left: 1500px;color: white">
 		 </form>
 	  </div>
-		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab" >${enter}</label>
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label style="margin-top: 50px;" for="tab-1" class="tab" >${enter}</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">${registration}</label>
 			<div class="login-form" >
 				<div class="sign-in-htm">
@@ -49,7 +50,7 @@
 					</div>
 					<div class="group">
 						<label for="password" class="label">${password}</label>
-						<input  name="password" id="password" type="password" class="input" placeholder="${password_placeholder}" title="${password_pattern_error}" >
+						<input  name="password" oninput="checkPassword()" id="password" type="password" class="input" placeholder="${password_placeholder}" title="${password_pattern_error}" >
 					</div>
 						<c:if test="${login_exist_error eq true}">
 							<h3 style="color: red;margin-top: -10px;margin-left: 3px;width: 450px;font-size: 11px;">User with such login exist</h3>
@@ -85,15 +86,15 @@
 						</div>
 						<div class="group">
 							<label for="password_register" class="label">${password}</label>
-							<input id="password_register" name="password_register" type="password" title="minimum 3 symbols" required  class="input" data-type="password">
+							<input id="password_register" name="password_register" type="password" title="minimum 3 symbols" required placeholder="${password_placeholder}"  class="input" data-type="password">
 						</div>
 						<div class="group">
 							<label for="name_register" class="label">${name}</label>
-							<input id="name_register" name="name_register" type="text" class="input" title="3-20 letters" required  data-type="text">
+							<input id="name_register" name="name_register" type="text" class="input" title="3-20 letters" placeholder="${name_placeholder}" required  data-type="text">
 						</div>
 						<div class="group">
 							<label for="surname_register" class="label">${surname}</label>
-							<input id="surname_register" name="surname_register" type="text" title="3-20 letters" required  class="input">
+							<input id="surname_register" name="surname_register" type="text" title="3-20 letters" placeholder="${surname_placeholder}" required  class="input">
 						</div>
 
 						<div class="group">

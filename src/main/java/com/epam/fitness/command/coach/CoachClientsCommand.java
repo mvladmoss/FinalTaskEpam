@@ -5,17 +5,15 @@ import com.epam.fitness.command.CommandResult;
 import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.service.ClientService;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;import com.epam.fitness.exception.ServiceException;
+import java.util.List;
+import com.epam.fitness.exception.ServiceException;
+import static com.epam.fitness.command.coach.constant.ParameterConstants.*;
 
 
 public class CoachClientsCommand implements Command {
-
-    private final static String ALL_CLIENTS = "all_clients";
-    private final static String COACH_CLIENTS_PAGE = "/WEB-INF/coach/coachClients.jsp";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

@@ -13,7 +13,8 @@ public enum Page {
     COACHES_CLIENTS_PAGE("/WEB-INF/coach/coachClients.jsp"),
     COACH_COMMENTS_PAGE("/WEB-INF/coach/coachCommentsPage.jsp"),
     NO_ACCESS_PAGE("/WEB-INF/noAccessPage.jsp"),
-    ALL_COACHES_PAGE("/WEB-INF/coach/allCoaches.jsp");
+    ALL_COACHES_PAGE("/WEB-INF/coach/allCoaches.jsp"),
+    CLIENTS_ORDERS_PAGE("/WEB-INF/client/clientOrders.jsp");
 
     private final String value;
 

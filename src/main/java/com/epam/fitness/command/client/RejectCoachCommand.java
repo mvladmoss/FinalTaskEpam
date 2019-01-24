@@ -6,15 +6,16 @@ import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.service.ClientService;
-
+import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
+import static com.epam.fitness.command.client.constant.ParameterConstants.*;
+
 
 public class RejectCoachCommand implements Command {
-
-    private final static String COACH_PAGE = "/controller?command=coaches";
+    private static final Logger LOGGER = Logger.getLogger(RejectCoachCommand.class.getName());
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
@@ -26,6 +27,7 @@ public class RejectCoachCommand implements Command {
             client.get().setCoachId(null);
             clientService.save(client.get());
         }
+        LOGGER.info("client with id" + clientId + " refused his coach");
         return new CommandResult(COACH_PAGE,false);
     }
 }

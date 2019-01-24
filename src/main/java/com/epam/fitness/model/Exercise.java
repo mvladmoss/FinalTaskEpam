@@ -1,5 +1,7 @@
 package com.epam.fitness.model;
 
+import java.util.Objects;
+
 public class Exercise implements Identifiable {
 
     private Long id;
@@ -15,6 +17,10 @@ public class Exercise implements Identifiable {
         this.name = name;
         this.description = description;
         this.image = image;
+    }
+
+    public Exercise(Long id){
+        this.id = id;
     }
 
     public Long getId() {
@@ -47,5 +53,25 @@ public class Exercise implements Identifiable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Exercise exercise = (Exercise) o;
+        return  Objects.equals(getId(), exercise.getId()) &&
+                Objects.equals(getName(), exercise.getName()) &&
+                Objects.equals(getDescription(), exercise.getDescription()) &&
+                Objects.equals(getImage(), exercise.getImage());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(),getName(),getDescription(),getImage());
     }
 }

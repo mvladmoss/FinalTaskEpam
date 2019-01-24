@@ -25,6 +25,7 @@ public enum CommandType{
     GYM_PHOTOS("gym_photos"),
     LOGIN_PAGE("login_page"),
     NO_ACCESS("no_access"),
+    ORDERS("orders"),
     LANGUAGE("language");
 
     private String command;

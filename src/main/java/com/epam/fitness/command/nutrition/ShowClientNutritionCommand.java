@@ -6,23 +6,18 @@ import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.model.UserRole;
 import com.epam.fitness.service.NutritionService;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.utils.CurrentMembershipValidChecker;
 import com.epam.fitness.utils.page.Page;
-
-import static com.epam.fitness.command.constants.TextConstants.MAX_NUMBER_SYMBOLS_ATTRIBUTE;
-import static com.epam.fitness.command.constants.TextConstants.MAX_NUMBER_SYMBOLS_VALUE;
+import static com.epam.fitness.command.comment.constant.TextConstants.MAX_NUMBER_SYMBOLS_ATTRIBUTE;
+import static com.epam.fitness.command.comment.constant.TextConstants.MAX_NUMBER_SYMBOLS_VALUE;
+import static com.epam.fitness.command.nutrition.constant.TextConstans.*;
 
 
 public class ShowClientNutritionCommand implements Command {
-
-    private final static String NUTRITION = "nutrition";
-    private final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
-    private final static String COACH_CLIENT_ID = "coach_client_id";
 
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 

@@ -25,11 +25,12 @@
 <fmt:message bundle="${text}" key="comments_about_me" var="comments_about_me"/>
 <fmt:message bundle="${text}" key="our_gym" var="our_gym"/>
 <fmt:message bundle="${text}" key="gym_photos" var="gym_photos"/>
+<fmt:message bundle="${text}" key="my_orders" var="my_orders"/>
 
 <nav style="border-radius: 6px;">
     <ul class="top-menu">
         <li id="home"><a href="${pageContext.servletContext.contextPath}/controller?command=main" >${home}</a></li>
-        <li id="signOut" style="position: relative; left: 630px"><a href="${pageContext.servletContext.contextPath}/controller?command=sign_out"  >${sign_out}</a></li>
+        <li id="signOut" style="position: relative; left: 630px"><a href="${pageContext.servletContext.contextPath}/controller?command=sign_out">${sign_out}</a></li>
         <li id="language" style="position: relative; left: 640px">
             <form action="${pageContext.servletContext.contextPath}/controller?command=language" method="post">
                 <input name="currentPage" value="${param.currentPage}" style="display: none;">
@@ -72,10 +73,13 @@
     <c:if test="${param.pageTopic eq 'gym_photos'}">
         <h1>${gym_photos}</h1>
     </c:if>
+    <c:if test="${param.pageTopic eq 'orders'}">
+        <h1>${my_orders}</h1>
+    </c:if>
 
 </div>
 <aside>
-    <h2>${menu}</h2>
+    <h2 style="margin-top: 0px;">${menu}</h2>
     <nav>
         <ul class="aside-menu">
             <c:if test="${role == 'client'}">
@@ -93,6 +97,9 @@
                 </li>
                 <li id="coaches">
                     <a href="${pageContext.servletContext.contextPath}/controller?command=coaches"  onmouseover="changeStyle('coaches')" onmouseout="changeStyleBack('coaches')">${our_coaches}</a>
+                </li>
+                <li id="orders">
+                    <a href="${pageContext.servletContext.contextPath}/controller?command=orders"  onmouseover="changeStyle('orders')" onmouseout="changeStyleBack('orders')">${my_orders}</a>
                 </li>
             </c:if>
             <c:if test="${role == 'coach'}">

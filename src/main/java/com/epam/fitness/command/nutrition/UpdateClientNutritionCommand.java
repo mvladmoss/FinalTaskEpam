@@ -8,27 +8,19 @@ import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.model.UserRole;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.NutritionService;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.utils.RequestParameterValidator;
+import org.apache.log4j.Logger;
+import static com.epam.fitness.command.nutrition.constant.TextConstans.*;
 
 
 public class UpdateClientNutritionCommand implements Command {
 
-    private static final String PROFILE_PAGE = "/controller?command=show_client_nutrition";
-    private final static String MORNING = "morning";
-    private final static String LUNCH = "lunch";
-    private final static String DINNER = "dinner";
-    private final static String NUTRITION_ID = "nutrition_id";
-    private final static String NUTRITION_TIME = "nutrition_time";
-    private final static String NUTRITION_DESCRIPTION = "nutrition_description";
-    private final static String COACH_CLIENT_ID = "coach_client_id";
-    private final static String COACH_CLIENT_PAGE = "/controller?command=all_coach_clients";
-    private final static String CLIENT_EXERCISE_PAGE = "/controller?command=show_client_nutrition";
-    private final static String INCORRECT_INPUT_NUTRITION_DATA_ERROR = "incorrect_input_nutrition_data_error";
+
+    private static final Logger LOGGER = Logger.getLogger(UpdateClientNutritionCommand.class.getName());
     private final RequestParameterValidator parameterValidator = new RequestParameterValidator();
 
 
@@ -36,7 +28,12 @@ public class UpdateClientNutritionCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String newNutritionDescription = request.getParameter(NUTRITION_DESCRIPTION);
         if(newNutritionDescription==null || !parameterValidator.isNutritionDescriptionValid(newNutritionDescription)){
-            return forwardToNutritionPageWithError(request);
+            return forwardToNutritionPageWithError(request,INCORRECT_INPUT_NUTRITION_DATA_ERROR);
+        }
+        String nutritionIdString = request.getParameter(NUTRITION_ID);
+        if(nutritionIdString==null || !isNutritionExist(nutritionIdString)){
+            LOGGER.info("nutrition with id:" + nutritionIdString + " doesn't exist");
+            return forwardToNutritionPageWithError(request,NOT_EXIST_NUTRITION_ID);
         }
         Long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
         String nutritionTime = request.getParameter(NUTRITION_TIME);
@@ -45,6 +42,7 @@ public class UpdateClientNutritionCommand implements Command {
         if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
             setClientIdForCoach(nutritionId,request);
         }
+        LOGGER.info("nutrition with id:" + nutritionIdString + " has been changed");
         return new CommandResult(PROFILE_PAGE,true);
     }
 
@@ -80,13 +78,20 @@ public class UpdateClientNutritionCommand implements Command {
         }
     }
 
-    private CommandResult forwardToNutritionPageWithError(HttpServletRequest request) {
-        request.setAttribute(INCORRECT_INPUT_NUTRITION_DATA_ERROR, true);
+    private CommandResult forwardToNutritionPageWithError(HttpServletRequest request,String error) {
+        request.setAttribute(error, true);
         HttpSession session = request.getSession();
         if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
             return new CommandResult(COACH_CLIENT_PAGE,false);
         }else{
             return new CommandResult(CLIENT_EXERCISE_PAGE,false);
         }
+    }
+
+    private boolean isNutritionExist(String nutritionIdString) throws ServiceException {
+        Long nutritionId = Long.valueOf(nutritionIdString);
+        NutritionService nutritionService = new NutritionService();
+        Optional<Nutrition> nutrition = nutritionService.findById(nutritionId);
+        return nutrition.isPresent();
     }
 }

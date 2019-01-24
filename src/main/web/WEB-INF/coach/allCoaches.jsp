@@ -2,6 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="text" var="text"/>
+
+<fmt:message bundle="${text}" key="coach.current_coach" var="current_coach"/>
+<fmt:message bundle="${text}" key="nutrition.max_symbols" var="max_symbols"/>
+<fmt:message bundle="${text}" key="nutrition.save" var="save"/>
+<fmt:message bundle="${text}" key="exercises.buy" var="buy"/>
+<fmt:message bundle="${text}" key="coach.cant_choose" var="cant_choose"/>
+<fmt:message bundle="${text}" key="coach.choose_coach" var="choose_coach"/>
+<fmt:message bundle="${text}" key="coach.comment" var="your_comment"/>
+
 <!doctype html>
 <html lang="${sessionScope.language}">
 <head>
@@ -43,7 +54,7 @@
                                                 <c:when test="${coach_client_id==coach.id}">
                                                     <div  class="flex-container">
                                                         <div class="flex-item flex-text">
-                                                            <li class="coach" style="margin-left: 35px;"><c:out value="${coach.name} ${coach.surname}(current coach)"/></li>
+                                                            <li class="coach" style="margin-left: 35px;"><c:out value="${coach.name} ${coach.surname}(${current_coach})"/></li>
                                                         </div>
                                                         <div class="flex-item">
                                                         <input class="modal__check" type="checkbox" id="modal"/>
@@ -53,10 +64,10 @@
                                                                 <label class="modal__close" for="modal">&times;</label>
                                                                 <form name="form" action="${pageContext.request.contextPath}/controller?command=add_comment" method="post">
                                                                     <input name="coach_id" value="${coach.id}" style="display: none;"/>
-                                                                    <h2 style="color: black;font: 25px 'Oswald', sans-serif; margin-top: -5px">Your comment</h2>
+                                                                    <h2 style="color: black;font: 25px 'Oswald', sans-serif; margin-top: -5px">${your_comment}</h2>
                                                                     <textarea id="commentContent" name="commentContent" class="textArea" ></textarea>
-                                                                    <input class="button" type="submit" value="Save" style="margin-top: 10px;margin-right: 580px;color: #516b9e;">
-                                                                    <h3 style="position: absolute;margin-top: -30px;margin-left: 120px;">Maximum number of characters ${max_number_symbols_attribute}</h3>
+                                                                    <input class="button" type="submit" value="${save}" style="margin-top: 10px;margin-right: 580px;color: #516b9e;">
+                                                                    <h3 style="position: absolute;margin-top: -30px;margin-left: 120px;color: black;">${max_symbols} ${max_number_symbols_attribute}</h3>
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -64,8 +75,10 @@
                                                         </label>
                                                         </div>
                                                         <div class="flex-item">
-                                                            <a href="${pageContext.request.contextPath}/controller?command=reject_coach"><img src="../../images/rejectCoach.png" width="40" height="40" style="margin-left: -320px;" title="reject coach" alt="Удалить">
-                                                            </a>
+                                                            <form action="${pageContext.request.contextPath}/controller?command=reject_coach" method="post">
+                                                                <input id="coachId" name="coachId" value="${coach.id}" style="display: none">
+                                                                <button type="submit" style="display: contents;"><img src="../../images/rejectCoach.png" width="40" height="40" alt="Choose coach" title="Choose coach" style="display: inline;margin-left: -300px;"></button>
+                                                            </form>
                                                         </div>
                                                     </div>
                                                 </c:when>
@@ -77,7 +90,7 @@
                                     </c:forEach>
                                 </c:when>
                                 <c:otherwise>
-                                    <h2 style="color: black;font: 25px 'Oswald', sans-serif; margin-top: -5px;margin-left: 170px;">Choose any coach</h2>
+                                    <h2 style="color: black;font: 25px 'Oswald', sans-serif; margin-top: -5px;margin-left: 170px;">${choose_coach}</h2>
                                     <c:forEach items="${coaches}" var="coach">
                                         <div>
                                             <div class="flex-container">
@@ -85,9 +98,10 @@
                                                     <li class="coach"><c:out value="${coach.name} ${coach.surname}"/></li>
                                                 </div>
                                                 <div class="flex-item">
-                                                    <a href="${pageContext.servletContext.contextPath}/controller?command=choose_coach&coachId=${coach.id}">
-                                                        <img src="../../images/acceptCoach.png" width="40" height="40" style=" margin-left: 30px;" title="Choose coach" alt="Удалить">
-                                                    </a>
+                                                    <form action="${pageContext.servletContext.contextPath}/controller?command=choose_coach" method="post">
+                                                        <input id="coachId" name="coachId" value="${coach.id}" style="display: none">
+                                                        <button type="submit" style="display: contents;"><img src="../../images/acceptCoach.png" width="40" height="40" alt="Choose coach" title="Choose coach" style="display: inline"></button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -98,12 +112,12 @@
                         <c:otherwise>
                             <div class="flex-container" style="margin-left: -70px;">
                                 <div class="flex-item" style="color:#516b9e;width:500px;">
-                                    <h3>You can not choose coach until you don't buy membership</h3>
+                                    <h3>${cant_choose}</h3>
                                 </div>
                                 <div class="flex-item" style="margin-top: -10px; margin-left: -15px;">
                                     <form action="${pageContext.servletContext.contextPath}/controller?command=get_order_page" method="post">
                                         <input type="submit" class="button" style="color: white; text-align: center; margin: 10px 15px 5px -10px;width: 80px; height: 50px; font: 14px Tahoma, sans-serif; background: #29c5e6;
-" value="Buy">
+" value="${buy}">
                                     </form>
                                 </div>
                             </div>
@@ -115,8 +129,15 @@
     </section>
 </div>
 </body>
+
 <c:if test="${incorrect_input_comment_data_error eq true}">
     <script>notifyAboutInvalidData('Incorrect comment data was input')</script>
+</c:if>
+<c:if test="${incorrect_coach_id_format_error eq true}">
+    <script>notifyAboutInvalidData('Incorrect coach id format data was input')</script>
+</c:if>
+<c:if test="${not_exist_coach_id_error eq true}">
+    <script>notifyAboutInvalidData('Coach with such id doesnt exist')</script>
 </c:if>
 </html>
 

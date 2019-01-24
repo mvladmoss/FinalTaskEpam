@@ -1,7 +1,10 @@
 package com.epam.fitness.model.dto;
 
+import com.epam.fitness.model.Coach;
 import com.epam.fitness.model.Exercise;
 import com.epam.fitness.model.Identifiable;
+
+import java.util.Objects;
 
 public class ExerciseDto implements Identifiable {
 
@@ -65,4 +68,26 @@ public class ExerciseDto implements Identifiable {
     public Long getId() { return id; }
 
     public void setId(Long id) { this.id = id; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ExerciseDto exerciseDto = (ExerciseDto) o;
+        return  Objects.equals(getId(), exerciseDto.getId()) &&
+                getExercise().equals(exerciseDto.getExercise()) &&
+                Objects.equals(getProgramId(), exerciseDto.getProgramId()) &&
+                Objects.equals(getRepeatNumber(), exerciseDto.getRepeatNumber()) &&
+                Objects.equals(getSetNumber(), exerciseDto.getSetNumber()) &&
+                Objects.equals(getNumberTrainDay(), exerciseDto.getNumberTrainDay());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(),getExercise(),getProgramId(),getRepeatNumber(),getSetNumber(),getNumberTrainDay());
+    }
 }

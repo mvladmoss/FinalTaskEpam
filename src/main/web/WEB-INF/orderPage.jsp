@@ -3,6 +3,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fitness" uri="fitnessTag" %>
 
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="text" var="text"/>
+
+<fmt:message bundle="${text}" key="order.cost" var="cost"/>
+<fmt:message bundle="${text}" key="order.final_cost" var="final_cost"/>
+<fmt:message bundle="${text}" key="order.duration" var="duration"/>
+<fmt:message bundle="${text}" key="order.discount" var="discount"/>
+<fmt:message bundle="${text}" key="exercises.buy" var="buy"/>
+<fmt:message bundle="${text}" key="order.extend" var="extend"/>
+<fmt:message bundle="${text}" key="order.incorrect_cost" var="incorrect_cost"/>
+<fmt:message bundle="${text}" key="order.incorrect_card_data" var="incorrect_card_data"/>
+<fmt:message bundle="${text}" key="order.period_not_exist" var="period_not_exist"/>
+<fmt:message bundle="${text}" key="order.choose_tariff" var="choose_tariff"/>
+<fmt:message bundle="${text}" key="order.credit_card" var="credit_card"/>
+
 <!doctype html>
 <html lang="${sessionScope.language}">
 <head>
@@ -34,10 +49,10 @@
     <section>
 
         <div class = "container">
-            <div class="rightcolumn" style="min-height: 270px;">
+            <div class="rightcolumn" style="min-height: 230px;">
                 <div class="card">
                     <div class="col-25">
-                        <label for="period_cost">Select the duration</label>
+                        <label for="period_cost">${duration}</label>
                     </div>
                     <div class="col-75">
                         <select id="period_cost" onchange="setCost()" name="period">
@@ -46,28 +61,21 @@
                     </div>
 
                     <div class="col-25">
-                        <label for="cost">Cost</label>
+                        <label for="cost">${cost}</label>
                     </div>
                     <div class="col-75">
                         <input type="text" id="cost" name="cost" value="0.0$" style="width: 95%;" readonly>
                     </div>
 
                     <div class="col-25">
-                        <label for="personal_discount">Personal discount</label>
+                        <label for="personal_discount">${discount}</label>
                     </div>
                     <div class="col-75">
                         <input type="text" id="personal_discount" style="width: 95%;" name="personal_discount" value="${client_personal_discount}" readonly>
                     </div>
 
                     <div class="col-25">
-                        <label for="corporate_discount">Corporate discount</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="corporate_discount" style="width: 95%;" name="corporate_discount" value="${client_corporate_discount}" readonly>
-                    </div>
-
-                    <div class="col-25">
-                        <label for="final_cost">Final cost</label>
+                        <label for="final_cost">${final_cost}</label>
                     </div>
                     <div class="col-75">
                         <input type="text" id="final_cost" name="final_cost" style="width: 95%;"  value="0.0$" readonly>
@@ -79,26 +87,26 @@
                             <form name="form" action="${pageContext.servletContext.contextPath}/controller?command=update_gym_membership" method="post" style="margin-top: 10px;">
                                 <input id="period" name="period" style="display: none;">
                                 <label class="modal__close" for="modal">&times;</label>
-                                <label for="cardNumber" style="padding-top: 5px;margin-top: 5px;font-size: 14px; font-family: 'Poppins', sans-serif; color: black;"> Card number</label>
-                                <input id="cardNumber" name="cardNumber" type="text" style="margin-top: -8px;">
-                                <label for="finalCostModalWindow" style="display: table-cell;position: absolute;margin-top: 17px;font-size: 14px; font-family: 'Poppins', sans-serif; color: black;">Final cost</label>
-                                <input id="finalCostModalWindow" name="cost" type="text" style="margin-top:10px;margin-left: 98px;" readonly>
-                                <input class="button" type="submit" style="position: absolute;margin-top: 60px; margin-left: -530px">
+                                <label for="cardNumber" style="padding-top: 5px;margin-top: 5px;font-size: 14px; font-family: 'Poppins', sans-serif; color: black;"> ${credit_card}</label>
+                                <input id="cardNumber" name="cardNumber" type="text" style="margin-top: -8px;margin-left: 47px;">
+                                <label for="finalCostModalWindow" style="display: table-cell;position: absolute;margin-top: 17px;font-size: 14px; font-family: 'Poppins', sans-serif; color: black;">${final_cost}</label>
+                                <input id="finalCostModalWindow" name="cost" type="text" style="margin-top:10px;margin-left: 130px;" readonly>
+                                <input class="button" type="submit" value="${buy}" style="position: absolute;margin-top: 60px; margin-left: -560px">
                             </form>
                         </div>
                     </div>
                     <c:if test="${payment_error == true}">
-                        <h2 style="position: absolute;color: red;margin-left: 100px;padding-top: 214px;">Was input incorrect card data.Please try again</h2>
+                        <h2 style="position: absolute;color: red;margin-left: 100px;padding-top: 174px;">${incorrect_card_data}</h2>
                     </c:if>
                     <c:if test="${period_not_exist_error == true}">
-                        <h2 style="position: absolute;color: red;margin-left: 100px;padding-top: 214px;">Such period don't exist</h2>
+                        <h2 style="position: absolute;color: red;margin-left: 100px;padding-top: 214px;">${period_not_exist}</h2>
                     </c:if>
                     <c:choose>
                         <c:when test="${end_date_membership=='true'}">
-                            <label onclick="checkSelectOption()" class="buttonSub" >Extend</label>
+                            <label onclick="checkSelectOption('${choose_tariff}')" class="buttonSub" >${extend}</label>
                         </c:when>
                         <c:otherwise>
-                            <label  onclick="checkSelectOption()" class="buttonSub">Buy</label>
+                            <label  onclick="checkSelectOption('${choose_tariff}')" class="buttonSub">${buy}</label>
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -106,6 +114,9 @@
         </div>
     </section>
 </div>
+<c:if test="${invalid_cost_error eq true}">
+    <script>notifyAboutInvalidData(${incorrect_cost})</script>
+</c:if>
 
 </body>
 </html>

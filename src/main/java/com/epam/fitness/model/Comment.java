@@ -1,5 +1,7 @@
 package com.epam.fitness.model;
 
+import java.util.Objects;
+
 public class Comment implements Identifiable {
 
     private Long id;
@@ -54,5 +56,26 @@ public class Comment implements Identifiable {
     public void setCommentContent(String commmentContent) {
         this.commentContent = commmentContent;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Comment comment = (Comment) o;
+        return  Objects.equals(getId(), comment.getId()) &&
+                Objects.equals(getClientId(), comment.getClientId()) &&
+                Objects.equals(getCoachId(), comment.getCoachId()) &&
+                Objects.equals(getCommentContent(), comment.getCommentContent());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(),getClientId(),getCoachId(),getCommentContent());
+    }
+
 }
 

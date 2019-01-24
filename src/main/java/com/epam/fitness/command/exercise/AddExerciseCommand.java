@@ -2,6 +2,7 @@ package com.epam.fitness.command.exercise;
 
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
+import com.epam.fitness.command.exercise.validator.ParameterValidator;
 import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.exception.IncorrectInputDataException;
 import com.epam.fitness.model.Client;
@@ -10,39 +11,31 @@ import com.epam.fitness.model.dto.ExerciseDto;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.ExerciseDtoService;
 import com.epam.fitness.service.ExerciseService;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.UserRole;
-import com.epam.fitness.utils.RequestParameterValidator;
+import org.apache.log4j.Logger;
+import static com.epam.fitness.command.exercise.constant.TextConstants.*;
 
 
 public class AddExerciseCommand implements Command {
 
-    private final static String PROFILE_PAGE = "/controller?command=show_client_exercises";
-    private final static String COACH_CLIENT_PAGE = "/controller?command=all_coach_clients";
-    private final static String CLIENT_EXERCISE_PAGE = "/controller?command=show_client_exercises";
-    private final static String INCORRECT_INPUT_DATA_ERROR = "incorrect_input_data_error";
-    private static final String REPEATS = "repeats";
-    private static final String SET_NUMBER = "set_number";
-    private static final String TRAIN_DAY = "trainDay";
-    private static final String PROGRAM_ID = "programId";
-    private static final String EXERCISE_ID = "exerciseId";
-    private final static String COACH_CLIENT_ID = "coach_client_id";
-    private final RequestParameterValidator parameterValidator = new RequestParameterValidator();
-
+    private static final Logger LOGGER = Logger.getLogger(AddExerciseCommand.class.getName());
+    private final ParameterValidator parameterValidator = new ParameterValidator();
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, IncorrectInputDataException {
         HttpSession session = request.getSession();
         String repeatsString = request.getParameter(REPEATS);
         String setNumberString = request.getParameter(SET_NUMBER);
-        if(repeatsString==null || !parameterValidator.isRepeatsValid(repeatsString)){
+        if(!parameterValidator.isRepeatsValid(repeatsString)){
+            LOGGER.info("format number of repeats is not correct");
             return forwardToExercisePageWithError(request);
         }
-        if(setNumberString==null || !parameterValidator.isSetNumberValid(setNumberString)){
+        if(!parameterValidator.isSetNumberValid(setNumberString)){
+            LOGGER.info("format number of set number is not correct");
             return forwardToExercisePageWithError(request);
         }
         Integer repeats = Integer.valueOf(repeatsString);
@@ -53,6 +46,7 @@ public class AddExerciseCommand implements Command {
         if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
             setClientIdForCoach(request);
         }
+        LOGGER.info("exercise with id:" + exerciseDto.getId() + " has been added");
         return new CommandResult(PROFILE_PAGE,true);
     }
 

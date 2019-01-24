@@ -1,5 +1,7 @@
 package com.epam.fitness.model;
 
+import java.util.Objects;
+
 public class Program implements Identifiable{
 
     private Long id;
@@ -34,6 +36,25 @@ public class Program implements Identifiable{
 
     public void setTrainsPerWeek(int trainsPerWeek) {
         this.trainsPerWeek = trainsPerWeek;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Program program = (Program) o;
+        return Objects.equals(getId(), program.getId()) &&
+                Objects.equals(getNutritionId(), program.getNutritionId()) &&
+                Objects.equals(getTrainsPerWeek(), program.getTrainsPerWeek());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(),getNutritionId(),getTrainsPerWeek());
     }
 
 }

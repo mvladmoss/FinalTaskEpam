@@ -48,6 +48,7 @@ public class CommandAccess {
         commandTypes.add(CommandType.UPDATE_EXERCISE);
         commandTypes.add(CommandType.UPDATE_GYM_MEMBERSHIP);
         commandTypes.add(CommandType.UPDATE_NUTRITION);
+        commandTypes.add(CommandType.ORDERS);
         commandTypes.add(CommandType.NO_ACCESS);
         return commandTypes;
     }

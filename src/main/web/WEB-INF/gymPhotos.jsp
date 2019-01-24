@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <script src="../scripts/pictureSelector.js"></script>
+    <script src="../scripts/buttonStyleChanger.js"></script>
 
 </head>
 <body>

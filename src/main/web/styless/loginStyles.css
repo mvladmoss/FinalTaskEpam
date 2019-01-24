@@ -23,7 +23,7 @@ html{
 .header {
 	overflow: hidden;
     background-color: rgba(0, 0, 0, 0.2);
-	margin: -200px -70px 200px -550px;
+	margin: -200px -70px 100px -550px;
 /* 	margin: -100px -70px 50px -550px; */
 }
 .error {

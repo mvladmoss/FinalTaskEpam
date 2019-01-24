@@ -13,23 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.utils.RequestParameterValidator;
-import com.sun.org.apache.regexp.internal.RE;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
+import org.apache.log4j.Logger;
+import static com.epam.fitness.command.authorization.constant.ParameterConstants.*;
 
 public class LoginCommand implements Command {
-    private static final String LOGIN = "login";
-    private static final String PASSWORD = "password";
 
-    private static final String LOGIN_PAGE = "/WEB-INF/login.jsp";
-    private static final String AUTHENTICATION_ERROR = "authentication_error";
-    private static final String INCORRECT_LOGIN_DATA = "incorrect_login_data";
-    private static final String INCORRECT_PASSWORD_DATA = "incorrect_password_data";
-    private static final String COMMAND_MAIN = "controller?command=main";
+    private static final Logger LOGGER = Logger.getLogger(LoginCommand.class.getName());
+
     private final RequestParameterValidator parameterValidator = new RequestParameterValidator();
 
     @Override
@@ -37,9 +30,11 @@ public class LoginCommand implements Command {
         String login = request.getParameter(LOGIN);
         String password = request.getParameter(PASSWORD);
         if(login==null || !parameterValidator.isLoginValid(login)){
+            LOGGER.info("invalid login was received");
             return forwardToLoginWithError(request,INCORRECT_LOGIN_DATA);
         }
         if(password==null || !parameterValidator.isPasswordValid(password)){
+            LOGGER.info("invalid password was received");
             return forwardToLoginWithError(request,INCORRECT_PASSWORD_DATA);
         }
         boolean isClientOrCoachFind;
@@ -50,8 +45,10 @@ public class LoginCommand implements Command {
         }
 
         if(isClientOrCoachFind){
+            LOGGER.info("user has been authorized: login:" + login + " password:" + password);
             return new CommandResult(COMMAND_MAIN, true);
         }  else {
+            LOGGER.info("user with such login and password doesn't exist");
             return forwardToLoginWithError(request,AUTHENTICATION_ERROR);
         }
     }

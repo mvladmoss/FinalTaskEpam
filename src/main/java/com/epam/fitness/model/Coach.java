@@ -1,5 +1,7 @@
 package com.epam.fitness.model;
 
+import java.util.Objects;
+
 public class Coach implements Identifiable {
 
     private Long id;
@@ -57,5 +59,27 @@ public class Coach implements Identifiable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Coach coach = (Coach) o;
+        return  Objects.equals(getId(), coach.getId()) &&
+                Objects.equals(getName(), coach.getName()) &&
+                Objects.equals(getSurname(), coach.getSurname()) &&
+                Objects.equals(getLogin(), coach.getLogin()) &&
+                Objects.equals(getPassword(), coach.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(),getName(),getSurname(),getLogin(),getPassword());
+    }
+
 
 }
