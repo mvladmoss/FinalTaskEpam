@@ -27,7 +27,6 @@ public class AddExerciseCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, IncorrectInputDataException {
-        HttpSession session = request.getSession();
         String repeatsString = request.getParameter(REPEATS);
         String setNumberString = request.getParameter(SET_NUMBER);
         if(!parameterValidator.isRepeatsValid(repeatsString)){
@@ -43,9 +42,6 @@ public class AddExerciseCommand implements Command {
         ExerciseDto exerciseDto = makeExercise(request,repeats,setNumber);
         ExerciseDtoService exerciseDtoService = new ExerciseDtoService();
         exerciseDtoService.save(exerciseDto);
-        if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
-            setClientIdForCoach(request);
-        }
         LOGGER.info("exercise with id:" + exerciseDto.getId() + " has been added");
         return new CommandResult(PROFILE_PAGE,true);
     }
@@ -59,23 +55,10 @@ public class AddExerciseCommand implements Command {
         return new ExerciseDto(null, exercise.get(), programId, repeats, setNumber, trainDay);
     }
 
-    private void setClientIdForCoach(HttpServletRequest request) throws ServiceException {
-        Long programId = Long.parseLong(request.getParameter(PROGRAM_ID));
-        ClientService clientService = new ClientService();
-        Optional<Client> clientOptional = clientService.findByProgramId(programId);
-        clientOptional.ifPresent(client -> {
-            HttpSession session = request.getSession();
-            session.setAttribute(COACH_CLIENT_ID,client.getId());
-        });
-    }
 
     private CommandResult forwardToExercisePageWithError(HttpServletRequest request) {
         request.setAttribute(INCORRECT_INPUT_DATA_ERROR, true);
-        HttpSession session = request.getSession();
-        if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
-            return new CommandResult(COACH_CLIENT_PAGE,false);
-        }else{
-            return new CommandResult(CLIENT_EXERCISE_PAGE,false);
-        }
+        return new CommandResult(CLIENT_EXERCISE_PAGE,false);
+
     }
 }

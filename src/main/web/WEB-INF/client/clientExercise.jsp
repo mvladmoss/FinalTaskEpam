@@ -17,8 +17,8 @@
 <fmt:message bundle="${text}" key="exercises.enter_name" var="enter_name"/>
 <fmt:message bundle="${text}" key="exercises.description" var="description"/>
 <fmt:message bundle="${text}" key="exercises.add" var="add"/>
-<fmt:message bundle="${text}" key="exercise.incorrect_exercise_data" var="exercise.incorrect_exercise_data"/>
-<fmt:message bundle="${text}" key="exercise.incorrect_exercise_id" var="exercise.exercise.incorrect_exercise_id"/>
+<fmt:message bundle="${text}" key="exercise.incorrect_exercise_data" var="exercise_incorrect_exercise_data"/>
+<fmt:message bundle="${text}" key="exercise.incorrect_exercise_id" var="exercise_incorrect_exercise_id"/>
 <fmt:message bundle="${text}" key="exercise.not_exist" var="exercise_not_exist"/>
 
 <!doctype html>
@@ -176,7 +176,7 @@
                                                                         <label for="set_number" style="margin-top: 5px;margin-left: -125px;">${repeatsNumber}</label>
                                                                     </div>
                                                                     <div class="col-75">
-                                                                        <input  id="repeats{exercise.id}"  style="margin-left: -120px;width: 618px;" title="${title}" type="text">
+                                                                        <input   id="repeats{exercise.id}"  style="margin-left: -120px;width: 618px;" title="${title}" type="text">
                                                                     </div>
                                                                 </div>
                                                                 <input type="submit" class="buttonSub" onclick="setExerciseProgram('{exercise.id}',${program.id})" title="1-2 number" style="margin-top: 10px;" value="${add}">
@@ -203,10 +203,10 @@
     </section>
 </div>
 <c:if test="${incorrect_input_data_error eq true}">
-    <script>notifyAboutInvalidData('${exercise.incorrect_exercise_data}')</script>
+    <script>notifyAboutInvalidData('${exercise_incorrect_exercise_data}. ${title}')</script>
 </c:if>
 <c:if test="${invalid_exercise_id_format eq true}">
-    <script>notifyAboutInvalidData(${exercise.incorrect_exercise_id})</script>
+    <script>notifyAboutInvalidData(${exercise_incorrect_exercise_id})</script>
 </c:if>
 <c:if test="${not_exist_exercise_id eq true}">
     <script>notifyAboutInvalidData(${exercise_not_exist})</script>

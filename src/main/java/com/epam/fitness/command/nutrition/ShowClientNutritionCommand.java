@@ -2,6 +2,7 @@ package com.epam.fitness.command.nutrition;
 
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
+import com.epam.fitness.command.nutrition.constant.TextConstans;
 import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.model.UserRole;
@@ -15,6 +16,7 @@ import com.epam.fitness.utils.page.Page;
 import static com.epam.fitness.command.comment.constant.TextConstants.MAX_NUMBER_SYMBOLS_ATTRIBUTE;
 import static com.epam.fitness.command.comment.constant.TextConstants.MAX_NUMBER_SYMBOLS_VALUE;
 import static com.epam.fitness.command.nutrition.constant.TextConstans.*;
+import static com.epam.fitness.repository.database.constants.CommentTableConstants.CLIENT_ID;
 
 
 public class ShowClientNutritionCommand implements Command {
@@ -47,11 +49,13 @@ public class ShowClientNutritionCommand implements Command {
     }
 
     private Long getClientIdForAppropriateCoach(HttpSession session,HttpServletRequest request){
+        String clientIdString = request.getParameter(COACH_CLIENT_ID);
         Long clientId;
-        clientId = (Long) session.getAttribute(COACH_CLIENT_ID);
-        session.removeAttribute(COACH_CLIENT_ID);
-        if(clientId==null){
-            clientId = Long.valueOf(request.getParameter(COACH_CLIENT_ID));
+        if(clientIdString==null){
+            clientId= (Long) session.getAttribute(COACH_CLIENT_ID);
+        }else{
+            clientId= Long.valueOf(request.getParameter(COACH_CLIENT_ID));
+            session.setAttribute(COACH_CLIENT_ID,clientId);
         }
         return clientId;
     }

@@ -75,7 +75,7 @@
                             </div>
 
                             <input class="tabs__tab" type="radio" id="tabs__tab3" onclick="setArguments('dinner')" name="tabstab" style="display: none;" checked="checked"/>
-                            <label class="tabs__title" for="tabs__tab3">D${dinner}</label>
+                            <label class="tabs__title" for="tabs__tab3">${dinner}</label>
                             <div class="tabs__text" style="font-family: 'Poppins', sans-serif;color: #000;font-size: 15px;">
                                 <pre id="dinner" style="font-family: 'Poppins', sans-serif;color: #000;font-size: 15px;">${nutrition.dinnerNutrition}</pre>
                             </div>
@@ -105,7 +105,7 @@
 </div>
 </body>
 <c:if test="${incorrect_input_nutrition_data_error eq true}">
-    <script>notifyAboutInvalidData(${incorrect_data})</script>
+    <script>notifyAboutInvalidData('${incorrect_data}')</script>
 </c:if>
 </html>
 

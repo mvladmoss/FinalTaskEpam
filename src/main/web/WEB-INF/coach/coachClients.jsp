@@ -3,6 +3,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="text" var="text"/>
+
+<fmt:message bundle="${text}" key="nutrition.incorrect_data" var="incorrect_data_nutrition"/>
+<fmt:message bundle="${text}" key="exercise.incorrect_exercise_data" var="exercise_incorrect_exercise_data"/>
+
 
 <!doctype html>
 <html lang="${sessionScope.language}">
@@ -65,11 +71,11 @@
     </section>
 </div>
 <c:if test="${incorrect_input_data_error eq true}">
-    <script>notifyAboutInvalidData('Incorrect exercise data was input')</script>
+    <script>notifyAboutInvalidData('${exercise_incorrect_exercise_data}')</script>
 </c:if>
 
 <c:if test="${incorrect_input_nutrition_data_error eq true}">
-    <script>notifyAboutInvalidData('Incorrect nutrition data was input')</script>
+    <script>notifyAboutInvalidData('${incorrect_data_nutrition}')</script>
 </c:if>
 
 

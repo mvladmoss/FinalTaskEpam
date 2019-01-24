@@ -11,7 +11,6 @@ function setExerciseProgram(exerciseId, programId) {
 
 function createCheckAndSetNumberInput(exercise) {
     var setNumber = document.getElementById("setNumber"+exercise).value;
-    checkInputExerciseData("setNumber"+exercise);
     var newSetNumberInput = document.createElement('input');
     newSetNumberInput.style.display="none";
     newSetNumberInput.name = "set_number";
@@ -21,7 +20,6 @@ function createCheckAndSetNumberInput(exercise) {
 
 function createRepeatsInput(exercise) {
     var repeats = document.getElementById("repeats"+exercise).value;
-    checkInputExerciseData("repeats"+exercise);
     var newRepeatsInput = document.createElement('input');
     newRepeatsInput.style.display="none";
     newRepeatsInput.name = "repeats";

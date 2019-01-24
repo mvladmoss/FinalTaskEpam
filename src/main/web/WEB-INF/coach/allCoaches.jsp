@@ -12,6 +12,7 @@
 <fmt:message bundle="${text}" key="coach.cant_choose" var="cant_choose"/>
 <fmt:message bundle="${text}" key="coach.choose_coach" var="choose_coach"/>
 <fmt:message bundle="${text}" key="coach.comment" var="your_comment"/>
+<fmt:message bundle="${text}" key="comment.incorrect_comment_data" var="incorrect_data"/>
 
 <!doctype html>
 <html lang="${sessionScope.language}">
@@ -131,7 +132,7 @@
 </body>
 
 <c:if test="${incorrect_input_comment_data_error eq true}">
-    <script>notifyAboutInvalidData('Incorrect comment data was input')</script>
+    <script>notifyAboutInvalidData('${incorrect_data}')</script>
 </c:if>
 <c:if test="${incorrect_coach_id_format_error eq true}">
     <script>notifyAboutInvalidData('Incorrect coach id format data was input')</script>

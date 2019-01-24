@@ -4,6 +4,7 @@ public class TextConstans {
     public final static String NUTRITION = "nutrition";
     public final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
     public final static String COACH_CLIENT_ID = "coach_client_id";
+    public final static String CLIENT_ID = "client_id";
     public static final String PROFILE_PAGE = "/controller?command=show_client_nutrition";
     public final static String MORNING = "morning";
     public final static String LUNCH = "lunch";

@@ -28,6 +28,7 @@ public class UpdateClientNutritionCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String newNutritionDescription = request.getParameter(NUTRITION_DESCRIPTION);
         if(newNutritionDescription==null || !parameterValidator.isNutritionDescriptionValid(newNutritionDescription)){
+            LOGGER.info("incorrect nutrition description");
             return forwardToNutritionPageWithError(request,INCORRECT_INPUT_NUTRITION_DATA_ERROR);
         }
         String nutritionIdString = request.getParameter(NUTRITION_ID);
@@ -38,22 +39,9 @@ public class UpdateClientNutritionCommand implements Command {
         Long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
         String nutritionTime = request.getParameter(NUTRITION_TIME);
         setNewNutrition(nutritionId,nutritionTime,newNutritionDescription);
-        HttpSession session = request.getSession();
-        if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
-            setClientIdForCoach(nutritionId,request);
-        }
+
         LOGGER.info("nutrition with id:" + nutritionIdString + " has been changed");
         return new CommandResult(PROFILE_PAGE,true);
-    }
-
-    private void setClientIdForCoach(Long nutritionId,HttpServletRequest request) throws ServiceException {
-
-        ClientService clientService = new ClientService();
-        Optional<Client> clientOptional = clientService.findByNutritionId(nutritionId);
-        clientOptional.ifPresent(client -> {
-            HttpSession session = request.getSession();
-            session.setAttribute(COACH_CLIENT_ID,client.getId());
-        });
     }
 
     private void setNewNutrition(Long nutritionId,String nutritionTime, String newNutritionDescription) throws ServiceException {
@@ -80,12 +68,7 @@ public class UpdateClientNutritionCommand implements Command {
 
     private CommandResult forwardToNutritionPageWithError(HttpServletRequest request,String error) {
         request.setAttribute(error, true);
-        HttpSession session = request.getSession();
-        if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
-            return new CommandResult(COACH_CLIENT_PAGE,false);
-        }else{
-            return new CommandResult(CLIENT_EXERCISE_PAGE,false);
-        }
+        return new CommandResult(CLIENT_EXERCISE_PAGE,false);
     }
 
     private boolean isNutritionExist(String nutritionIdString) throws ServiceException {

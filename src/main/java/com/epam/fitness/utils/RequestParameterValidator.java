@@ -10,7 +10,7 @@ public class RequestParameterValidator {
     private static final Pattern SET_NUMBER_REPEATS = Pattern.compile("^[1-9]{1,2}$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("[\\w-_.]{3,20}$");
     private static final Pattern CARD_NUMBER_PATTERN = Pattern.compile("^[1-9]{16}");
-    private static final Pattern INPUT_TEXT_PATTERN = Pattern.compile("[\\w().,]{1,300}");
+    private static final Pattern INPUT_TEXT_PATTERN = Pattern.compile("^[A-Za-z0-9][A-Za-z,.()\\s0-9]{1,300}");
     private static final Pattern INPUT_IDENTIFIABLE_ID_PATTERN = Pattern.compile("[\\d]{1,20}");
     private static final Pattern COST_PATTERN = Pattern.compile("[\\d.]{1,20}");
 

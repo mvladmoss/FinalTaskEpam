@@ -17,6 +17,7 @@ import java.util.*;
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.utils.CurrentMembershipValidChecker;
 import static com.epam.fitness.command.exercise.constant.TextConstants.*;
+import static com.epam.fitness.command.nutrition.constant.TextConstans.COACH_CLIENT_ID;
 
 
 public class ShowClientExercisesCommand implements Command {
@@ -56,11 +57,13 @@ public class ShowClientExercisesCommand implements Command {
     }
 
     private Long getClientIdForAppropriateCoach(HttpSession session,HttpServletRequest request){
+        String clientIdString = request.getParameter(COACH_CLIENT_ID);
         Long clientId;
-        clientId = (Long) session.getAttribute(COACH_CLIENT_ID);
-        session.removeAttribute(COACH_CLIENT_ID);
-        if(clientId==null){
-            clientId = Long.valueOf(request.getParameter(COACH_CLIENT_ID));
+        if(clientIdString==null){
+            clientId= (Long) session.getAttribute(COACH_CLIENT_ID);
+        }else{
+            clientId= Long.valueOf(request.getParameter(COACH_CLIENT_ID));
+            session.setAttribute(COACH_CLIENT_ID,clientId);
         }
         return clientId;
     }
