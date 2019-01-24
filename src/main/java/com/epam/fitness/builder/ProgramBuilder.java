@@ -1,4 +1,4 @@
-package com.epam.fitness.builder.resultset;
+package com.epam.fitness.builder;
 
 import com.epam.fitness.model.Program;
 import com.epam.fitness.exception.RepositoryException;

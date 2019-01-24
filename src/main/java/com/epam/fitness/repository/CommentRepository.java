@@ -1,6 +1,6 @@
 package com.epam.fitness.repository;
 
-import com.epam.fitness.builder.resultset.CommentBuilder;
+import com.epam.fitness.builder.CommentBuilder;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Comment;
 import com.epam.fitness.repository.database.constants.CommentTableConstants;
@@ -25,8 +25,7 @@ public class CommentRepository extends AbstractRepository<Comment> {
     @Override
     public List<Comment> query(SqlSpecification specification) throws RepositoryException{
         String query = "select * from comment " + specification.getSql();
-        List<Comment> comments = executeQuery(query,new CommentBuilder(), specification.getParameters());
-        return comments;
+        return executeQuery(query,new CommentBuilder(), specification.getParameters());
     }
 
     @Override

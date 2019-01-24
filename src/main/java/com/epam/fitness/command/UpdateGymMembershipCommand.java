@@ -2,12 +2,12 @@ package com.epam.fitness.command;
 
 import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.model.Client;
+import com.epam.fitness.utils.MembershipPrices;
 import com.epam.fitness.utils.RequestParameterValidator;
 import com.epam.fitness.utils.sale.SaleSystem;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.utils.DateProducer;
 import com.epam.fitness.model.OrderInformation;
-import com.epam.fitness.utils.PeriodCost;
 import com.epam.fitness.service.OrderInformationService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +17,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.epam.fitness.exception.ServiceException;
 
@@ -30,7 +28,9 @@ public class UpdateGymMembershipCommand implements Command {
     private static final String PERIOD = "period";
     private static final String CARD_NUMBER = "cardNumber";
     private static final String PAYMENT_ERROR = "payment_error";
+    private static final String PERIOD_NOT_EXIST_ERROR = "period_not_exist_error";
     private static final String ORDER_PAGE = "/controller?command=get_order_page";
+    private static final String PERIOD_PATTERN="\\D+";
     private final RequestParameterValidator parameterValidator = new RequestParameterValidator();
 
     @Override
@@ -39,30 +39,35 @@ public class UpdateGymMembershipCommand implements Command {
         if(cardNumber==null || !parameterValidator.isCardNumberValid(cardNumber)){
             return forwardToLoginWithError(request,PAYMENT_ERROR);
         }
+        String periodExtension = request.getParameter(PERIOD);
+        if(periodExtension==null || !isPeriodExist(periodExtension)){
+            return forwardToLoginWithError(request,PERIOD_NOT_EXIST_ERROR);
+        }
         HttpSession session = request.getSession();
         Long clientID = (Long) session.getAttribute(SessionAttributes.ID);
-        increaseClientVisitNumber(clientID);
         BigDecimal cost = new BigDecimal(request.getParameter(COST));
         java.sql.Date newEndMembershipDate = defineNewEndMembershipEndDate(request,clientID);
         OrderInformation newOrderInformation = new OrderInformation(null,cost,new Timestamp(new Date().getTime()), newEndMembershipDate, clientID,cardNumber);
         OrderInformationService orderInformationService = new OrderInformationService();
         orderInformationService.save(newOrderInformation);
+        increaseClientVisitNumber(clientID);
         return new CommandResult(PROFILE_PAGE,true);
     }
 
     private java.sql.Date defineNewEndMembershipEndDate(HttpServletRequest request, Long clientID) throws ServiceException {
         String periodExtension = request.getParameter(PERIOD);
-        periodExtension = periodExtension.replace(" ","_");
+        periodExtension = periodExtension.replaceAll(PERIOD_PATTERN,"");
+        Integer periodExtensionInteger = Integer.valueOf(periodExtension);
         OrderInformationService orderInformationService = new OrderInformationService();
         Optional<OrderInformation> orderInformation = orderInformationService.findByClientId(clientID);
         Date membershipEndDate = new Date();
-        if(orderInformation.isPresent()){
+        if (orderInformation.isPresent()) {
             membershipEndDate = orderInformation.get().getMembershipEndDate();
         }
-        PeriodCost period = PeriodCost.valueOf(periodExtension);
-        Date newMembershipEndDate = DateProducer.getNecessaryDate(membershipEndDate,period);
+        Date newMembershipEndDate = DateProducer.getNecessaryDate(membershipEndDate,periodExtensionInteger);
         return new java.sql.Date(newMembershipEndDate.getTime());
     }
+
 
     private void increaseClientVisitNumber(long clientId) throws ServiceException {
         ClientService clientService = new ClientService();
@@ -81,6 +86,12 @@ public class UpdateGymMembershipCommand implements Command {
     private CommandResult forwardToLoginWithError(HttpServletRequest request,String error) {
         request.setAttribute(error, true);
         return new CommandResult(ORDER_PAGE,false);
+    }
+
+    private boolean isPeriodExist(String  period){
+        Integer periodInteger = Integer.valueOf(period);
+        MembershipPrices membershipPrices = MembershipPrices.getInstance();
+        return membershipPrices.getAllCosts().containsKey(periodInteger);
     }
 
 }

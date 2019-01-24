@@ -19,12 +19,8 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <script src="../../scripts/buttonStyleChanger.js"></script>
-    <script src="../../scripts/gymPeriodSetters.js"></script>
-    <script src="../../scripts/floatWindow.js"></script>
-    <script src="../../scripts/ajax/ajaxConnections.js"></script>
-    <script src="../../scripts/ajax/ajaxRequest.js"></script>
-    <script src="../scripts/search.js"></script>
+    <script src="../../scripts/notification.js"></script>
+
 </head>
 <body>
 <div id="wrapper">
@@ -59,7 +55,8 @@
                                                                     <input name="coach_id" value="${coach.id}" style="display: none;"/>
                                                                     <h2 style="color: black;font: 25px 'Oswald', sans-serif; margin-top: -5px">Your comment</h2>
                                                                     <textarea id="commentContent" name="commentContent" class="textArea" ></textarea>
-                                                                    <input class="button" type="submit" value="Save">
+                                                                    <input class="button" type="submit" value="Save" style="margin-top: 10px;margin-right: 580px;color: #516b9e;">
+                                                                    <h3 style="position: absolute;margin-top: -30px;margin-left: 120px;">Maximum number of characters ${max_number_symbols_attribute}</h3>
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -117,8 +114,10 @@
         </div>
     </section>
 </div>
-
 </body>
+<c:if test="${incorrect_input_comment_data_error eq true}">
+    <script>notifyAboutInvalidData('Incorrect comment data was input')</script>
+</c:if>
 </html>
 
 

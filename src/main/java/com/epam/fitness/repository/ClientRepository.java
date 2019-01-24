@@ -1,6 +1,6 @@
 package com.epam.fitness.repository;
 
-import com.epam.fitness.builder.resultset.ClientBuilder;
+import com.epam.fitness.builder.ClientBuilder;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.repository.database.constants.ClientTableConstants;

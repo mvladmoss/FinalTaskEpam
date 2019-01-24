@@ -3,7 +3,6 @@ package com.epam.fitness.command;
 import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.utils.CurrentMembershipValidChecker;
-import com.epam.fitness.utils.PeriodCost;
 import com.epam.fitness.model.OrderInformation;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.OrderInformationService;
@@ -11,8 +10,6 @@ import com.epam.fitness.service.OrderInformationService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.math.BigDecimal;
-import java.util.Map;
 import java.util.Optional;import com.epam.fitness.exception.ServiceException;
 
 

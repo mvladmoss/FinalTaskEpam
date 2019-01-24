@@ -26,9 +26,9 @@ public class UpdateClientNutritionCommand implements Command {
     private final static String NUTRITION_TIME = "nutrition_time";
     private final static String NUTRITION_DESCRIPTION = "nutrition_description";
     private final static String COACH_CLIENT_ID = "coach_client_id";
-    private final static String INCORRECT_INPUT_DATA_ERROR = "incorrect_input_data_error";
     private final static String COACH_CLIENT_PAGE = "/controller?command=all_coach_clients";
     private final static String CLIENT_EXERCISE_PAGE = "/controller?command=show_client_nutrition";
+    private final static String INCORRECT_INPUT_NUTRITION_DATA_ERROR = "incorrect_input_nutrition_data_error";
     private final RequestParameterValidator parameterValidator = new RequestParameterValidator();
 
 
@@ -36,7 +36,7 @@ public class UpdateClientNutritionCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String newNutritionDescription = request.getParameter(NUTRITION_DESCRIPTION);
         if(newNutritionDescription==null || !parameterValidator.isNutritionDescriptionValid(newNutritionDescription)){
-            return forwardToLoginWithError(request);
+            return forwardToNutritionPageWithError(request);
         }
         Long nutritionId = Long.parseLong(request.getParameter(NUTRITION_ID));
         String nutritionTime = request.getParameter(NUTRITION_TIME);
@@ -80,8 +80,8 @@ public class UpdateClientNutritionCommand implements Command {
         }
     }
 
-    private CommandResult forwardToLoginWithError(HttpServletRequest request) {
-        request.setAttribute(INCORRECT_INPUT_DATA_ERROR, true);
+    private CommandResult forwardToNutritionPageWithError(HttpServletRequest request) {
+        request.setAttribute(INCORRECT_INPUT_NUTRITION_DATA_ERROR, true);
         HttpSession session = request.getSession();
         if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){
             return new CommandResult(COACH_CLIENT_PAGE,false);

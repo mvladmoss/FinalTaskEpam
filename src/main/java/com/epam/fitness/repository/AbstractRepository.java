@@ -1,7 +1,7 @@
 package com.epam.fitness.repository;
 
-import com.epam.fitness.builder.resultset.ResultSetBuilder;
-import com.epam.fitness.builder.resultset.BuilderFactory;
+import com.epam.fitness.builder.ResultSetBuilder;
+import com.epam.fitness.builder.BuilderFactory;
 import com.epam.fitness.connection.ConnectionPool;
 import com.epam.fitness.connection.ProxyConnection;
 import com.epam.fitness.exception.RepositoryException;
@@ -15,12 +15,11 @@ import java.util.*;
 
 public abstract class AbstractRepository<T extends Identifiable> implements Repository<T> {
 
-    Connection connection;
+    private Connection connection;
 
     private static final Logger LOGGER = Logger.getLogger(AbstractRepository.class);
     private static final String GET_ALL_QUERY = "SELECT * FROM ";
     private final String WHERE_ID_CONDITION = " WHERE id_" + getTableName() + "=(?)";
-    private final String MAX_TABLE_ID_CONDITION = " order by(id_" + getTableName() + ") desc limit 1";
     protected final String DELETE_QUERY = "delete from " + getTableName() + " where id_" + getTableName() + "=(?)";
 
 
@@ -30,7 +29,7 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
 
     protected abstract String getTableName();
 
-    public List<T> executeQuery(String sql, ResultSetBuilder<T> builder, List<Object> parameters) throws RepositoryException {
+    List<T> executeQuery(String sql, ResultSetBuilder<T> builder, List<Object> parameters) throws RepositoryException {
         List<T> objects = new ArrayList<>();
         try (ProxyConnection dbConnection = (ProxyConnection) ConnectionPool.getInstance().getConnection()) {
             PreparedStatement preparedStatement = dbConnection.prepareStatement(sql);

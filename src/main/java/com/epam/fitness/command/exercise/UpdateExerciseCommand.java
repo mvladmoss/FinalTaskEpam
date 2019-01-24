@@ -35,10 +35,10 @@ public class UpdateExerciseCommand implements Command {
         String repeatsString = request.getParameter(REPEATS);
         String setNumberString = request.getParameter(SET_NUMBER);
         if(repeatsString==null || !parameterValidator.isRepeatsValid(repeatsString)){
-            return forwardToLoginWithError(request);
+            return forwardToExercisePageWithError(request);
         }
         if(setNumberString==null || !parameterValidator.isSetNumberValid(setNumberString)){
-            return forwardToLoginWithError(request);
+            return forwardToExercisePageWithError(request);
         }
         Integer repeats = Integer.valueOf(repeatsString);
         Integer setNumber = Integer.valueOf(setNumberString);
@@ -67,7 +67,7 @@ public class UpdateExerciseCommand implements Command {
         });
     }
 
-    private CommandResult forwardToLoginWithError(HttpServletRequest request) {
+    private CommandResult forwardToExercisePageWithError(HttpServletRequest request) {
         request.setAttribute(INCORRECT_INPUT_DATA_ERROR, true);
         HttpSession session = request.getSession();
         if(session.getAttribute(SessionAttributes.ROLE).equals(UserRole.COACH)){

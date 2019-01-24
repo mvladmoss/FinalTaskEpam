@@ -1,4 +1,4 @@
-package com.epam.fitness.builder.resultset;
+package com.epam.fitness.builder;
 
 public class BuilderFactory {
 

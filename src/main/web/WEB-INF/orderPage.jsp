@@ -87,18 +87,18 @@
                             </form>
                         </div>
                     </div>
+                    <c:if test="${payment_error == true}">
+                        <h2 style="position: absolute;color: red;margin-left: 100px;padding-top: 214px;">Was input incorrect card data.Please try again</h2>
+                    </c:if>
+                    <c:if test="${period_not_exist_error == true}">
+                        <h2 style="position: absolute;color: red;margin-left: 100px;padding-top: 214px;">Such period don't exist</h2>
+                    </c:if>
                     <c:choose>
                         <c:when test="${end_date_membership=='true'}">
                             <label onclick="checkSelectOption()" class="buttonSub" >Extend</label>
-                            <c:if test="${payment_error == true}">
-                                <h2 style="position: absolute;color: red;margin-left: 100px;padding-top: 214px;">Was input incorrect card data.Please try again</h2>
-                            </c:if>
                         </c:when>
                         <c:otherwise>
                             <label  onclick="checkSelectOption()" class="buttonSub">Buy</label>
-                            <c:if test="${payment_error == true}">
-                                <h2 style="position: absolute;color: red;margin-left: 100px;padding-top: 214px;">Was input incorrect card data.Please try again</h2>
-                            </c:if>
                         </c:otherwise>
                     </c:choose>
                 </div>

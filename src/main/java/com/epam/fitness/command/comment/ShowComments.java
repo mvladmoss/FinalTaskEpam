@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.epam.fitness.command.constants.TextConstants.MAX_NUMBER_SYMBOLS_ATTRIBUTE;
+import static com.epam.fitness.command.constants.TextConstants.MAX_NUMBER_SYMBOLS_VALUE;
+
 public class ShowComments implements Command {
 
     private static final String COACH_COMMENTS_PAGE = "/WEB-INF/coach/coachCommentsPage.jsp";
@@ -25,6 +28,7 @@ public class ShowComments implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
+        request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE,MAX_NUMBER_SYMBOLS_VALUE);
         Long coachId = (Long) session.getAttribute(SessionAttributes.ID);
         CommentService commentService = new CommentService();
         List<Comment> comments = commentService.findByCoachId(coachId);

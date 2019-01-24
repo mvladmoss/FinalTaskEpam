@@ -1,6 +1,6 @@
 package com.epam.fitness.repository;
 
-import com.epam.fitness.builder.resultset.OrderInformationBuilder;
+import com.epam.fitness.builder.OrderInformationBuilder;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.OrderInformation;
 import com.epam.fitness.repository.database.constants.OrderInformationTableConstants;

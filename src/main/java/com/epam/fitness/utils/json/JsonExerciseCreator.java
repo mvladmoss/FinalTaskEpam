@@ -4,6 +4,7 @@ import com.epam.fitness.model.Exercise;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.util.Collections;
 import java.util.List;
 
 public class JsonExerciseCreator implements JsonCreator<Exercise> {
@@ -22,4 +23,9 @@ public class JsonExerciseCreator implements JsonCreator<Exercise> {
         return mainObject.toJSONString();
     }
 
+    public static void main(String[] args) {
+        JsonExerciseCreator creator = new JsonExerciseCreator();
+        Exercise exercise = new Exercise(4L,"asdas","asdas","asds.jpg");
+        System.out.println(creator.makeJSON(Collections.singletonList(exercise)));
+    }
 }

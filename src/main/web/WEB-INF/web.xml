@@ -32,6 +32,11 @@
         <location>/WEB-INF/error/errorPage404.jsp</location>
     </error-page>
 
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/error/errorPage500.jsp</location>
+    </error-page>
+
     <welcome-file-list>
         <welcome-file>/WEB-INF/login.jsp</welcome-file>
     </welcome-file-list>

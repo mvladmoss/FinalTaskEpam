@@ -6,11 +6,11 @@ import java.util.regex.Pattern;
 public class RequestParameterValidator {
 
     private static final Pattern LOGIN_PATTERN = Pattern.compile("^[a-zA-Z][\\w-_.]{1,20}$");
-    private static final Pattern NAME_SURNAME_PATTERN = Pattern.compile("^[a-zA-Z][\\w-_.]{3,20}$");
+    private static final Pattern NAME_SURNAME_PATTERN = Pattern.compile("^[a-zA-Z]{2,20}");
     private static final Pattern SET_NUMBER_REPEATS = Pattern.compile("^[1-9]{1,2}$");
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("[\\w-_.]{3,20}$");
     private final static Pattern CARD_NUMBER_PATTERN = Pattern.compile("^[1-9]{16}");
-    private final static Pattern NUTRITION_DESCRIPTION_PATTERN = Pattern.compile("[\\w().,]{1,300}");
+    private final static Pattern INPUT_TEXT_PATTERN = Pattern.compile("[\\w().,]{1,300}");
 
     public boolean isLoginValid(String login){
         Matcher matcher = LOGIN_PATTERN.matcher(login);
@@ -48,7 +48,12 @@ public class RequestParameterValidator {
     }
 
     public boolean isNutritionDescriptionValid(String description){
-        Matcher matcher = NUTRITION_DESCRIPTION_PATTERN.matcher(description);
+        Matcher matcher = INPUT_TEXT_PATTERN.matcher(description);
+        return matcher.matches();
+    }
+
+    public boolean isCommentContentValid(String commentContent){
+        Matcher matcher = INPUT_TEXT_PATTERN.matcher(commentContent);
         return matcher.matches();
     }
 

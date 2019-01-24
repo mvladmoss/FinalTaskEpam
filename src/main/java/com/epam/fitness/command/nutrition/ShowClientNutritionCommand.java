@@ -12,16 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.utils.CurrentMembershipValidChecker;
+import com.epam.fitness.utils.page.Page;
+
+import static com.epam.fitness.command.constants.TextConstants.MAX_NUMBER_SYMBOLS_ATTRIBUTE;
+import static com.epam.fitness.command.constants.TextConstants.MAX_NUMBER_SYMBOLS_VALUE;
 
 
 public class ShowClientNutritionCommand implements Command {
 
     private final static String NUTRITION = "nutrition";
-    private final static String NUTRITION_PAGE = "/WEB-INF/client/clientNutrition.jsp";
     private final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
     private final static String COACH_CLIENT_ID = "coach_client_id";
-    private final static Integer MAX_NUMBER_SYMBOLS_VALUE = 300;
-    private final static String MAX_NUMBER_SYMBOLS_ATTRIBUTE = "max_number_symbols_attribute";
+
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 
     @Override
@@ -37,7 +39,7 @@ public class ShowClientNutritionCommand implements Command {
             clientId = (Long) session.getAttribute(SessionAttributes.ID);
             if(!membershipValidChecker.isCurrentMembershipValid(clientId)){
                 request.setAttribute(IS_MEMBERSHIP_VALID, false);
-                return new CommandResult(NUTRITION_PAGE,false);
+                return new CommandResult(Page.CLIENT_NUTRITION_PAGE.getPage(),false);
             }else {
                 request.setAttribute(IS_MEMBERSHIP_VALID, true);
             }
@@ -46,7 +48,7 @@ public class ShowClientNutritionCommand implements Command {
         NutritionService nutritionService = new NutritionService();
         Optional<Nutrition> nutritionOptional = nutritionService.findByClientId(clientId);
         nutritionOptional.ifPresent(nutrition -> request.setAttribute(NUTRITION,nutrition));
-        return new CommandResult(NUTRITION_PAGE,false);
+        return new CommandResult(Page.CLIENT_NUTRITION_PAGE.getPage(),false);
     }
 
     private Long getClientIdForAppropriateCoach(HttpSession session,HttpServletRequest request){

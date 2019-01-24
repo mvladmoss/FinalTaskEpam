@@ -20,6 +20,7 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <script src="../../scripts/nutritionArgumentsSetter.js"></script>
+    <script src="../../scripts/notification.js"></script>
 
 <body>
 <div id="wrapper">
@@ -89,9 +90,9 @@
         </div>
     </section>
 </div>
-<c:if test="${incorrect_input_data_error eq true}">
-    <script>notifyAboutInvalidData('Incorrect exercise data was input')</script>
-</c:if>
 </body>
+<c:if test="${incorrect_input_nutrition_data_error eq true}">
+    <script>notifyAboutInvalidData('Incorrect nutrition data was input')</script>
+</c:if>
 </html>
 

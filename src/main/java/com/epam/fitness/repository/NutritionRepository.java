@@ -1,6 +1,6 @@
 package com.epam.fitness.repository;
 
-import com.epam.fitness.builder.resultset.NutritionBuilder;
+import com.epam.fitness.builder.NutritionBuilder;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.repository.database.constants.NutritionTableConstants;

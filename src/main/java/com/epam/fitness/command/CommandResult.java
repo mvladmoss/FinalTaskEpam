@@ -1,5 +1,6 @@
 package com.epam.fitness.command;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 
@@ -32,10 +33,6 @@ public class CommandResult {
         return isRedirect;
     }
 
-    public void setRedirect(boolean redirect) {
-        isRedirect = redirect;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -53,4 +50,6 @@ public class CommandResult {
     public int hashCode() {
         return Objects.hash(getPage(), isRedirect());
     }
+
+
 }

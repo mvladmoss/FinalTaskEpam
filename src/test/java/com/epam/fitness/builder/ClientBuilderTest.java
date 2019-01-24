@@ -1,6 +1,5 @@
 package com.epam.fitness.builder;
 
-import com.epam.fitness.builder.resultset.ClientBuilder;
 import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.Client;
 import org.junit.Assert;
@@ -14,8 +13,8 @@ import static org.mockito.Mockito.when;
 
 public class ClientBuilderTest {
 
-    private static final Long ID_CLIENT = 1l;
-    private static final Long ID_COACH = 3l;
+    private static final Long ID_CLIENT = 1L;
+    private static final Long ID_COACH = 3L;
     private static final String NAME = "Vlad";
     private static final String SURNAME = "Moskovkin";
     private static final String LOGIN = "vladmoss";

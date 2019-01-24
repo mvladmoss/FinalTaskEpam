@@ -68,5 +68,10 @@
     <script>notifyAboutInvalidData('Incorrect exercise data was input')</script>
 </c:if>
 
+<c:if test="${incorrect_input_nutrition_data_error eq true}">
+    <script>notifyAboutInvalidData('Incorrect nutrition data was input')</script>
+</c:if>
+
+
 </body>
 </html>
