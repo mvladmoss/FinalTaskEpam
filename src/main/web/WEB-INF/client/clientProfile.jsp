@@ -13,16 +13,17 @@
 <fmt:message bundle="${text}" key="private_discount" var="private_discount"/>
 <fmt:message bundle="${text}" key="corporate_discount" var="corporate_discount"/>
 <fmt:message bundle="${text}" key="membership_valid_until" var="membership_valid_until"/>
+<fmt:message bundle="${text}" key="coach.not_coach" var="no_coach"/>
+<fmt:message bundle="${text}" key="order.no_membership" var="no_membership"/>
 
 <!doctype html>
 <html lang="${sessionScope.language}">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <title>Whitesquare</title>
+    <title>Fitness Centre</title>
     <link rel="stylesheet" href="../../styless/baseStyles.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="../../styless/client/clientProfileStyles.css" rel="stylesheet">
@@ -71,7 +72,7 @@
                                     <input type="text" id="coach_name" name="coach_name"  value="${coach_name} ${coach_surname}" readonly>
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="text" id="coach_name" name="coach_name"  value="You haven't coach already" readonly>
+                                    <input type="text" id="coach_name" name="coach_name"  value="${no_coach}" readonly>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -97,7 +98,7 @@
 
                             <c:when test="${end_date_of_trains == null}">
                                 <div class="col-75">
-                                    <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="You haven't membership yet" readonly>
+                                    <input type="text" id="end_date_of_trains" name="end_date_of_trains"  value="${no_membership}" readonly>
                                 </div>
                             </c:when>
 

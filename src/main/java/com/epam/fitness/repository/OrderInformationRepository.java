@@ -5,14 +5,26 @@ import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.model.OrderInformation;
 import com.epam.fitness.repository.database.constants.OrderInformationTableConstants;
 import com.epam.fitness.repository.specifications.SqlSpecification;
-import java.sql.Connection;
-import java.util.*;
 
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+/**
+ * Class is an implementation of {@link AbstractRepository} to access to orderInformation database and provides methods to work with it.
+ */
 public class OrderInformationRepository extends AbstractRepository<OrderInformation> {
 
 
     private static final String TABLE_NAME = "order_information";
 
+    /**
+     * Instantiates a new Order information repository.
+     *
+     * @param connection the connection
+     */
     public OrderInformationRepository(Connection connection) {
         super(connection);
     }

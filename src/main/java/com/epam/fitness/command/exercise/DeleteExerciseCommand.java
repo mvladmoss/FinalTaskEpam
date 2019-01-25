@@ -4,20 +4,35 @@ import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
 import com.epam.fitness.command.exercise.validator.ParameterValidator;
 import com.epam.fitness.command.session.SessionAttributes;
+import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.UserRole;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.ExerciseDtoService;
+import org.apache.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;import com.epam.fitness.exception.ServiceException;
-import org.apache.log4j.Logger;
+import java.util.Optional;
+
 import static com.epam.fitness.command.exercise.constant.TextConstants.*;
 
-
+/**
+ * Designed to delete exercises
+ */
 public class DeleteExerciseCommand implements Command {
 
+    /**
+     * Process the request, delete exercises {@link com.epam.fitness.model.Exercise}
+     * and generates a result of processing in the form of
+     * {@link com.epam.fitness.command.CommandResult} object.
+     *
+     * @param request  an {@link HttpServletRequest} object that contains client request
+     * @param response an {@link HttpServletResponse} object that contains the response the servlet sends to the client
+     * @return A response in the form of {@link com.epam.fitness.command.CommandResult} object.
+     * @throws ServiceException when ServiceException is caught.
+     */
     private static final Logger LOGGER = Logger.getLogger(DeleteExerciseCommand.class.getName());
     private ParameterValidator validator = new ParameterValidator();
 

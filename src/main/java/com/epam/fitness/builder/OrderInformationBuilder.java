@@ -1,7 +1,7 @@
 package com.epam.fitness.builder;
 
-import com.epam.fitness.model.OrderInformation;
 import com.epam.fitness.exception.RepositoryException;
+import com.epam.fitness.model.OrderInformation;
 import com.epam.fitness.repository.database.constants.OrderInformationTableConstants;
 
 import java.math.BigDecimal;
@@ -10,7 +10,19 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class OrderInformationBuilder implements ResultSetBuilder<OrderInformation> {
+/**
+ * Designed to build an object of type {@link com.epam.fitness.model.OrderInformation} with specified characteristics.
+ */
+public class OrderInformationBuilder implements Builder<OrderInformation> {
+
+    /**
+     * Builds an object of type OrderInformation with properties.
+     *
+     * @param resultSet Instance of {@link java.sql.ResultSet} with property set to build an object type OrderInformation.
+     * @return Returns built object type OrderInformation.
+     * @throws RepositoryException Throws when SQL Exception is caught.
+     */
+
     @Override
     public OrderInformation build(ResultSet resultSet) throws RepositoryException {
         try {

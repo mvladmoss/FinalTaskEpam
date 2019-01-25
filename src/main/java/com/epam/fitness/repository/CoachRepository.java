@@ -12,10 +12,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Class is an implementation of {@link AbstractRepository} to access to coach database and provides methods to work with it.
+ */
 public class CoachRepository extends AbstractRepository<Coach> {
 
     private static final String TABLE_NAME = "coach";
 
+    /**
+     * Instantiates a new Coach repository.
+     *
+     * @param connection the connection
+     */
     public CoachRepository(Connection connection) {
         super(connection);
     }

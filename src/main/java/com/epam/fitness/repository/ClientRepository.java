@@ -7,12 +7,23 @@ import com.epam.fitness.repository.database.constants.ClientTableConstants;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
 import java.sql.Connection;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
+/**
+ * Class is an implementation of {@link AbstractRepository} to access to client database and provides methods to work with it.
+ */
 public class ClientRepository extends AbstractRepository<Client> {
 
     private static final String TABLE_NAME = "client";
 
+    /**
+     * Instantiates a new Client repository.
+     *
+     * @param connection the connection
+     */
     public ClientRepository(Connection connection){
         super(connection);
     }

@@ -9,6 +9,28 @@
 <fmt:message bundle="${text}" key="about_gym" var="about_gym"/>
 <fmt:message bundle="${text}" key="quote_author" var="quote_author"/>
 <fmt:message bundle="${text}" key="our_team" var="our_team"/>
+<fmt:message bundle="${text}" key="reason" var="reason"/>
+<fmt:message bundle="${text}" key="first_reason" var="first_reason"/>
+<fmt:message bundle="${text}" key="second_reason" var="second_reason"/>
+<fmt:message bundle="${text}" key="why_preference" var="why_preference"/>
+<fmt:message bundle="${text}" key="variety_choise" var="varierty_choise"/>
+<fmt:message bundle="${text}" key="individual_approach" var="individual_approach"/>
+<fmt:message bundle="${text}" key="instructors" var="instructors"/>
+<fmt:message bundle="${text}" key="stay" var="stay"/>
+<fmt:message bundle="${text}" key="prices" var="prices"/>
+<fmt:message bundle="${text}" key="location" var="location"/>
+<fmt:message bundle="${text}" key="variety_choise_text" var="variety_choise_text"/>
+<fmt:message bundle="${text}" key="individual_approach_text" var="individual_approach_text"/>
+<fmt:message bundle="${text}" key="instructors_text" var="instructors_text"/>
+<fmt:message bundle="${text}" key="stay_text" var="stay_text"/>
+<fmt:message bundle="${text}" key="prices_text" var="prices_text"/>
+<fmt:message bundle="${text}" key="location_text" var="location_text"/>
+<fmt:message bundle="${text}" key="manager" var="manager"/>
+<fmt:message bundle="${text}" key="art_director" var="art_director"/>
+<fmt:message bundle="${text}" key="administrator" var="administrator"/>
+<fmt:message bundle="${text}" key="spa_administrator" var="spa_administrator"/>
+<fmt:message bundle="${text}" key="masseur" var="masseur"/>
+<fmt:message bundle="${text}" key="main_coach" var="main_coach"/>
 
 
 <!doctype html>
@@ -21,11 +43,12 @@
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato|Sarabun" rel="stylesheet">
     <script src="../scripts/buttonStyleChanger.js"></script>
+    <script src="../scripts/notification.js"></script>
+
 
 </head>
 <body>
@@ -41,29 +64,29 @@
         </blockquote>
         <div class="block" style="height:405px;overflow-y: scroll; margin-top:20px;">
             <div class="myText" style="width: 640px;margin-left: 20px;">
-                <h2 style="text-align: center;padding-top: 10px;font-family: 'Sarabun', sans-serif;">6 main reasons to come to Lifestyle Fitness & GYM</h2>
-                <p class="textP">Taking care of the beauty of your body for many became a habit. Someone is just going to get a slim figure and tightened muscles, so begins to browse fitness sites. Minsk gives you the opportunity to engage in a healthy lifestyle, the main thing is to find your fitness club, which will be as comfortable as possible.</p>
-                <p class="textP">We are happy to invite everyone who is interested in fitness in Minsk to the modern club "Lifestyle Fitness & GYM".</p>
-                <h2 style="text-align:left;padding-top: 10px;font-family: 'Sarabun', sans-serif;">Why should we give preference to our club?</h2>
+                <h2 style="text-align: center;padding-top: 10px;font-family: 'Sarabun', sans-serif;">${reason}</h2>
+                <p class="textP">${first_reason}</p>
+                <p class="textP">${second_reason}</p>
+                <h2 style="text-align:left;padding-top: 10px;font-family: 'Sarabun', sans-serif;">${why_preference}</h2>
                 <div style="margin-left: -15px;">
                     <ul>
                         <li>
-                            <p class="textP"><b>Variety of choice.</b>A impressive area of about 1,400 square meters, where everyone will choose sports activities to their liking. We are talking about the gym, as well as three rooms for group classes in various areas of fitness, and a hall for martial arts.</p>
+                            <p class="textP"><b>${varierty_choise}</b>${variety_choise_text}</p>
                         </li>
                         <li>
-                            <p class="textP"><b>Individual approach.</b>Selection of individual programs for weight loss, fat burning, muscle building. This always takes into account the physical fitness of each.</p>
+                            <p class="textP"><b>${individual_approach}</b>${individual_approach_text}</p>
                         </li>
                         <li>
-                            <p class="textP"><b>Professional instructors and trainers.</b>A team consisting of professionals, so we will be easy and comfortable to achieve your goals. You will feel the responsiveness, delicacy and attentiveness of the staff.</p>
+                            <p class="textP"><b>${instructors}</b>${instructors_text}</p>
                         </li>
                         <li>
-                            <p class="textP"><b>Comfortable stay.</b>Comfortable changing rooms for men and women, free Wi - Fi, drinking water and clean towels.</p>
+                            <p class="textP"><b>${stay}</b>${stay_text}</p>
                         </li>
                         <li>
-                            <p class="textP"><b>Nice prices.</b>The cost of a subscription or a single visit is democratic. Permanent discounts and promotions.</p>
+                            <p class="textP"><b>${prices}</b>${prices_text}</p>
                         </li>
                         <li>
-                            <p class="textP"><b>Convenient location.</b>Location in the center of Minsk, so to get to us is not difficult.</p>
+                            <p class="textP"><b>${location}</b>${location_text}</p>
                         </li>
                     </ul>
                 </div>
@@ -80,42 +103,45 @@
         <div class="team-row">
             <figure>
                 <img src="../images/workers/ceo.jpg" width="136" height="96" alt="">
-                <figcaption>John Doe<span>Manager</span></figcaption>
+                <figcaption>John Doe<span>${manager}</span></figcaption>
             </figure>
             <figure>
                 <img class="tabImage" src="../images/workers/artDirecor.jpg" width="120" height="96" alt="">
-                <figcaption class="tabGrip">Ericka Nobriga<span>Art director</span></figcaption>
+                <figcaption class="tabGrip">Ericka Nobriga<span>${art_director}</span></figcaption>
             </figure>
             <figure>
                 <img class="tabImage" src="../images/workers/administrator.jpg" width="137" height="96" alt="">
-                <figcaption class="tabGrip">Saundra Pittsley<span>Administrator</span></figcaption>
+                <figcaption class="tabGrip">Saundra Pittsley<span>${administrator}</span></figcaption>
             </figure>
             <figure>
                 <img class="tabImage" src="../images/workers/administrator2.jpg" width="134" height="96" alt="">
-                <figcaption class="tabGrip">Margery Venuti<span>Spa administrator</span></figcaption>
+                <figcaption class="tabGrip">Margery Venuti<span>${spa_administrator}</span></figcaption>
             </figure>
         </div>
         <div class="team-row">
 
             <figure>
                 <img src="../images/workers/administrator1.jpg" width="120" height="96" alt="">
-                <figcaption>Julio Simser<span>Administrator</span></figcaption>
+                <figcaption>Julio Simser<span>${administrator}</span></figcaption>
             </figure>
             <figure>
                 <img class="tabImage" src="../images/workers/mass.jpg" width="136" height="96" alt="">
-                <figcaption class="tabGrip">Cody Rousselle<span>masseur</span></figcaption>
+                <figcaption class="tabGrip">Cody Rousselle<span>${masseur}</span></figcaption>
             </figure>
             <figure>
                 <img class="tabImage" src="../images/workers/mass2.jpg" width="137" height="96" alt="">
-                <figcaption class="tabGrip">Erik Wollman<span>masseur</span></figcaption>
+                <figcaption class="tabGrip">Erik Wollman<span>${masseur}</span></figcaption>
             </figure>
             <figure>
                 <img class="tabImage" src="../images/workers/mainCoach.jpg" width="134" height="96" alt="">
-                <figcaption class="tabGrip">Dona Shoff<span>Main coach</span></figcaption>
+                <figcaption class="tabGrip">Dona Shoff<span>${main_coach}</span></figcaption>
             </figure>
         </div>
     </section>
 </div>
 
+<c:if test="${no_access_page_error eq true}">
+    <script>notifyAboutInvalidData('No access from this page')</script>
+</c:if>
 </body>
 </html>

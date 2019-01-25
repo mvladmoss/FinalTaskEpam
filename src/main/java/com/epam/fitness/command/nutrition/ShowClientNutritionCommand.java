@@ -2,25 +2,38 @@ package com.epam.fitness.command.nutrition;
 
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
-import com.epam.fitness.command.nutrition.constant.TextConstans;
 import com.epam.fitness.command.session.SessionAttributes;
+import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.model.UserRole;
 import com.epam.fitness.service.NutritionService;
+import com.epam.fitness.utils.CurrentMembershipValidChecker;
+import com.epam.fitness.utils.page.Page;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;import com.epam.fitness.exception.ServiceException;
-import com.epam.fitness.utils.CurrentMembershipValidChecker;
-import com.epam.fitness.utils.page.Page;
+import java.util.Optional;
+
 import static com.epam.fitness.command.comment.constant.TextConstants.MAX_NUMBER_SYMBOLS_ATTRIBUTE;
 import static com.epam.fitness.command.comment.constant.TextConstants.MAX_NUMBER_SYMBOLS_VALUE;
 import static com.epam.fitness.command.nutrition.constant.TextConstans.*;
-import static com.epam.fitness.repository.database.constants.CommentTableConstants.CLIENT_ID;
 
-
+/**
+ * Designed to represent nutrition
+ */
 public class ShowClientNutritionCommand implements Command {
 
+    /**
+     * Process the request, represent nutrition {@link com.epam.fitness.model.Nutrition}
+     * and generates a result of processing in the form of
+     * {@link com.epam.fitness.command.CommandResult} object.
+     *
+     * @param request  an {@link HttpServletRequest} object that contains client request
+     * @param response an {@link HttpServletResponse} object that contains the response the servlet sends to the client
+     * @return A response in the form of {@link com.epam.fitness.command.CommandResult} object.
+     * @throws ServiceException when ServiceException is caught.
+     */
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 
     @Override
@@ -30,6 +43,10 @@ public class ShowClientNutritionCommand implements Command {
         request.setAttribute(MAX_NUMBER_SYMBOLS_ATTRIBUTE,MAX_NUMBER_SYMBOLS_VALUE);
         Long clientId;
         if(role.equals(UserRole.COACH)){
+            if(session.getAttribute(COACH_CLIENT_ID)==null){
+                request.setAttribute(NO_ACCESS_PAGE_ERROR,true);
+                return new CommandResult(Page.HOME_PAGE.getPage(),false);
+            }
             clientId = getClientIdForAppropriateCoach(session,request);
         }
         else{

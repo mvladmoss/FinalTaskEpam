@@ -1,9 +1,10 @@
 package com.epam.fitness.command;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
-
+/**
+ * Designed to display the result of the processing command.
+ */
 public class CommandResult {
 
     private String page;

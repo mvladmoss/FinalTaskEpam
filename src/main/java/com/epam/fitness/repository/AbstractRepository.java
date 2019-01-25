@@ -1,6 +1,6 @@
 package com.epam.fitness.repository;
 
-import com.epam.fitness.builder.ResultSetBuilder;
+import com.epam.fitness.builder.Builder;
 import com.epam.fitness.builder.BuilderFactory;
 import com.epam.fitness.connection.ConnectionPool;
 import com.epam.fitness.connection.ProxyConnection;
@@ -13,6 +13,9 @@ import org.apache.log4j.Logger;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * This class provides a skeletal implementation of the {@link Repository} interface
+ */
 public abstract class AbstractRepository<T extends Identifiable> implements Repository<T> {
 
     private Connection connection;
@@ -29,7 +32,17 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
 
     protected abstract String getTableName();
 
-    List<T> executeQuery(String sql, ResultSetBuilder<T> builder, List<Object> parameters) throws RepositoryException {
+    /**
+     * Performs a parameterized read query to a database with parameters, waiting for a set of objects,
+     * and builds them with the help of a concrete builder implementation.
+     *
+     * @param sql   a {@link String} object that contains database query.
+     * @param builder a implementation of {@link Builder} with a concrete class whose objects are to be built.
+     * @param parameters  a {@link List} objects that contains parameters that should be substituted in query.
+     * @return a {@link List} implementation with objects.
+     * @throws RepositoryException Signals that an database access object exception of some sort has occurred.
+     */
+    List<T> executeQuery(String sql, Builder<T> builder, List<Object> parameters) throws RepositoryException {
         List<T> objects = new ArrayList<>();
         try (ProxyConnection dbConnection = (ProxyConnection) ConnectionPool.getInstance().getConnection()) {
             PreparedStatement preparedStatement = dbConnection.prepareStatement(sql);
@@ -48,7 +61,18 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         return objects;
     }
 
-    protected Optional<T> executeQueryForSingleResult(String query, ResultSetBuilder<T> builder, List<Object> parameters) throws RepositoryException {
+    /**
+     * Performs a parameterized read query to a database with parameters, waiting for an object,
+     * and builds them with the help of a concrete builder implementation.
+     *
+     * @param query   a {@link String} object that contains database query.
+     * @param builder a implementation of {@link Builder} with a concrete class whose object is to be built.
+     * @param parameters  a {@link String} objects that contains parameters that should be substituted in query.
+     * @return a {@link Optional} implementation with object.
+     * @throws RepositoryException Signals that an database access object exception of some sort has occurred.
+     */
+
+    protected Optional<T> executeQueryForSingleResult(String query, Builder<T> builder, List<Object> parameters) throws RepositoryException {
 
         List<T> items = executeQuery(query, builder, parameters);
 
@@ -57,6 +81,15 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
                 Optional.empty();
     }
 
+    /**
+     * Performs a parameterized update query to a database with parameters.
+     *
+     * @param query  a {@link String} object that contains database query.
+     * @param params a {@link String} objects that contains parameters that should be substituted in query.
+     * @return a {@link long} identifier that was created during executing query
+     * or 0 if no identifier was created.
+     * @throws RepositoryException Signals that an database access object exception of some sort has occurred.
+     */
     protected long executeUpdate(String query, List<Object> params) throws RepositoryException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -74,6 +107,14 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         }
     }
 
+    /**
+     * Save the any essence implements {@link Identifiable}
+     *
+     * @param object {@link T} object that need to save.
+     * @return a {@link long} identifier that was created during saving object
+     * or 0 if no identifier was created.
+     * @throws RepositoryException Signals that an database access object exception of some sort has occurred.
+     */
     @Override
     public Long save(T object) throws RepositoryException {
         String sql;
@@ -103,16 +144,30 @@ public abstract class AbstractRepository<T extends Identifiable> implements Repo
         }
     }
 
+    /**
+     * Performs a parameterized read query to the database,
+     * expecting a single result in the form of an object of type T with the specified identifier.
+     *
+     * @param id a object identifier in database
+     * @return a {@link Optional} implementation with object.
+     * @throws RepositoryException Signals that an database access object exception of some sort has occurred.
+     */
     @Override
     public Optional<T> findById(Long id) throws RepositoryException {
-        ResultSetBuilder builder = BuilderFactory.create(getTableName());
+        Builder builder = BuilderFactory.create(getTableName());
         String query = GET_ALL_QUERY + getTableName() + WHERE_ID_CONDITION;
         return executeQueryForSingleResult(query, builder, Arrays.asList(id));
     }
 
+    /**
+     * Performs a parameterized read query to a database to find all object type T.
+     *
+     * @return a {@link List} implementation with all finding objects.
+     * @throws RepositoryException Signals that an database access object exception of some sort has occurred.
+     */
     @Override
     public List<T> findAll() throws RepositoryException {
-        ResultSetBuilder builder = BuilderFactory.create(getTableName());
+        Builder builder = BuilderFactory.create(getTableName());
         String query = GET_ALL_QUERY + getTableName();
         return executeQuery(query, builder,Collections.emptyList());
     }

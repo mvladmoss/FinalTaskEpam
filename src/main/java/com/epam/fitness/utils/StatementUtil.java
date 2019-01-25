@@ -8,8 +8,18 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * Designed to prepare {@link PreparedStatement} with parameters
+ */
 public class StatementUtil {
-//перенести
+    /**
+     * Prepare.
+     *
+     * @param preparedStatement the prepared statement
+     * @param parameters        the parameters
+     * @throws SQLException the sql exception
+     */
+
     public static void prepare(PreparedStatement preparedStatement, List<Object> parameters) throws SQLException {
         int length = parameters.size();
         for (int i = 0; i < length; i++) {
@@ -21,6 +31,14 @@ public class StatementUtil {
         }
     }
 
+    /**
+     * Prepare.
+     *
+     * @param preparedStatement the prepared statement
+     * @param fields            the fields
+     * @param tableName         the table name
+     * @throws SQLException the sql exception
+     */
     public static void prepare(PreparedStatement preparedStatement, Map<String,Object> fields, String tableName) throws SQLException {
         int i = 1;
         for (Map.Entry<String, Object> entry : fields.entrySet()) {

@@ -5,10 +5,18 @@ import com.epam.fitness.repository.specifications.SqlSpecification;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Nutrition by client id.
+ */
 public class NutritionByClientId implements SqlSpecification {
 
     private Long clientId;
 
+    /**
+     * Instantiates a new Nutrition by client id.
+     *
+     * @param clientId the client id
+     */
     public NutritionByClientId(Long clientId){
         this.clientId = clientId;
     }

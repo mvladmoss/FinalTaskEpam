@@ -8,10 +8,15 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Designed to define sale depending on visits
+ */
 public class SaleSystem {
 
     private final static Logger LOGGER = LogManager.getLogger(SaleSystem.class);
@@ -30,6 +35,11 @@ public class SaleSystem {
     private static ReentrantLock lock = new ReentrantLock();
 
 
+    /**
+     * Get instance sale system.
+     *
+     * @return the sale system
+     */
     public static SaleSystem getInstance(){
 
         if(instance == null){
@@ -72,6 +82,12 @@ public class SaleSystem {
         return periodCostMap;
     }
 
+    /**
+     * Get sale by visit number float.
+     *
+     * @param visitsNumber the visits number
+     * @return the float
+     */
     public Float getSaleByVisitNumber(Integer visitsNumber){
         for(List<Integer> visitsRange : visitSaleMap.keySet()){
             if(visitsNumber>=visitsRange.get(0) && visitsNumber <= visitsRange.get(1)){

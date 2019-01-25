@@ -5,6 +5,9 @@ import com.epam.fitness.repository.specifications.SqlSpecification;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The type Max id in program table.
+ */
 public class MaxIdInProgramTable implements SqlSpecification {
     @Override
     public String getSql() {

@@ -7,8 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Designed to provide access to different users
+ */
 public class CommandAccess {
 
+    /**
+     * Gets available command types by user.
+     *
+     * @param role User role
+     * @return List of available commands for certain user
+     * @throws IllegalArgumentException when User role is unsupported
+     */
     public List<CommandType> getAvailableCommandTypesByUser(Optional<String> role) {
         List<CommandType> listAvailableCommands = new ArrayList<>();
         if(role.isPresent()) {
@@ -32,6 +42,10 @@ public class CommandAccess {
         return listAvailableCommands;
     }
 
+    /**
+     *
+     * @return List of commands available for {@link com.epam.fitness.model.Client}
+     */
     private List<CommandType> getClientCommands() {
         List<CommandType> commandTypes = new ArrayList<>();
         commandTypes.add(CommandType.ADD_COMMENT);
@@ -53,6 +67,10 @@ public class CommandAccess {
         return commandTypes;
     }
 
+    /**
+     *
+     * @return {@link List} of commands available for all register users
+     */
     private List<CommandType> getCommonCommands() {
         List<CommandType> commandTypes = new ArrayList<>();
         commandTypes.add(CommandType.LANGUAGE);
@@ -60,10 +78,15 @@ public class CommandAccess {
         commandTypes.add(CommandType.LOGIN);
         commandTypes.add(CommandType.MAIN);
         commandTypes.add(CommandType.SIGN_OUT);
+        commandTypes.add(CommandType.LOGIN_PAGE);
+
         return commandTypes;
     }
 
-
+    /**
+     *
+     * @return {@link List} of commands available for {@link com.epam.fitness.model.Coach}
+     */
     private List<CommandType> getCoachCommands() {
         List<CommandType> commandTypes = new ArrayList<>();
         commandTypes.add(CommandType.SHOW_COACH_COMMENTS);
@@ -77,6 +100,10 @@ public class CommandAccess {
         return commandTypes;
     }
 
+    /**
+     *
+     * @return {@link List} of command available for non authorized users
+     */
     private List<CommandType> getCommandsForNotAuthorized() {
         List<CommandType> commandTypes = new ArrayList<>();
         commandTypes.add(CommandType.LOGIN);

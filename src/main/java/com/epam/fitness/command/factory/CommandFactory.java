@@ -4,24 +4,32 @@ import com.epam.fitness.command.*;
 import com.epam.fitness.command.authorization.LoginCommand;
 import com.epam.fitness.command.authorization.RegistrationCommand;
 import com.epam.fitness.command.authorization.SingOutCommand;
+import com.epam.fitness.command.client.ChooseCoachCommand;
 import com.epam.fitness.command.client.ClientOrdersCommand;
+import com.epam.fitness.command.client.ClientProfileCommand;
 import com.epam.fitness.command.client.RejectCoachCommand;
+import com.epam.fitness.command.coach.CoachClientsCommand;
+import com.epam.fitness.command.coach.FindAllCoachesCommand;
 import com.epam.fitness.command.comment.AddComment;
 import com.epam.fitness.command.comment.ShowComments;
-import com.epam.fitness.command.nutrition.ShowClientNutritionCommand;
 import com.epam.fitness.command.exercise.AddExerciseCommand;
-import com.epam.fitness.command.client.ClientProfileCommand;
-import com.epam.fitness.command.exercise.ShowClientExercisesCommand;
 import com.epam.fitness.command.exercise.DeleteExerciseCommand;
-import com.epam.fitness.command.coach.FindAllCoachesCommand;
-import com.epam.fitness.command.client.ChooseCoachCommand;
-import com.epam.fitness.command.coach.CoachClientsCommand;
+import com.epam.fitness.command.exercise.ShowClientExercisesCommand;
 import com.epam.fitness.command.exercise.UpdateExerciseCommand;
+import com.epam.fitness.command.nutrition.ShowClientNutritionCommand;
 import com.epam.fitness.command.nutrition.UpdateClientNutritionCommand;
 
+/**
+ * Designed to build an object of type {@link Command}.
+ */
 public class CommandFactory {
 
-
+    /**
+     * Designed to build an object of type {@link Command} depends on command name.
+     *
+     * @param command a {@link String} object that contains builder name
+     * @return an object of type {@link Command}.
+     */
     public static Command create(String command) {
 
         command = command.toUpperCase();
@@ -39,7 +47,7 @@ public class CommandFactory {
                 break;
             }
             case MAIN: {
-                resultCommand = new MainPageCommand();
+                resultCommand = new HomePageCommand();
                 break;
             }
             case COACHES: {

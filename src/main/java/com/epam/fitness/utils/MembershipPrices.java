@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Designed to provide price for membership
+ */
 public class MembershipPrices {
 
     private final static Logger LOGGER = LogManager.getLogger(MembershipPrices.class);
@@ -29,6 +32,11 @@ public class MembershipPrices {
     private static ReentrantLock lock = new ReentrantLock();
 
 
+    /**
+     * Get instance membership prices.
+     *
+     * @return the membership prices
+     */
     public static MembershipPrices getInstance(){
 
         if(instance == null){
@@ -69,12 +77,22 @@ public class MembershipPrices {
         return periodCostMap;
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         DataReader dataReader = new DataReader();
         String jsonPrices = dataReader.read(PRICES_FILE_PATH);
         System.out.println(jsonPrices);
     }
 
+    /**
+     * Get all costs map.
+     *
+     * @return the map
+     */
     public Map<Integer,BigDecimal> getAllCosts(){
         return periodPriceMap;
     }

@@ -1,6 +1,9 @@
 package com.epam.fitness.command.factory;
 
 
+/**
+ *  Storage of commands
+ */
 public enum CommandType{
 
     ALL_COACH_CLIENTS("all_coach_clients"),

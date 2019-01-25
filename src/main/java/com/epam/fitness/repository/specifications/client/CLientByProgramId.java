@@ -5,10 +5,18 @@ import com.epam.fitness.repository.specifications.SqlSpecification;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type C lient by program id.
+ */
 public class CLientByProgramId implements SqlSpecification {
 
     private Long programId;
 
+    /**
+     * Instantiates a new C lient by program id.
+     *
+     * @param programId the program id
+     */
     public CLientByProgramId(Long programId) {
         this.programId = programId;
     }

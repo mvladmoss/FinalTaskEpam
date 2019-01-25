@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="../../styless/client/clientProfileStyles.css" type="text/css">
     <link rel="stylesheet" href="../../styless/tableStyles.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
@@ -44,7 +43,7 @@
                                 <th>Id</th>
                                 <th>${cost}</th>
                                 <th>${payment_data}</th>
-                                <th>${payment_data}</th>
+                                <th>${credit_card}</th>
                             </tr>
                             <c:forEach items="${orders}" var="order">
                                 <tr>
@@ -64,7 +63,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
-                                    <td>${order.cardNumber}</td>
+                                    <td>************${fn:substring(order.cardNumber,12 ,16 )}</td>
                                 </tr>
                             </c:forEach>
 

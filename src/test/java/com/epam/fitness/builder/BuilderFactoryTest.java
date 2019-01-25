@@ -21,9 +21,9 @@ public class BuilderFactoryTest {
 
     @Test(dataProvider = "dataForBuilderCreator")
     public void shouldCreateAndReturnAppropriateBuilder(Class Builer, String BuilderName) {
-        ResultSetBuilder builder = BuilderFactory.create(BuilderName);
+        Builder builder = BuilderFactory.create(BuilderName);
 
-        Class<? extends ResultSetBuilder> builderClass = builder.getClass();
+        Class<? extends Builder> builderClass = builder.getClass();
         assertEquals(Builer, builderClass);
     }
 

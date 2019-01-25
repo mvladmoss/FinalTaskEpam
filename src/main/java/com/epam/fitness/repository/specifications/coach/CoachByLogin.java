@@ -5,10 +5,18 @@ import com.epam.fitness.repository.specifications.SqlSpecification;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Coach by login.
+ */
 public class CoachByLogin implements SqlSpecification {
 
     private String login;
 
+    /**
+     * Instantiates a new Coach by login.
+     *
+     * @param login the login
+     */
     public CoachByLogin(String login) {
         this.login = login;
     }

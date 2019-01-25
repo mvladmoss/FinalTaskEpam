@@ -4,7 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
+/**
+ * Designed to change language.
+ */
 public class LanguageCommand implements Command {
 
     private static final String LANGUAGE = "language";
@@ -17,6 +19,14 @@ public class LanguageCommand implements Command {
     private static final String LOGIN_PAGE = "/WEB-INF/login.jsp";
     private static final String COMMAND = "controller?command=";
 
+    /**
+     * Process the request, change language and generates a result of processing in the form of
+     * {@link com.epam.fitness.command.CommandResult} object.
+     *
+     * @param request  an {@link HttpServletRequest} object that contains client request
+     * @param response an {@link HttpServletResponse} object that contains the response the servlet sends to the client
+     * @return A response in the form of {@link com.epam.fitness.command.CommandResult} object.
+     */
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
 

@@ -12,10 +12,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Class is an implementation of {@link AbstractRepository} to access to exercise database and provides methods to work with it.
+ */
 public class ExerciseRepository extends AbstractRepository<Exercise> {
 
     private static final String TABLE_NAME = "exercise";
 
+    /**
+     * Instantiates a new Exercise repository.
+     *
+     * @param connection the connection
+     */
     public ExerciseRepository(Connection connection) {
         super(connection);
     }

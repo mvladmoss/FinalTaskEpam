@@ -27,8 +27,6 @@
     <link rel="stylesheet" href="../../styless/coach/coachesStyles.css" type="text/css">
     <link rel="stylesheet" href="../../styless/buyGymMembershipStyles.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <script src="../../scripts/notification.js"></script>
@@ -58,22 +56,22 @@
                                                             <li class="coach" style="margin-left: 35px;"><c:out value="${coach.name} ${coach.surname}(${current_coach})"/></li>
                                                         </div>
                                                         <div class="flex-item">
-                                                        <input class="modal__check" type="checkbox" id="modal"/>
-                                                        <div class="modal">
-                                                            <label class="modal__closetwo" for="modal"></label>
-                                                            <div class="modal__info">
-                                                                <label class="modal__close" for="modal">&times;</label>
-                                                                <form name="form" action="${pageContext.request.contextPath}/controller?command=add_comment" method="post">
-                                                                    <input name="coach_id" value="${coach.id}" style="display: none;"/>
-                                                                    <h2 style="color: black;font: 25px 'Oswald', sans-serif; margin-top: -5px">${your_comment}</h2>
-                                                                    <textarea id="commentContent" name="commentContent" class="textArea" ></textarea>
-                                                                    <input class="button" type="submit" value="${save}" style="margin-top: 10px;margin-right: 580px;color: #516b9e;">
-                                                                    <h3 style="position: absolute;margin-top: -30px;margin-left: 120px;color: black;">${max_symbols} ${max_number_symbols_attribute}</h3>
-                                                                </form>
+                                                            <input class="modal__check" type="checkbox" id="modal"/>
+                                                            <div class="modal">
+                                                                <label class="modal__closetwo" for="modal"></label>
+                                                                <div class="modal__info">
+                                                                    <label class="modal__close" for="modal">&times;</label>
+                                                                    <form name="form" action="${pageContext.request.contextPath}/controller?command=add_comment" method="post">
+                                                                        <input name="coach_id" value="${coach.id}" style="display: none;"/>
+                                                                        <h2 style="color: black;font: 25px 'Oswald', sans-serif; margin-top: -5px">${your_comment}</h2>
+                                                                        <textarea id="commentContent" name="commentContent" class="textArea" ></textarea>
+                                                                        <input class="button" type="submit" value="${save}" style="margin-top: 10px;margin-right: 580px;color: #516b9e;">
+                                                                        <h3 style="position: absolute;margin-top: -30px;margin-left: 120px;color: black;">${max_symbols} ${max_number_symbols_attribute}</h3>
+                                                                    </form>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <label for="modal"><img class="update" src="../../images/comment.png" height="40px" width="40px" border="0" title="comment coach" style=" padding-top: 15px;margin-left: -280px;">
-                                                        </label>
+                                                            <label for="modal"><img class="update" src="../../images/comment.png" height="40px" width="40px" border="0" title="comment coach" style=" padding-top: 15px;margin-left: -280px;">
+                                                            </label>
                                                         </div>
                                                         <div class="flex-item">
                                                             <form action="${pageContext.request.contextPath}/controller?command=reject_coach" method="post">
@@ -141,5 +139,3 @@
     <script>notifyAboutInvalidData('Coach with such id doesnt exist')</script>
 </c:if>
 </html>
-
-

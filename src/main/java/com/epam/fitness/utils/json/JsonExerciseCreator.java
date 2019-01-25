@@ -7,6 +7,9 @@ import org.json.simple.JSONObject;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Designed to convert {@link Exercise} to JSON format
+ */
 public class JsonExerciseCreator implements JsonCreator<Exercise> {
     public String makeJSON(List<Exercise> exercises){
         JSONObject mainObject = new JSONObject();
@@ -23,9 +26,4 @@ public class JsonExerciseCreator implements JsonCreator<Exercise> {
         return mainObject.toJSONString();
     }
 
-    public static void main(String[] args) {
-        JsonExerciseCreator creator = new JsonExerciseCreator();
-        Exercise exercise = new Exercise(4L,"asdas","asdas","asds.jpg");
-        System.out.println(creator.makeJSON(Collections.singletonList(exercise)));
-    }
 }

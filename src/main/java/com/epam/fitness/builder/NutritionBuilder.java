@@ -1,13 +1,25 @@
 package com.epam.fitness.builder;
 
-import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.exception.RepositoryException;
+import com.epam.fitness.model.Nutrition;
 import com.epam.fitness.repository.database.constants.NutritionTableConstants;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class NutritionBuilder implements ResultSetBuilder<Nutrition> {
+/**
+ * Designed to build an object of type {@link com.epam.fitness.model.Nutrition} with specified characteristics.
+ */
+public class NutritionBuilder implements Builder<Nutrition> {
+
+    /**
+     * Builds an object of type Nutrition with properties.
+     *
+     * @param resultSet Instance of {@link java.sql.ResultSet} with property set to build an object type Nutrition.
+     * @return Returns built object type Nutrition.
+     * @throws RepositoryException Throws when SQL Exception is caught.
+     */
+
     @Override
     public Nutrition build(ResultSet resultSet) throws RepositoryException {
         try {

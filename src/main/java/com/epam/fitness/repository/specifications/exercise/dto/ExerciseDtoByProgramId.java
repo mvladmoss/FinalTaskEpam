@@ -5,10 +5,18 @@ import com.epam.fitness.repository.specifications.SqlSpecification;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Exercise dto by program id.
+ */
 public class ExerciseDtoByProgramId implements SqlSpecification {
 
     private Long programId;
 
+    /**
+     * Instantiates a new Exercise dto by program id.
+     *
+     * @param programId the program id
+     */
     public ExerciseDtoByProgramId(Long programId){
         this.programId = programId;
     }

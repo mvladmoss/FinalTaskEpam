@@ -8,6 +8,7 @@ import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Comment;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.CommentService;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,10 +16,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 import static com.epam.fitness.command.comment.constant.TextConstants.*;
 
-
+/**
+ * Designed to represent comments
+ */
 public class ShowComments implements Command {
+
+
+    /**
+     * Process the request, represent comments {@link com.epam.fitness.model.Comment} clients {@link Client}
+     * and generates a result of processing in the form of
+     * {@link com.epam.fitness.command.CommandResult} object.
+     *
+     * @param request  an {@link HttpServletRequest} object that contains client request
+     * @param response an {@link HttpServletResponse} object that contains the response the servlet sends to the client
+     * @return A response in the form of {@link com.epam.fitness.command.CommandResult} object.
+     * @throws ServiceException when ServiceException is caught.
+     */
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

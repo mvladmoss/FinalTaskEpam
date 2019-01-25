@@ -26,11 +26,7 @@
     <link rel="stylesheet" href="../../styless/client/clientExerciseStyle.css" type="text/css">
     <link rel="stylesheet" href="../../styless/modalWindows.css" type="text/css">
     <link rel="stylesheet" href="../../styless/client/clientNutritionStyles.css" type="text/css">
-    <link rel="stylesheet" href="../../styless/buyGymMembershipStyles.css" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <script src="../../scripts/nutritionArgumentsSetter.js"></script>
     <script src="../../scripts/notification.js"></script>

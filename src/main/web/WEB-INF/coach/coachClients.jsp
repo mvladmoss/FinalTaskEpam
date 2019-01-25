@@ -8,6 +8,7 @@
 
 <fmt:message bundle="${text}" key="nutrition.incorrect_data" var="incorrect_data_nutrition"/>
 <fmt:message bundle="${text}" key="exercise.incorrect_exercise_data" var="exercise_incorrect_exercise_data"/>
+<fmt:message bundle="${text}" key="no_clients" var="no_clients"/>
 
 
 <!doctype html>
@@ -39,7 +40,7 @@
             <div class="rightcolumn">
                 <c:choose>
                     <c:when test="${fn:length(all_clients) eq 0}">
-                        <h3>You don't have clients now</h3>
+                        <h3>${no_clients}</h3>
                     </c:when>
                     <c:otherwise>
                         <c:forEach items="${all_clients}" var="client">

@@ -7,12 +7,23 @@ import com.epam.fitness.repository.database.constants.NutritionTableConstants;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
 import java.sql.Connection;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
+/**
+ * Class is an implementation of {@link AbstractRepository} to access to nutrition database and provides methods to work with it.
+ */
 public class NutritionRepository extends AbstractRepository<Nutrition> {
 
     private static final String TABLE_NAME = "nutrition";
 
+    /**
+     * Instantiates a new Nutrition repository.
+     *
+     * @param connection the connection
+     */
     public NutritionRepository(Connection connection) { super(connection); }
 
     @Override

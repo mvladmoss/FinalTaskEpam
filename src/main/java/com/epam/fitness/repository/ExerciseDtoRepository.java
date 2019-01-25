@@ -9,10 +9,18 @@ import com.epam.fitness.repository.specifications.SqlSpecification;
 import java.sql.Connection;
 import java.util.*;
 
+/**
+ * Class is an implementation of {@link AbstractRepository} to access to exercise_program database and provides methods to work with it.
+ */
 public class ExerciseDtoRepository extends AbstractRepository<ExerciseDto> {
 
     private final static String TABLE_NAME = "exercise_program";
 
+    /**
+     * Instantiates a new Exercise dto repository.
+     *
+     * @param connection the connection
+     */
     public ExerciseDtoRepository(Connection connection) {
         super(connection);
     }
@@ -48,6 +56,13 @@ public class ExerciseDtoRepository extends AbstractRepository<ExerciseDto> {
         return fields;
     }
 
+    /**
+     * Delete long.
+     *
+     * @param exerciseDtoId the exercise dto id
+     * @return the long
+     * @throws RepositoryException the repository exception
+     */
     public Long delete(long exerciseDtoId) throws RepositoryException {
         return executeUpdate(DELETE_QUERY,Arrays.asList(exerciseDtoId));
     }

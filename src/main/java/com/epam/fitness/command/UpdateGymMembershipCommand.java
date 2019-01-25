@@ -1,28 +1,28 @@
 package com.epam.fitness.command;
 
 import com.epam.fitness.command.session.SessionAttributes;
-import com.epam.fitness.controller.Controller;
+import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
+import com.epam.fitness.model.OrderInformation;
+import com.epam.fitness.service.ClientService;
+import com.epam.fitness.service.OrderInformationService;
+import com.epam.fitness.utils.DateProducer;
 import com.epam.fitness.utils.MembershipPrices;
 import com.epam.fitness.utils.RequestParameterValidator;
 import com.epam.fitness.utils.sale.SaleSystem;
-import com.epam.fitness.service.ClientService;
-import com.epam.fitness.utils.DateProducer;
-import com.epam.fitness.model.OrderInformation;
-import com.epam.fitness.service.OrderInformationService;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Optional;
 
-import com.epam.fitness.exception.ServiceException;
-import org.apache.log4j.Logger;
-
-
+/**
+ * Designed to buy or update current gym membership
+ */
 public class UpdateGymMembershipCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(UpdateGymMembershipCommand.class.getName());
@@ -39,6 +39,15 @@ public class UpdateGymMembershipCommand implements Command {
     private final static SaleSystem SALE_SYSTEM = SaleSystem.getInstance();
 
 
+    /**
+     * Process the request, allow buy gym membership and generates a result of processing in the form of
+     * {@link com.epam.fitness.command.CommandResult} object.
+     *
+     * @param request  an {@link HttpServletRequest} object that contains client request
+     * @param response an {@link HttpServletResponse} object that contains the response the servlet sends to the client
+     * @return A response in the form of {@link com.epam.fitness.command.CommandResult} object.
+     * @throws ServiceException when ServiceException is caught.
+     */
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String cardNumber = request.getParameter(CARD_NUMBER);

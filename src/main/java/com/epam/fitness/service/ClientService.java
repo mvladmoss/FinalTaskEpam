@@ -1,20 +1,29 @@
 package com.epam.fitness.service;
 
+import com.epam.fitness.exception.RepositoryException;
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.dto.ExerciseDto;
-import com.epam.fitness.exception.RepositoryException;
-import com.epam.fitness.repository.creator.RepositoryCreator;
 import com.epam.fitness.repository.ClientRepository;
+import com.epam.fitness.repository.creator.RepositoryCreator;
 import com.epam.fitness.repository.specifications.client.*;
-import com.sun.javafx.image.IntPixelGetter;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.*;
 
+/**
+ * Class provides methods to work with {@link Client} objects.
+ */
 public class ClientService {
 
+    /**
+     * Login optional.
+     *
+     * @param login    the login
+     * @param password the password
+     * @return the optional
+     * @throws ServiceException the service exception
+     */
     public Optional<Client> login(String login, String password) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ClientRepository clientRepository = repositoryCreator.getClientRepository();
@@ -25,6 +34,13 @@ public class ClientService {
         }
     }
 
+    /**
+     * Find by id optional.
+     *
+     * @param id the id
+     * @return the optional
+     * @throws ServiceException the service exception
+     */
     public Optional<Client> findById(long id) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ClientRepository clientRepository = repositoryCreator.getClientRepository();
@@ -34,6 +50,13 @@ public class ClientService {
         }
     }
 
+    /**
+     * Find by coach id list.
+     *
+     * @param coachId the coach id
+     * @return the list
+     * @throws ServiceException the service exception
+     */
     public List<Client> findByCoachId(long coachId) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ClientRepository clientRepository = repositoryCreator.getClientRepository();
@@ -44,6 +67,13 @@ public class ClientService {
         }
     }
 
+    /**
+     * Find by program id optional.
+     *
+     * @param programId the program id
+     * @return the optional
+     * @throws ServiceException the service exception
+     */
     public Optional<Client> findByProgramId(long programId) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ClientRepository clientRepository = repositoryCreator.getClientRepository();
@@ -54,6 +84,13 @@ public class ClientService {
         }
     }
 
+    /**
+     * Find by exercise dto id optional.
+     *
+     * @param exerciseDtoId the exercise dto id
+     * @return the optional
+     * @throws ServiceException the service exception
+     */
     public Optional<Client> findByExerciseDtoId(long exerciseDtoId) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ExerciseDtoService exerciseDtoService = new ExerciseDtoService();
@@ -67,6 +104,13 @@ public class ClientService {
         }
     }
 
+    /**
+     * Find by nutrition id optional.
+     *
+     * @param nutritionId the nutrition id
+     * @return the optional
+     * @throws ServiceException the service exception
+     */
     public Optional<Client> findByNutritionId(long nutritionId) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ClientByNutritionId specification = new ClientByNutritionId(nutritionId);
@@ -77,6 +121,13 @@ public class ClientService {
         }
     }
 
+    /**
+     * Find by login optional.
+     *
+     * @param login the login
+     * @return the optional
+     * @throws ServiceException the service exception
+     */
     public Optional<Client> findByLogin(String login) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ClientByLogin specification = new ClientByLogin(login);
@@ -88,7 +139,13 @@ public class ClientService {
     }
 
 
-
+    /**
+     * Save long.
+     *
+     * @param client the client
+     * @return the long
+     * @throws ServiceException the service exception
+     */
     public Long save(Client client) throws ServiceException {
         try (RepositoryCreator repositoryCreator = new RepositoryCreator()) {
             ClientRepository clientRepository = repositoryCreator.getClientRepository();

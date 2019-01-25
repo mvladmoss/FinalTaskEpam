@@ -1,5 +1,8 @@
 package com.epam.fitness.builder;
 
+/**
+ * Designed to build an object of type {@link Builder}.
+ */
 public class BuilderFactory {
 
     private static final String CLIENT = "client";
@@ -9,7 +12,13 @@ public class BuilderFactory {
     private static final String NUTRITION = "nutrition";
 
 
-    public static ResultSetBuilder create(String builderName) {
+    /**
+     * Designed to build an object of type {@link Builder} depends on builder name.
+     *
+     * @param builderName a {@link String} object that contains builder name
+     * @return an object of type {@link Builder}.
+     */
+    public static Builder create(String builderName) {
 
         switch (builderName) {
             case CLIENT: {
@@ -29,7 +38,7 @@ public class BuilderFactory {
             }
 
             default:
-                throw new IllegalArgumentException("Unknown ResultSetBuilder name!");
+                throw new IllegalArgumentException("Unknown Builder name!");
         }
     }
 

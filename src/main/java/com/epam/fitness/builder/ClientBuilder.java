@@ -1,13 +1,24 @@
 package com.epam.fitness.builder;
 
-import com.epam.fitness.model.Client;
 import com.epam.fitness.exception.RepositoryException;
+import com.epam.fitness.model.Client;
 import com.epam.fitness.repository.database.constants.ClientTableConstants;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ClientBuilder implements ResultSetBuilder<Client> {
+/**
+ * Designed to build an object of type {@link com.epam.fitness.model.Client} with specified characteristics.
+ */
+public class ClientBuilder implements Builder<Client> {
+
+    /**
+     * Builds an object of type LotPhoto with properties.
+     *
+     * @param resultSet Instance of {@link java.sql.ResultSet} with property set to build an object type Client.
+     * @return Returns built object type Client.
+     * @throws RepositoryException Throws when SQL Exception is caught.
+     */
 
     @Override
     public Client build(ResultSet resultSet) throws RepositoryException {

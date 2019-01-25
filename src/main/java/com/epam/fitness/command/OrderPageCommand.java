@@ -1,18 +1,21 @@
 package com.epam.fitness.command;
 
 import com.epam.fitness.command.session.SessionAttributes;
+import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
-import com.epam.fitness.utils.CurrentMembershipValidChecker;
 import com.epam.fitness.model.OrderInformation;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.OrderInformationService;
+import com.epam.fitness.utils.CurrentMembershipValidChecker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Optional;import com.epam.fitness.exception.ServiceException;
+import java.util.Optional;
 
-
+/**
+ * Designed for providing order page
+ */
 public class OrderPageCommand implements Command {
 
     private static final String ORDER_PAGE = "/WEB-INF/orderPage.jsp";
@@ -20,7 +23,16 @@ public class OrderPageCommand implements Command {
     private final static String IS_MEMBERSHIP_VALID = "is_membership_valid";
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 
-
+    /**
+     * Process the request, provide order page
+     * and generates a result of processing in the form of
+     * {@link com.epam.fitness.command.CommandResult} object.
+     *
+     * @param request  an {@link HttpServletRequest} object that contains client request
+     * @param response an {@link HttpServletResponse} object that contains the response the servlet sends to the client
+     * @return A response in the form of {@link com.epam.fitness.command.CommandResult} object.
+     * @throws ServiceException when ServiceException is caught.
+     */
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();

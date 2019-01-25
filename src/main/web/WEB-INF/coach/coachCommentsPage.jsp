@@ -3,6 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="text" var="text"/>
+
+<fmt:message bundle="${text}" key="no_comments" var="no_comments"/>
 
 <!doctype html>
 <html lang="${sessionScope.language}">
@@ -16,8 +20,6 @@
     <link rel="stylesheet" href="../../styless/modalWindows.css" type="text/css">
     <link rel="stylesheet" href="../../styless/coach/coachCommentStyle.css" type="text/css">
     <link rel="stylesheet" href="../../styless/client/clientNutritionStyles.css" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
@@ -32,7 +34,7 @@
             <div class="rightcolumn" style="overflow-y: scroll; overflow-x: hidden;height: 350px;">
                 <c:choose>
                     <c:when test="${fn:length(comments) eq 0}">
-                        <h3 style="margin-left: 10px;"><c:out value="There is no comments about you"/></h3>
+                        <h3 style="margin-left: 10px;"><c:out value="${no_comments}"/></h3>
                     </c:when>
                     <c:otherwise>
                         <div style="margin-top: -60px;">

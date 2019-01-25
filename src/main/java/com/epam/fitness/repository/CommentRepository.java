@@ -7,12 +7,23 @@ import com.epam.fitness.repository.database.constants.CommentTableConstants;
 import com.epam.fitness.repository.specifications.SqlSpecification;
 
 import java.sql.Connection;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
+/**
+ * Class is an implementation of {@link AbstractRepository} to access to comment database and provides methods to work with it.
+ */
 public class CommentRepository extends AbstractRepository<Comment> {
 
     private static final String TABLE_NAME = "comment";
 
+    /**
+     * Instantiates a new Comment repository.
+     *
+     * @param connection the connection
+     */
     public CommentRepository(Connection connection) {
         super(connection);
     }

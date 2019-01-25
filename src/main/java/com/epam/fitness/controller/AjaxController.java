@@ -9,7 +9,6 @@ import com.epam.fitness.utils.search.SearchExerciseSystem;
 import com.epam.fitness.utils.search.SearchSystem;
 import org.apache.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +17,9 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Designed for providing exercises by Ajax request
+ */
 public class AjaxController extends HttpServlet {
 
 

@@ -8,7 +8,20 @@ import com.epam.fitness.repository.database.constants.ExerciseDtoTableConstants;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ExerciseDtoBuilder implements ResultSetBuilder<ExerciseDto> {
+
+/**
+ * Designed to build an object of type {@link com.epam.fitness.model.dto.ExerciseDto} with specified characteristics.
+ */
+public class ExerciseDtoBuilder implements Builder<ExerciseDto> {
+
+    /**
+     * Builds an object of type ExerciseDto with properties.
+     *
+     * @param resultSet Instance of {@link java.sql.ResultSet} with property set to build an object type ExerciseDto.
+     * @return Returns built object type ExerciseDto.
+     * @throws RepositoryException Throws when SQL Exception is caught.
+     */
+
     @Override
     public ExerciseDto build(ResultSet resultSet) throws RepositoryException {
         Exercise exercise = new ExerciseBuilder().build(resultSet);

@@ -1,20 +1,31 @@
 package com.epam.fitness.command.authorization;
 
+import com.epam.fitness.command.Command;
+import com.epam.fitness.command.CommandResult;
+import com.epam.fitness.command.session.SessionAttributes;
+import com.epam.fitness.utils.page.Page;
+import org.apache.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.fitness.command.Command;
-import com.epam.fitness.command.CommandResult;
-import com.epam.fitness.command.session.SessionAttributes;
-import com.epam.fitness.controller.Controller;
-import com.epam.fitness.utils.page.Page;
-import org.apache.log4j.Logger;
 
-
+/**
+ * Designed to perform sign out process.
+ */
 public class SingOutCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(SingOutCommand.class.getName());
+
+    /**
+     * Process the request, sing out from profile and generates a result of processing in the form of
+     * {@link com.epam.fitness.command.CommandResult} object.
+     *
+     * @param request  an {@link HttpServletRequest} object that contains client request
+     * @param response an {@link HttpServletResponse} object that contains the response the servlet sends to the client
+     * @return A response in the form of {@link com.epam.fitness.command.CommandResult} object.
+     */
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {

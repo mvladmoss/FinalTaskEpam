@@ -32,9 +32,9 @@
     <div class="login-html">
         <h2>You have no access to this page</h2>
     </div>
+    ${se}
+    <a href="${pageContext.servletContext.contextPath}/controller?command=sign_out" style="position: absolute;margin-top: 250px;margin-left: 680px;background: white;color: black;font-weight: 700;width: 84px;height: 20px;text-shadow: none;border-radius: 5px;">Login Page</a>
 </div>
-
-
 
 </body>
 

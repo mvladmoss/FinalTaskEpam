@@ -5,6 +5,9 @@ import com.epam.fitness.model.Exercise;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Designed To find exercises that match search query
+ */
 public class SearchExerciseSystem implements SearchSystem<Exercise> {
 
 

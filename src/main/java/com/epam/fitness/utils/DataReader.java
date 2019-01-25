@@ -7,10 +7,19 @@ import org.apache.log4j.Logger;
 import java.io.InputStream;
 import java.util.Scanner;
 
+/**
+ * Designed for reading data from files
+ */
 public class DataReader {
 
     private final static Logger LOGGER = LogManager.getLogger(DataReader.class);
 
+    /**
+     * Read string.
+     *
+     * @param path the path
+     * @return the string
+     */
     public String read(String path) {
         StringBuilder resultStringJson = new StringBuilder();
         InputStream file;

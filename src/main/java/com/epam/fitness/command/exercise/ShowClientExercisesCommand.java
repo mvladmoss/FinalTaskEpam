@@ -3,6 +3,7 @@ package com.epam.fitness.command.exercise;
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
 import com.epam.fitness.command.session.SessionAttributes;
+import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Program;
 import com.epam.fitness.model.UserRole;
@@ -10,20 +11,34 @@ import com.epam.fitness.model.dto.ExerciseDto;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.ExerciseDtoService;
 import com.epam.fitness.service.ProgramService;
+import com.epam.fitness.utils.CurrentMembershipValidChecker;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.*;
-import com.epam.fitness.exception.ServiceException;
-import com.epam.fitness.utils.CurrentMembershipValidChecker;
+import java.util.List;
+import java.util.Optional;
+
 import static com.epam.fitness.command.exercise.constant.TextConstants.*;
 import static com.epam.fitness.command.nutrition.constant.TextConstans.COACH_CLIENT_ID;
 
-
+/**
+ * Designed to represent client's exercises
+ */
 public class ShowClientExercisesCommand implements Command {
 
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 
+    /**
+     * Process the request, represent client's exericse {@link com.epam.fitness.model.Exercise}
+     * and generates a result of processing in the form of
+     * {@link com.epam.fitness.command.CommandResult} object.
+     *
+     * @param request  an {@link HttpServletRequest} object that contains client request
+     * @param response an {@link HttpServletResponse} object that contains the response the servlet sends to the client
+     * @return A response in the form of {@link com.epam.fitness.command.CommandResult} object.
+     * @throws ServiceException when ServiceException is caught.
+     */
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();

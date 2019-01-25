@@ -3,6 +3,7 @@ package com.epam.fitness.command.client;
 import com.epam.fitness.command.Command;
 import com.epam.fitness.command.CommandResult;
 import com.epam.fitness.command.session.SessionAttributes;
+import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.Client;
 import com.epam.fitness.model.Coach;
 import com.epam.fitness.model.OrderInformation;
@@ -10,16 +11,29 @@ import com.epam.fitness.model.UserRole;
 import com.epam.fitness.service.ClientService;
 import com.epam.fitness.service.CoachService;
 import com.epam.fitness.service.OrderInformationService;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
-import com.epam.fitness.exception.ServiceException;
+
 import static com.epam.fitness.command.client.constant.ParameterConstants.*;
 
 
-
+/**
+ * Designed to represent the customer profile
+ */
 public class ClientProfileCommand implements Command {
+
+    /**
+     * Process the request, represent {@link Client} profile and generates a result of processing in the form of
+     * {@link com.epam.fitness.command.CommandResult} object.
+     *
+     * @param request  an {@link HttpServletRequest} object that contains client request
+     * @param response an {@link HttpServletResponse} object that contains the response the servlet sends to the client
+     * @return A response in the form of {@link com.epam.fitness.command.CommandResult} object.
+     * @throws ServiceException when ServiceException is caught.
+     */
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {

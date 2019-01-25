@@ -5,25 +5,40 @@ import com.epam.fitness.command.CommandResult;
 import com.epam.fitness.command.session.SessionAttributes;
 import com.epam.fitness.exception.ServiceException;
 import com.epam.fitness.model.*;
-import com.epam.fitness.service.CoachService;
-import com.epam.fitness.utils.RequestParameterValidator;
-import com.epam.fitness.utils.page.Page;
 import com.epam.fitness.service.ClientService;
+import com.epam.fitness.service.CoachService;
 import com.epam.fitness.service.NutritionService;
 import com.epam.fitness.service.ProgramService;
+import com.epam.fitness.utils.RequestParameterValidator;
+import com.epam.fitness.utils.page.Page;
 import com.epam.fitness.utils.sale.SaleSystem;
 import org.apache.log4j.Logger;
-import static com.epam.fitness.command.authorization.constant.ParameterConstants.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
+import static com.epam.fitness.command.authorization.constant.ParameterConstants.*;
+
+/**
+ * Designed to perform registration process.
+ */
 public class RegistrationCommand implements Command {
 
     private static final Logger LOGGER = Logger.getLogger(RegistrationCommand.class.getName());
     private final RequestParameterValidator parameterValidator = new RequestParameterValidator();
     private final static SaleSystem SALE_SYSTEM = SaleSystem.getInstance();
+
+    /**
+     * Process the request, register and generates a result of processing in the form of
+     * {@link com.epam.fitness.command.CommandResult} object.
+     *
+     * @param request  an {@link HttpServletRequest} object that contains client request
+     * @param response an {@link HttpServletResponse} object that contains the response the servlet sends to the client
+     * @return A response in the form of {@link com.epam.fitness.command.CommandResult} object.
+     * @throws ServiceException when ServiceException is caught.
+     */
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
@@ -86,6 +101,13 @@ public class RegistrationCommand implements Command {
         return nutrition;
     }
 
+    /**
+     * Is login exist in database boolean.
+     *
+     * @param login the login
+     * @return the boolean
+     * @throws ServiceException the service exception
+     */
     public boolean isLoginExistInDatabase(String login) throws ServiceException {
         ClientService clientService = new ClientService();
         Optional<Client> client = clientService.findByLogin(login);

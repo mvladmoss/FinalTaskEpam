@@ -5,10 +5,18 @@ import com.epam.fitness.repository.specifications.SqlSpecification;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Coach by client id.
+ */
 public class CoachByClientId implements SqlSpecification {
 
     private Long clientID;
 
+    /**
+     * Instantiates a new Coach by client id.
+     *
+     * @param clientID the client id
+     */
     public CoachByClientId(Long clientID) {
         this.clientID = clientID;
     }

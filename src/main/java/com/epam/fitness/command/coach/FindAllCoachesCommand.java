@@ -8,18 +8,32 @@ import com.epam.fitness.model.Coach;
 import com.epam.fitness.service.CoachService;
 import com.epam.fitness.utils.CurrentMembershipValidChecker;
 import org.apache.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
+
 import static com.epam.fitness.command.coach.constant.ParameterConstants.*;
 import static com.epam.fitness.command.comment.constant.TextConstants.MAX_NUMBER_SYMBOLS_ATTRIBUTE;
 import static com.epam.fitness.command.comment.constant.TextConstants.MAX_NUMBER_SYMBOLS_VALUE;
 
-
+/**
+ * Designed to represent all available coaches
+ */
 public class FindAllCoachesCommand implements Command {
 
+    /**
+     * Process the request, represent coaches  {@link com.epam.fitness.model.Coach}
+     * and generates a result of processing in the form of
+     * {@link com.epam.fitness.command.CommandResult} object.
+     *
+     * @param request  an {@link HttpServletRequest} object that contains client request
+     * @param response an {@link HttpServletResponse} object that contains the response the servlet sends to the client
+     * @return A response in the form of {@link com.epam.fitness.command.CommandResult} object.
+     * @throws ServiceException when ServiceException is caught.
+     */
     private static final Logger LOGGER = Logger.getLogger(FindAllCoachesCommand.class.getName());
     private CurrentMembershipValidChecker membershipValidChecker = new CurrentMembershipValidChecker();
 

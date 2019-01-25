@@ -2,6 +2,9 @@ package com.epam.fitness.model;
 
 import java.util.Objects;
 
+/**
+ * The type Comment.
+ */
 public class Comment implements Identifiable {
 
     private Long id;
@@ -9,12 +12,27 @@ public class Comment implements Identifiable {
     private Long coachId;
     private String commentContent;
 
+    /**
+     * Instantiates a new Comment.
+     *
+     * @param clientId       the client id
+     * @param coachId        the coach id
+     * @param commentContent the comment content
+     */
     public Comment(Long clientId, Long coachId, String commentContent){
         this.clientId = clientId;
         this.coachId = coachId;
         this.commentContent = commentContent;
     }
 
+    /**
+     * Instantiates a new Comment.
+     *
+     * @param id             the id
+     * @param clientId       the client id
+     * @param coachId        the coach id
+     * @param commentContent the comment content
+     */
     public Comment(Long id, Long clientId, Long coachId, String commentContent){
         this.id = id;
         this.clientId = clientId;
@@ -22,6 +40,9 @@ public class Comment implements Identifiable {
         this.commentContent = commentContent;
     }
 
+    /**
+     * Instantiates a new Comment.
+     */
     public Comment(){}
 
     @Override
@@ -29,30 +50,65 @@ public class Comment implements Identifiable {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Gets client id.
+     *
+     * @return the client id
+     */
     public Long getClientId() {
         return clientId;
     }
 
+    /**
+     * Sets client id.
+     *
+     * @param clientId the client id
+     */
     public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 
+    /**
+     * Gets coach id.
+     *
+     * @return the coach id
+     */
     public Long getCoachId() {
         return coachId;
     }
 
+    /**
+     * Sets coach id.
+     *
+     * @param coachId the coach id
+     */
     public void setCoachId(Long coachId) {
         this.coachId = coachId;
     }
 
+    /**
+     * Gets comment content.
+     *
+     * @return the comment content
+     */
     public String getCommentContent() {
         return commentContent;
     }
 
+    /**
+     * Sets comment content.
+     *
+     * @param commmentContent the commment content
+     */
     public void setCommentContent(String commmentContent) {
         this.commentContent = commmentContent;
     }
