@@ -40,7 +40,7 @@ public class ConnectionPool {
     private static ReentrantLock lock = new ReentrantLock();
 
     /** The connection pool. */
-    private static ConnectionPool connectionPool;
+    private volatile static ConnectionPool connectionPool;
 
     /**
      * Gets the single instance of ConnectionPool.

@@ -2,6 +2,9 @@ package com.epam.fitness.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 
 /**
  * The type Client.
@@ -255,5 +258,6 @@ public class Client implements Serializable,Identifiable {
     public int hashCode() {
         return Objects.hash(getId(),getCoachId(),getName(),getSurname(),getLogin(),getPassword(),getMembershipPurchasedNumber(),getPersonalDiscount(),getProgramId());
     }
+    
 
 }
